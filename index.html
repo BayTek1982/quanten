@@ -386,12 +386,99 @@ const LEKTIONEN=[
    bedeutet:"Atome mit voller Außenschale sind zufrieden und reagieren kaum. Alle anderen geben Elektronen ab, nehmen welche auf oder teilen sie. So entstehen chemische Bindungen.",
    tipp:"Rechenaufgabe: Chlor hat 17 Elektronen. 2 + 8 = 10 sitzen innen, also bleiben 7 außen. Chlor fehlt genau 1 Elektron zur vollen Schale. Darum reagiert es so gern mit Natrium, das 1 übrig hat: Es entsteht Kochsalz."
   }},
- {nr:16,b:4,titel:"Heisenbergs Unschärfe"},
- {nr:17,b:4,titel:"Überlagerung"},
- {nr:18,b:4,titel:"Die Messung"},
- {nr:19,b:4,titel:"Schrödingers Katze"},
- {nr:20,b:4,titel:"Der Tunneleffekt"},
- {nr:21,b:4,titel:"Verschränkung"},
+ {nr:16,b:4,titel:"Heisenbergs Unschärfe",zeichne:"unschaerfe",
+  bild:"Ein Auto mit genau bekanntem Ort und Tempo. Dann eine lange Welle und ein kurzes Wellenpaket im Vergleich, zwei Balken, von denen einer wächst, wenn der andere schrumpft, und ein Elektron in einem engen und einem weiten Kasten.",
+  schritte:[
+   {titel:"Ort und Tempo zugleich",dauer:7,text:"Bei einem Auto kannst du gleichzeitig sagen, wo es ist und wie schnell es fährt. Beides lässt sich beliebig genau messen. Im Alltag ist das selbstverständlich."},
+   {titel:"Bei einer Welle geht das nicht",dauer:8,text:"Ein Elektron ist auch eine Welle. Bei einer langen, gleichmäßigen Welle ist die Wellenlänge klar und damit das Tempo. Aber wo ist sie? Überall. Ein kurzes Wellenpaket sitzt an einem klaren Ort, hat dafür aber keine klare Wellenlänge und damit kein klares Tempo."},
+   {titel:"Die Unschärfe-Regel",dauer:8,text:"1927 fasste Werner Heisenberg das in eine Regel. Die Unschärfe im Ort mal die Unschärfe im Impuls, also Masse mal Tempo, kann nie kleiner sein als ein fester, winziger Wert. Wird die eine kleiner, muss die andere größer werden."},
+   {titel:"Kein Messfehler",dauer:8,text:"Das liegt nicht an schlechten Messgeräten. Ein Elektron hat Ort und Tempo gar nicht beide zugleich genau. Sperrt man es auf engem Raum ein, wird sein Tempo sehr unscharf, es zappelt stark. Auch deshalb stürzt das Elektron im Atom nicht in den Kern."}
+  ],
+  merksatz:"Je genauer der Ort, desto ungenauer das Tempo, und umgekehrt.",
+  boxen:{
+   was:"Die Unschärferelation sagt: Ort und Impuls eines Quantenobjekts lassen sich nicht beide zugleich beliebig genau festlegen.",
+   so:"Unschärfe im Ort mal Unschärfe im Impuls ist mindestens h geteilt durch 4 π. Halbierst du die eine, verdoppelt sich mindestens die andere.",
+   bedeutet:"Die Welt ist im Kleinsten nicht beliebig scharf. Das ist keine Grenze unserer Technik, sondern eine Eigenschaft der Natur.",
+   tipp:"Bei einem Auto ist die Unschärfe unmessbar klein, weil seine Masse riesig ist. Spürbar wird sie erst bei sehr leichten Teilchen wie dem Elektron."
+  }},
+ {nr:17,b:4,titel:"Überlagerung",zeichne:"ueberlagerung",
+  bild:"Eine Münze zeigt Kopf oder Zahl, ein Schalter an oder aus. Ein Elektron dagegen hat Spin auf und Spin ab zugleich. Am Doppelspalt nimmt es beide Wege. Ein Balken zeigt die Anteile.",
+  schritte:[
+   {titel:"Entweder oder",dauer:6,text:"Eine Münze auf dem Tisch zeigt Kopf oder Zahl. Ein Lichtschalter ist an oder aus. Im Alltag ist ein Ding immer in genau einem Zustand."},
+   {titel:"Beides zugleich",dauer:8,text:"Ein Quantenobjekt kann in mehreren Zuständen zugleich sein. Ein Elektron kann Spin auf und Spin ab gleichzeitig haben. Das nennt man Überlagerung, auf Englisch Superposition."},
+   {titel:"Kein bloßes Nichtwissen",dauer:8,text:"Das heißt nicht, dass wir den Zustand nur nicht kennen. Der Doppelspalt beweist es: Das Streifenmuster entsteht nur, wenn jedes Elektron beide Wege zugleich nimmt. Ginge es heimlich durch einen bestimmten Spalt, gäbe es keine Streifen."},
+   {titel:"Mit Anteilen",dauer:8,text:"In einer Überlagerung können die Zustände verschieden stark vertreten sein, zum Beispiel halb und halb oder 80 zu 20. Die Anteile bestimmen, mit welcher Wahrscheinlichkeit man bei einer Messung welchen Zustand findet."}
+  ],
+  merksatz:"Vor der Messung kann ein Quantenobjekt in mehreren Zuständen zugleich sein.",
+  boxen:{
+   was:"Überlagerung heißt: Ein Quantenobjekt befindet sich in mehreren möglichen Zuständen gleichzeitig, jeweils mit einem bestimmten Anteil.",
+   so:"Zustände aufzählen, die möglich sind, zum Beispiel Spin auf und Spin ab. Jedem einen Anteil geben. Die Anteile zusammen ergeben 100 Prozent.",
+   bedeutet:"Überlagerung ist das Herz der Quantenphysik. Auf ihr beruhen das Streifenmuster am Doppelspalt und die Rechenkraft von Quantencomputern.",
+   tipp:"„Zugleich“ ist ein Hilfswort. Sehen kann man eine Überlagerung nie direkt: Jede Messung zeigt nur einen der Zustände. Davon handelt die nächste Lektion."
+  }},
+ {nr:18,b:4,titel:"Die Messung",zeichne:"messung",
+  bild:"Eine breite Kurve der Wahrscheinlichkeit zieht sich bei der Messung zu einer schmalen Spitze zusammen. Zwanzig gleiche Messungen ergeben sechzehnmal auf und viermal ab.",
+  schritte:[
+   {titel:"Vor der Messung",dauer:7,text:"Solange niemand misst, ist das Quantenobjekt in einer Überlagerung. Seine Welle ist ausgebreitet. Viele Orte sind möglich, manche wahrscheinlicher als andere."},
+   {titel:"Ein einziges Ergebnis",dauer:8,text:"Bei der Messung findet man das Teilchen an genau einem Ort. Die ausgebreitete Welle zieht sich dabei schlagartig auf diesen Ort zusammen. Man sagt: Die Welle kollabiert. Danach geht es von dort aus neu weiter."},
+   {titel:"Zufall mit Regel",dauer:8,text:"Welches Ergebnis herauskommt, ist Zufall. Wiederholt man denselben Versuch aber sehr oft, treten die Ergebnisse genau so häufig auf, wie die Anteile der Überlagerung es vorhersagen. Im Bild sind es 80 zu 20."},
+   {titel:"Die offene Frage",dauer:8,text:"Was bei einer Messung wirklich geschieht, ist bis heute umstritten. Manche sagen, die Welle kollabiert tatsächlich. Andere meinen, die Welt spalte sich in mehrere Zweige auf. Die Vorhersagen sind in allen Deutungen dieselben, und sie stimmen."}
+  ],
+  merksatz:"Die Messung liefert genau ein Ergebnis. Welches, ist Zufall. Wie oft, ist berechenbar.",
+  boxen:{
+   was:"Eine Messung zwingt ein Quantenobjekt aus der Überlagerung in einen einzigen Zustand. Aus vielen Möglichkeiten wird ein Ergebnis.",
+   so:"Vorher: mehrere Zustände mit Anteilen. Messung: ein Ergebnis, zufällig nach diesen Anteilen. Nachher: Das Objekt ist in genau diesem Zustand.",
+   bedeutet:"Man kann ein Quantenobjekt nicht beobachten, ohne es zu verändern. Darauf beruht zum Beispiel die abhörsichere Verschlüsselung in Bereich 5.",
+   tipp:"Messung heißt nicht, dass ein Mensch zuschaut. Es genügt, dass das Quantenobjekt eine Spur in seiner Umgebung hinterlässt, zum Beispiel in einem Messgerät."
+  }},
+ {nr:19,b:4,titel:"Schrödingers Katze",zeichne:"katze",
+  bild:"Eine Kiste mit einer Katze, einem Atom, einem Zähler und einem Giftfläschchen. Das Atom ist zerfallen und nicht zerfallen zugleich. Zuletzt die Katze, die von ihrer Umgebung ständig getroffen wird.",
+  schritte:[
+   {titel:"Ein Gedankenexperiment",dauer:7,text:"1935 dachte sich Erwin Schrödinger einen Versuch aus, der nie mit einer echten Katze gemacht wurde. In einer geschlossenen Kiste sitzen eine Katze, ein einzelnes radioaktives Atom, ein Zähler und ein Fläschchen Gift."},
+   {titel:"Das Atom in Überlagerung",dauer:7,text:"Das Atom zerfällt innerhalb einer Stunde mit 50 Prozent Wahrscheinlichkeit. Solange niemand misst, ist es nach den Regeln der Quantenphysik in einer Überlagerung: zerfallen und nicht zerfallen zugleich."},
+   {titel:"Und die Katze?",dauer:8,text:"Zerfällt das Atom, löst der Zähler aus, das Gift wird frei und die Katze stirbt. Ist das Atom in einer Überlagerung, müsste dann nicht auch die Katze lebendig und tot zugleich sein, bis jemand die Kiste öffnet?"},
+   {titel:"Schrödingers Absicht",dauer:7,text:"Schrödinger hielt das für unsinnig. Genau das wollte er zeigen: Die Regeln für Atome lassen sich nicht ohne Weiteres auf große Dinge übertragen. Irgendetwas fehlte in der Theorie."},
+   {titel:"Die heutige Antwort",dauer:9,text:"Große Dinge sind nie allein. Luft, Licht und Wärme stoßen ständig mit ihnen zusammen, und jeder Stoß wirkt wie eine kleine Messung. Die Überlagerung geht dadurch in unvorstellbar kurzer Zeit verloren. Das nennt man Dekohärenz. Die Katze ist längst lebendig oder tot, bevor jemand nachsieht."}
+  ],
+  merksatz:"Große Dinge verlieren ihre Überlagerung sofort, weil die Umgebung ständig mitmisst.",
+  boxen:{
+   was:"Schrödingers Katze ist ein Gedankenexperiment. Es fragt, warum wir im Alltag nie Überlagerungen sehen, obwohl alles aus Quantenobjekten besteht.",
+   so:"Verfolge die Kette: Atom, Zähler, Gift, Katze. Die Überlagerung geht schon beim Zähler verloren, weil er aus unzähligen Teilchen besteht, die mit der Umgebung in Kontakt stehen.",
+   bedeutet:"Die Dekohärenz erklärt, warum unsere Alltagswelt eindeutig wirkt. Sie ist auch das größte Hindernis beim Bau von Quantencomputern: Deren Bausteine müssen extrem gut abgeschirmt werden.",
+   tipp:"Überlagerungen hat man inzwischen auch bei erstaunlich großen Objekten nachgewiesen, zum Beispiel bei Molekülen aus rund 2.000 Atomen. Eine Katze ist davon aber noch unvorstellbar weit entfernt."
+  }},
+ {nr:20,b:4,titel:"Der Tunneleffekt",zeichne:"tunnel",
+  bild:"Eine Kugel rollt einen Berg nicht hinauf. Eine Welle dagegen klingt in einer Barriere ab, und ein kleiner Rest kommt dahinter an. Dünne und dicke Barriere im Vergleich, zuletzt Sonne, Speicher-Chip und Atomkern.",
+  schritte:[
+   {titel:"Die Kugel und der Berg",dauer:7,text:"Rollt eine Kugel mit zu wenig Schwung auf einen Berg zu, kommt sie nicht hinüber. Sie rollt ein Stück hinauf und wieder zurück. Jedes Mal."},
+   {titel:"Die Welle an der Barriere",dauer:8,text:"Für ein Elektron ist eine Barriere wie ein Berg. Aber das Elektron ist auch eine Welle. Sie hört an der Barriere nicht schlagartig auf, sondern klingt in ihr ab. Ist die Barriere dünn genug, kommt dahinter noch ein kleiner Rest der Welle an."},
+   {titel:"Manchmal hindurch",dauer:8,text:"Ein Rest der Welle hinter der Barriere bedeutet: Dort ist das Elektron mit einer kleinen Wahrscheinlichkeit zu finden. Die meisten Elektronen prallen ab, aber einige tauchen auf der anderen Seite auf, obwohl ihre Energie dafür eigentlich nicht reicht."},
+   {titel:"Auf die Dicke kommt es an",dauer:7,text:"Je dicker die Barriere, desto stärker klingt die Welle ab. Schon eine etwas dickere Barriere lässt sehr viel weniger Elektronen durch. Auch die Masse zählt: Schwere Teilchen tunneln viel seltener."},
+   {titel:"Tunneln überall",dauer:9,text:"Ohne Tunneleffekt würde die Sonne nicht leuchten: Nur durch Tunneln kommen sich die Wasserstoff-Kerne nah genug, um zu verschmelzen. In jedem USB-Stick tunneln Elektronen beim Speichern durch eine dünne Schicht. Und beim radioaktiven Alpha-Zerfall tunnelt ein Teilchen aus dem Atomkern."}
+  ],
+  merksatz:"Ein Quantenobjekt kann eine Barriere durchdringen, für die seine Energie eigentlich nicht reicht.",
+  boxen:{
+   was:"Beim Tunneleffekt durchquert ein Quantenobjekt eine Barriere, die es nach den Regeln des Alltags nicht überwinden könnte.",
+   so:"Die Welle klingt in der Barriere ab. Je dünner die Barriere und je leichter das Teilchen, desto mehr bleibt übrig und desto öfter gelingt das Tunneln.",
+   bedeutet:"Das Teilchen leiht sich dabei keine Energie und bohrt kein Loch. Es ist hinterher mit derselben Energie auf der anderen Seite. Im Alltag sehen wir das nie, weil große Dinge praktisch nie tunneln.",
+   tipp:"Das Rastertunnelmikroskop in Lektion 24 nutzt genau diese starke Abhängigkeit von der Dicke, um einzelne Atome sichtbar zu machen."
+  }},
+ {nr:21,b:4,titel:"Verschränkung",zeichne:"verschraenkt",
+  bild:"Eine Quelle schickt zwei Teilchen in entgegengesetzte Richtungen, verbunden durch eine Wellenlinie. Links wird gemessen: zufällig auf oder ab. Rechts kommt immer das Gegenteil heraus.",
+  schritte:[
+   {titel:"Zwei als eines",dauer:7,text:"Entstehen zwei Teilchen gemeinsam, können sie einen einzigen gemeinsamen Zustand haben. Sie sind dann verschränkt. Das bleibt so, auch wenn sie weit auseinanderfliegen."},
+   {titel:"Jedes für sich: Zufall",dauer:7,text:"Misst man an einem der beiden Teilchen den Spin, kommt zufällig auf oder ab heraus, jeweils mit 50 Prozent. Vorhersagen lässt sich das nicht."},
+   {titel:"Zusammen: immer passend",dauer:8,text:"Vergleicht man die Ergebnisse beider Seiten, zeigt sich ein Muster. Kommt links auf heraus, kommt rechts ab heraus, und umgekehrt. Immer. Egal, ob die Teilchen einen Meter oder tausend Kilometer voneinander entfernt sind."},
+   {titel:"Keine schnelle Nachricht",dauer:8,text:"Albert Einstein nannte das spöttisch spukhafte Fernwirkung. Eine Nachricht lässt sich so aber nicht schicken. Jede Seite sieht für sich nur Zufall. Das Muster erkennt man erst, wenn man die Ergebnisse auf normalem Weg vergleicht, und der ist höchstens so schnell wie das Licht."},
+   {titel:"Nicht vorher festgelegt",dauer:9,text:"Sind die Ergebnisse vielleicht von Anfang an festgelegt, wie bei einem Paar Handschuhe in zwei Schachteln? 1964 fand John Bell einen Weg, das zu prüfen. Die Versuche zeigen: nein. Dafür gab es 2022 den Nobelpreis für Alain Aspect, John Clauser und Anton Zeilinger."}
+  ],
+  merksatz:"Verschränkte Teilchen gehören zusammen: Misst man eines, steht das Ergebnis beim anderen fest.",
+  boxen:{
+   was:"Verschränkung ist eine Verbindung zwischen Quantenobjekten. Sie haben einen gemeinsamen Zustand, der sich nicht in zwei einzelne Zustände aufteilen lässt.",
+   so:"Einzeln betrachtet ist jedes Ergebnis Zufall. Erst der Vergleich beider Seiten zeigt, dass die Ergebnisse zusammenpassen.",
+   bedeutet:"Die Natur ist im Kleinsten nicht in getrennte Einzelteile zerlegbar. Verschränkung ist heute ein Werkzeug: für Quantencomputer und für abhörsichere Schlüssel.",
+   tipp:"2017 schickte ein chinesischer Satellit verschränkte Photonen an zwei Bodenstationen, die rund 1.200 Kilometer auseinander lagen. Die Verschränkung blieb erhalten."
+  }},
  {nr:22,b:5,titel:"Der Laser"},
  {nr:23,b:5,titel:"Halbleiter, LED und Solarzelle"},
  {nr:24,b:5,titel:"Das Rastertunnelmikroskop"},
@@ -662,6 +749,8 @@ function punkte(x,liste,cx,cy,mass,farbe,alpha=1,n=liste.length,r=1.3){ if(alpha
   for(let i=0;i<n;i++){x.beginPath();x.arc(cx+liste[i][0]*mass,cy+liste[i][1]*mass,r,0,6.2832);x.fill()} x.restore(); }
 function kreis(x,cx,cy,r,farbe,alpha=1,dicke=1.2,strich=null){ if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.strokeStyle=farbe; x.lineWidth=dicke; if(strich)x.setLineDash(strich); x.beginPath(); x.arc(cx,cy,r,0,6.2832); x.stroke(); x.restore(); }
 function rahmen(x,l,o,w,h,farbe,alpha=1,fuell=null,r=6){ if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.beginPath(); x.roundRect(l,o,w,h,r); if(fuell){x.fillStyle=fuell;x.fill()} x.strokeStyle=farbe; x.lineWidth=1.4; x.stroke(); x.restore(); }
+/* 20 Messungen für L18: genau 16-mal auf und 4-mal ab, in fester Zufallsreihenfolge */
+const MESSFOLGE=(()=>{const z=zufall(18112026),a=[...Array(20)].map((_,i)=>i<16?1:0);for(let i=19;i>0;i--){const j=Math.floor(z()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a})();
 const LINIEN={rot:"#E8402A",tuerkis:"#2FC6C0",violett:"#6A5BEA",tief:"#8A46E0",gelb:"#F5C400"};
 const ELEMENTE=[["H","Wasserstoff"],["He","Helium"],["Li","Lithium"],["Be","Beryllium"],["B","Bor"],["C","Kohlenstoff"],["N","Stickstoff"],["O","Sauerstoff"],["F","Fluor"],["Ne","Neon"],["Na","Natrium"],["Mg","Magnesium"],["Al","Aluminium"],["Si","Silizium"],["P","Phosphor"],["S","Schwefel"],["Cl","Chlor"],["Ar","Argon"]];
 /* Atom mit Schalen: n Elektronen, verteilt 2, 8, 8 */
@@ -809,6 +898,171 @@ const ZEICHNER={
     block(x,198+sch,62,7,122,C.text,a,2); linie(x,201.5+sch,184,201.5+sch,200,C.grau,a,1.2); block(x,193+sch,200,17,10,C.grau,a,3);
     pfeil(x,216+sch,123,262+sch,123,akz,b); pille(x,290,150,"LICHTDRUCK",akz,b);
     pille(x,150,232,"SONNENSEGEL",C.grau,a); pille(x,180,258,"Licht kann Dinge anschieben",C.text,klemm(p*3-1.8));
+  }
+ },
+ unschaerfe(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*3), cx=60+((t*45)%240);
+    linie(x,24,172,336,172,C.grau,a,1.4); block(x,cx-28,146,56,18,akz,a,5); block(x,cx-16,134,30,14,akz,a,5); kugel(x,cx-16,166,6,C.text,a); kugel(x,cx+16,166,6,C.text,a);
+    pille(x,180,56,"Ort: genau bekannt",C.text,a); pille(x,180,86,"Tempo: genau bekannt",C.text,klemm(p*3-.7));
+    pille(x,180,236,"im Alltag kein Problem",C.gold,klemm(p*3-1.5));
+  }else if(s===1){const a=klemm(p*3), b=klemm(p*3-1);
+    pille(x,180,36,"lange Welle: Tempo klar, Ort unklar",akz,a); sinus(x,30,330,84,13,24,t*22,akz,a,2.2);
+    linie(x,30,134,330,134,C.linie,1,1,[2,5]);
+    paket(x,180,182,0,13,C.gold,b,90,16); pille(x,180,232,"kurzes Paket: Ort klar, Tempo unklar",C.gold,b);
+  }else if(s===2){const a=klemm(p*3), w1=90+50*Math.sin(t*1.1), w2=5600/w1;
+    pille(x,180,22,"1927 · Werner Heisenberg",akz,a); schrift(x,"Δx · Δp ≥ h / 4π",180,56,C.gold,22,klemm(p*3-.4),700);
+    schrift(x,"Unschärfe im Ort",180,94,C.grau,10,a); block(x,180-w1/2,104,w1,20,akz,a,5);
+    schrift(x,"Unschärfe im Impuls",180,150,C.grau,10,a); block(x,180-w2/2,160,w2,20,C.gold,a,5);
+    pille(x,180,234,"wird eine kleiner, wird die andere größer",C.text,klemm(p*3-1.4));
+  }else{const a=klemm(p*3), b=klemm(p*3-.8);
+    pille(x,180,24,"kein Messfehler, sondern Natur",C.text,a);
+    rahmen(x,72,84,36,90,akz,a,C.flaeche2,6); kugel(x,90+10*Math.sin(t*23),129+34*Math.sin(t*17),5,C.gold,a);
+    rahmen(x,188,84,140,90,akz,b,C.flaeche2,6); kugel(x,258+52*Math.sin(t*1.3),129+28*Math.sin(t*.9),5,C.gold,b);
+    pille(x,90,196,"eng: zappelt stark",akz,a); pille(x,258,196,"weit: ruhiger",akz,b);
+    pille(x,180,244,"darum stürzt das Elektron nicht in den Kern",C.gold,klemm(p*3-1.8));
+  }
+ },
+ ueberlagerung(x,s,p,t,akz){
+  const auf=(cx,cy,a,h=26)=>pfeil(x,cx,cy+h,cx,cy-h,C.gold,a), ab=(cx,cy,a,h=26)=>pfeil(x,cx,cy-h,cx,cy+h,C.blau,a);
+  if(s===0){const a=klemm(p*3), b=klemm(p*3-.8), w=Math.cos(t*1.6), kopf=w>=0, an=Math.floor(t*.9)%2===0;
+    x.save(); x.globalAlpha=a; x.translate(110,116); x.scale(Math.max(.08,Math.abs(w)),1); x.fillStyle=C.gold; x.beginPath(); x.arc(0,0,34,0,6.2832); x.fill(); x.restore();
+    schrift(x,kopf?"K":"Z",110,117,C.bg,24*Math.min(1,Math.abs(w)*1.6),a*klemm(Math.abs(w)*3-.4),700);
+    pille(x,110,178,"Kopf ODER Zahl",C.gold,a);
+    rahmen(x,216,88,68,56,C.grau,b,an?C.gold:C.flaeche2,10); schrift(x,an?"AN":"AUS",250,117,an?C.bg:C.grau,16,b,700);
+    pille(x,250,178,"an ODER aus",C.text,b);
+    pille(x,180,236,"im Alltag: immer genau ein Zustand",C.text,klemm(p*3-1.6));
+  }else if(s===1){const a=klemm(p*3), puls=.25*Math.sin(t*3);
+    pille(x,180,24,"Quantenwelt: beides zugleich",C.text,a);
+    auf(170,126,a*(.7+puls),40); ab(190,126,a*(.7-puls),40); kugel(x,180,126,13,C.grau,a);
+    pille(x,96,104,"Spin auf",C.gold,klemm(p*3-.6)); schrift(x,"UND",180,196,C.text,12,klemm(p*3-1),700); pille(x,264,148,"Spin ab",C.blau,klemm(p*3-.6));
+    pille(x,180,236,"ÜBERLAGERUNG",akz,klemm(p*3-1.6));
+  }else if(s===2){
+    dsWellen(x,akz,.5,t,.5*klemm(p*3)); dsAufbau(x,1,1,1,"QUELLE"); dsStreifen(x,C.gold,klemm(p*3-.8));
+    pille(x,180,18,"das Elektron nimmt beide Wege",akz,klemm(p*3)); pille(x,180,262,"nur so entstehen die Streifen",C.gold,klemm(p*3-1.4));
+  }else{const g=misch(.5,.8,weich(klemm((p-.35)/.3))), w=240*g, a=klemm(p*4);
+    pille(x,180,28,"die Anteile können verschieden sein",C.text,a);
+    block(x,60,104,w-2,30,C.gold,a,5); block(x,60+w+2,104,240-w-2,30,C.blau,a,5);
+    schrift(x,"Spin auf",60+w/2,90,C.gold,11,a,700); schrift(x,"Spin ab",60+w+(240-w)/2,90,C.blau,11,a,700);
+    pille(x,60+w/2,156,Math.round(g*100)+" %",C.gold,a); pille(x,60+w+(240-w)/2,156,Math.round(100-g*100)+" %",C.blau,a);
+    pille(x,180,226,"Anteil = Chance bei der Messung",akz,klemm(p*4-2.8));
+  }
+ },
+ messung(x,s,p,t,akz){
+  const glocke=(m,br,h)=>px=>200-h*Math.exp(-Math.pow((px-m)/br,2));
+  if(s===0){const a=klemm(p*3);
+    linie(x,40,200,320,200,C.grau,a,1.2); kurve(x,glocke(180,72,84+3*Math.sin(t*2)),40,320,akz,a,2.4,200); schrift(x,"Ort",180,216,C.grau,10,a);
+    pille(x,180,28,"vor der Messung: viele Orte möglich",C.text,a); pille(x,180,250,"die Welle ist ausgebreitet",akz,klemm(p*3-1.2));
+  }else if(s===1){const u=weich(klemm((p-.3)/.2)), bl=klemm(1-Math.abs(p-.36)*9);
+    linie(x,40,200,320,200,C.grau,1,1.2); kurve(x,glocke(misch(180,228,u),misch(72,5,u),misch(84,120,u)),40,320,u>0?C.gold:akz,1,2.4,200); schrift(x,"Ort",180,216,C.grau,10);
+    block(x,216,44,24,18,C.rot,klemm(p*5),4); linie(x,228,62,228,misch(62,196,klemm(p*4)),C.rot,klemm(p*5)*.6,1.2,[2,3]);
+    ring(x,228,198,4+bl*16,C.gold,bl,2);
+    pille(x,150,53,"MESSGERÄT",C.rot,klemm(p*5)); pille(x,180,250,p<.4?"Messung …":"danach: genau ein Ort",C.gold,klemm(p*5-.6));
+  }else if(s===2){const n=Math.min(20,Math.floor(p*26)); let oben=0;
+    pille(x,180,24,"20-mal dieselbe Messung",C.text,klemm(p*4));
+    for(let i=0;i<n;i++){const o=MESSFOLGE[i], cx=45+(i%10)*30, cy=76+((i/10)|0)*46; if(o)oben++; o?pfeil(x,cx,cy+13,cx,cy-13,C.gold):pfeil(x,cx,cy-13,cx,cy+13,C.blau)}
+    pille(x,120,178,"auf: "+oben,C.gold); pille(x,240,178,"ab: "+(n-oben),C.blau);
+    pille(x,180,236,n<20?"jedes Ergebnis: Zufall":"zusammen: 80 zu 20",akz);
+  }else{const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-2), d=klemm(p*4-2.8);
+    pille(x,180,36,"Was geschieht bei der Messung?",C.text,a);
+    pille(x,100,96,"Kollaps der Welle?",akz,b); pille(x,262,96,"viele Welten?",akz,b); schrift(x,"oder",188,96,C.grau,10,b);
+    schrift(x,"bis heute umstritten",180,138,C.grau,11,c); pfeil(x,180,154,180,186,C.grau,d);
+    pille(x,180,206,"die Vorhersagen stimmen in jedem Fall",C.gold,d);
+  }
+ },
+ katze(x,s,p,t,akz){
+  const sitzend=(cx,cy,farbe,a)=>{ if(a<=0)return; x.save(); x.globalAlpha=a; x.fillStyle=farbe;
+    x.beginPath(); x.ellipse(cx,cy+8,15,20,0,0,6.2832); x.fill(); x.beginPath(); x.arc(cx,cy-18,11,0,6.2832); x.fill();
+    x.beginPath(); x.moveTo(cx-11,cy-22); x.lineTo(cx-8,cy-35); x.lineTo(cx-1,cy-26); x.closePath(); x.fill(); x.beginPath(); x.moveTo(cx+11,cy-22); x.lineTo(cx+8,cy-35); x.lineTo(cx+1,cy-26); x.closePath(); x.fill();
+    x.strokeStyle=farbe; x.lineWidth=4; x.lineCap="round"; x.beginPath(); x.moveTo(cx+12,cy+24); x.quadraticCurveTo(cx+30,cy+24,cx+26,cy+4); x.stroke(); x.restore()};
+  const liegend=(cx,cy,farbe,a)=>{ if(a<=0)return; x.save(); x.globalAlpha=a; x.fillStyle=farbe;
+    x.beginPath(); x.ellipse(cx,cy+20,26,9,0,0,6.2832); x.fill(); x.beginPath(); x.arc(cx-28,cy+20,9,0,6.2832); x.fill();
+    x.strokeStyle=farbe; x.lineWidth=4; x.lineCap="round"; x.beginPath(); x.moveTo(cx+24,cy+22); x.lineTo(cx+42,cy+26); x.stroke(); x.restore()};
+  const kiste=a=>rahmen(x,48,64,264,124,C.grau,a,C.flaeche2,10);
+  const geraet=(a,puls=0)=>{kreis(x,196,106,11+puls,akz,a,1.6); kugel(x,196,106,5,C.rot,a); schrift(x,"Atom",196,132,C.grau,10,a);
+    block(x,226,96,26,20,C.grau,a,4); schrift(x,"Zähler",239,132,C.grau,10,a);
+    x.save(); x.globalAlpha=a; x.fillStyle=C.gruen; x.beginPath(); x.moveTo(279,96); x.lineTo(287,96); x.lineTo(287,104); x.lineTo(294,118); x.lineTo(272,118); x.lineTo(279,104); x.closePath(); x.fill(); x.restore(); schrift(x,"Gift",283,132,C.grau,10,a)};
+  if(s===0){const a=klemm(p*3);
+    kiste(a); sitzend(110,138,C.text,klemm(p*3-.5)); geraet(klemm(p*3-1));
+    pille(x,180,28,"1935 · nur ein Gedankenexperiment",akz,a); pille(x,180,222,"alles in einer geschlossenen Kiste",C.text,klemm(p*3-1.6));
+  }else if(s===1){const a=klemm(p*3-.6);
+    kiste(1); sitzend(110,138,C.text,1); geraet(1,2+2*Math.sin(t*4));
+    pille(x,180,28,"das Atom: 50 % Zerfall in einer Stunde",C.text,klemm(p*3));
+    pille(x,96,222,"zerfallen",akz,a); schrift(x,"UND",180,222,C.text,12,a,700); pille(x,256,222,"nicht zerfallen",akz,a);
+    pille(x,180,254,"Überlagerung",C.gold,klemm(p*3-1.6));
+  }else if(s===2){const w=.5+.35*Math.sin(t*2.2), a=klemm(p*3-.4);
+    kiste(1); geraet(1,2);
+    pfeil(x,270,152,252,152,C.rot,a); pfeil(x,224,152,206,152,C.rot,a); pfeil(x,178,152,150,152,C.rot,a); schrift(x,"Kette",215,168,C.rot,10,a);
+    sitzend(110,138,C.text,w); liegend(118,146,C.grau,1-w);
+    pille(x,180,28,"die Kette reicht bis zur Katze",C.text,klemm(p*3)); pille(x,180,222,"lebendig UND tot zugleich?",C.rot,klemm(p*3-1.4));
+  }else if(s===3){const a=klemm(p*3);
+    sitzend(110,150,C.text,a); pille(x,220,110,"Das kann nicht sein!",C.rot,klemm(p*3-.6)); linie(x,150,128,172,118,C.rot,klemm(p*3-.6),1.2);
+    pille(x,180,32,"Schrödingers Absicht",akz,a); pille(x,180,214,"für große Dinge fehlte etwas in der Theorie",C.text,klemm(p*3-1.4));
+  }else{const a=klemm(p*3);
+    sitzend(180,138,C.text,a);
+    for(let i=0;i<14;i++){const w=i*.449+.3, f=(t*.6+i*.213)%1, r=misch(110,34,f); kugel(x,180+r*Math.cos(w),132+r*.72*Math.sin(w),2.6,i%3===0?C.gold:i%3===1?C.blau:C.rot,a*klemm(f*5)*klemm((1-f)*6))}
+    pille(x,180,22,"Luft, Licht, Wärme: alles misst mit",C.text,a); pille(x,180,222,"DEKOHÄRENZ",akz,klemm(p*3-1));
+    pille(x,180,252,"längst lebendig ODER tot",C.gold,klemm(p*3-1.8));
+  }
+ },
+ tunnel(x,s,p,t,akz){
+  /* Welle von l bis r mit Barriere von bl bis br: davor volle Höhe, in der Barriere abklingend, dahinter der Rest */
+  const welle=(l,r,bl,br,cy,a)=>{const rest=Math.exp(-(br-bl)/14);
+    kurve(x,px=>{const amp=px<bl?20:px<br?20*Math.exp(-(px-bl)/14):20*rest; return cy-amp*Math.sin((px-t*26)*6.2832/22)*(px>=bl&&px<br?.5+.5*Math.exp(-(px-bl)/14):1)},l,r,akz,a,2.2)};
+  const barriere=(bl,br,o,u,a)=>rahmen(x,bl,o,br-bl,u-o,C.grau,a,C.flaeche2,3);
+  if(s===0){const a=klemm(p*3), berg=px=>200-84*Math.exp(-Math.pow((px-200)/48,2)), bx=46+112*Math.abs(Math.sin(t*.9));
+    linie(x,24,200,336,200,C.grau,a,1.2); kurve(x,berg,60,340,C.grau,a,2,200); kugel(x,bx,berg(bx)-8,8,C.gold,a);
+    pille(x,180,36,"Kugel mit zu wenig Schwung",C.text,a); pille(x,180,236,"kommt nie über den Berg",C.gold,klemm(p*3-1.2));
+  }else if(s===1){const a=klemm(p*3);
+    barriere(170,196,70,200,a); welle(24,336,170,196,135,a);
+    pille(x,183,48,"BARRIERE",C.grau,a);
+    schrift(x,"Welle kommt an",92,186,C.grau,10,klemm(p*3-.6)); schrift(x,"klingt ab",183,214,akz,10,klemm(p*3-1.2),700); schrift(x,"kleiner Rest",270,186,C.gold,10,klemm(p*3-1.8),700);
+    pille(x,180,250,"die Welle hört nicht schlagartig auf",C.text,klemm(p*3-2));
+  }else if(s===2){const m=p*10, k=Math.min(9,Math.floor(m)), f=p>=1?1:m-k, durch=[3,8], istDurch=durch.includes(k);
+    barriere(170,196,70,200,1);
+    const bx=istDurch?misch(40,330,f):f<.5?misch(40,163,f*2):misch(163,40,f*2-1); if(p<1)kugel(x,bx,135,5,C.gold,istDurch&&bx>168&&bx<198?.35:1);
+    let n1=0,n2=0; for(let i=0;i<k;i++)durch.includes(i)?n2++:n1++; if(p>=1){n1=8;n2=2}
+    pille(x,180,36,"die meisten prallen ab",C.text,klemm(p*4)); pille(x,96,232,"zurück: "+n1,C.grau); pille(x,266,232,"durch: "+n2,C.gold);
+  }else if(s===3){const a=klemm(p*3), b=klemm(p*3-.8);
+    barriere(84,94,76,196,a); welle(20,166,84,94,136,a); barriere(238,283,76,196,b); welle(194,340,238,283,136,b);
+    pille(x,89,48,"dünn",C.text,a); pille(x,260,48,"dick",C.text,b);
+    pille(x,92,226,"viele kommen durch",C.gold,klemm(p*3-.6)); pille(x,264,226,"fast keine",C.grau,klemm(p*3-1.4));
+  }else{const a=klemm(p*4), b=klemm(p*4-.8), c=klemm(p*4-1.6);
+    pille(x,180,26,"Tunneln überall",akz,a);
+    x.save(); x.globalAlpha=a; x.shadowColor="#F5C442"; x.shadowBlur=18+4*Math.sin(t*2); x.fillStyle="#F5C442"; x.beginPath(); x.arc(70,104,24,0,6.2832); x.fill(); x.restore();
+    rahmen(x,158,82,44,44,C.text,b,C.flaeche2,6); block(x,170,94,20,20,akz,b,3); [166,180,194].forEach(px=>{linie(x,px,74,px,82,C.text,b,1.6); linie(x,px,126,px,134,C.text,b,1.6)});
+    [[0,0,1],[9,-4,0],[-8,-5,0],[4,9,1],[-6,8,0],[10,7,1],[-12,3,1]].forEach(q=>kugel(x,286+q[0],104+q[1],5.5,q[2]?C.rot:C.blau,c));
+    const f=(t*.5)%1; kugel(x,300+f*30,92-f*22,4,C.gold,c*klemm((1-f)*4));
+    pille(x,70,158,"Sonne",C.gold,a); pille(x,180,158,"Speicher-Chip",C.text,b); pille(x,290,158,"Atomkern",C.text,c);
+    schrift(x,"Kernfusion",70,182,C.grau,10,a); schrift(x,"USB-Stick, SSD",180,182,C.grau,10,b); schrift(x,"Alpha-Zerfall",290,182,C.grau,10,c);
+    pille(x,180,240,"ohne Tunneln keine Sonne",C.gold,klemm(p*4-2.6));
+  }
+ },
+ verschraenkt(x,s,p,t,akz){
+  const auf=(cx,cy,a=1,h=13)=>pfeil(x,cx,cy+h,cx,cy-h,C.gold,a), ab=(cx,cy,a=1,h=13)=>pfeil(x,cx,cy-h,cx,cy+h,C.blau,a);
+  const paar=(d,a)=>{sinus(x,180-d,180+d,130,4,14,t*20,akz,a*.6,1.6); kugel(x,180-d,130,8,C.grau,a); kugel(x,180+d,130,8,C.grau,a)};
+  if(s===0){const a=klemm(p*4), d=18+102*weich(klemm((p-.15)/.6));
+    paar(d,a); block(x,168,118,24,24,C.flaeche2,a,5); rahmen(x,168,118,24,24,C.grau,a,null,5);
+    pille(x,180,168,"QUELLE",C.grau,a); pille(x,180,56,"ein gemeinsamer Zustand",C.text,klemm(p*4-.6)); pille(x,180,232,"VERSCHRÄNKT",akz,klemm(p*4-2.4));
+  }else if(s===1){const a=klemm(p*4), o=(Math.floor(t*5)*7)%3<2;
+    paar(120,1); rahmen(x,34,98,52,64,C.rot,a,null,8); schrift(x,"Messung",60,88,C.rot,10,a,700);
+    o?auf(60,130,a,24):ab(60,130,a,24); schrift(x,"?",300,104,C.grau,18,a,700);
+    pille(x,180,28,"an einem Teilchen messen",C.text,a); pille(x,180,222,"auf oder ab: reiner Zufall, je 50 %",C.gold,klemm(p*4-1.4));
+  }else if(s===2){const folge=[1,0,0,1,0], n=Math.min(5,Math.floor(p*7));
+    pille(x,180,22,"links auf, rechts ab: immer",C.text,klemm(p*4));
+    schrift(x,"links",110,48,C.grau,10); schrift(x,"rechts",250,48,C.grau,10);
+    for(let i=0;i<n;i++){const y=74+i*32; linie(x,126,y,234,y,akz,.5,1.2,[3,4]); folge[i]?(auf(110,y,1,11),ab(250,y,1,11)):(ab(110,y,1,11),auf(250,y,1,11))}
+    pille(x,180,254,"egal, wie weit sie auseinander sind",C.gold,klemm(p*4-2.8));
+  }else if(s===3){const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-2), d=klemm(p*4-2.8);
+    pille(x,180,28,"Einstein: spukhafte Fernwirkung",C.text,a);
+    kugel(x,60,112,8,C.grau,b); kugel(x,300,112,8,C.grau,b); pfeil(x,84,112,276,112,C.rot,b); linie(x,168,100,192,124,C.rot,b,2.5); linie(x,192,100,168,124,C.rot,b,2.5);
+    pille(x,180,148,"keine Nachricht möglich",C.rot,b); schrift(x,"jede Seite sieht für sich nur Zufall",180,184,C.grau,10,c);
+    pille(x,180,232,"erst der Vergleich zeigt das Muster",C.gold,d);
+  }else{const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-2), d=klemm(p*4-2.8);
+    pille(x,180,28,"vorher festgelegt wie Handschuhe?",C.text,a);
+    rahmen(x,96,64,56,48,C.grau,a,C.flaeche2,8); schrift(x,"L",124,89,C.text,18,a,700); rahmen(x,208,64,56,48,C.grau,a,C.flaeche2,8); schrift(x,"R",236,89,C.text,18,a,700);
+    linie(x,80,56,280,120,C.rot,b,3); linie(x,280,56,80,120,C.rot,b,3);
+    pille(x,180,146,"die Versuche zeigen: nein",C.rot,b); pille(x,180,188,"Nobelpreis 2022",C.gold,c);
+    schrift(x,"Grundlage für Quantencomputer und sichere Schlüssel",180,232,C.grau,10,d);
   }
  },
  bohr(x,s,p,t,akz){
