@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quanten-Schule</title>
+<meta name="description" content="Quantenphysik Schritt für Schritt: kurze Erklärbilder, die sich selbst aufbauen.">
+<meta name="theme-color" content="#04070E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Kompass Dark: Terminal-Look, große Bento-Kacheln, Mono-Überschriften, eine Akzentfarbe pro Bereich */
+:root{
+  --bg:#F3F5F9; --flaeche:#FFFFFF; --flaeche2:#E9EDF4; --linie:#D5DBE6;
+  --text:#0D1320; --grau:#566074;
+  --blau:#1C6BD0; --gruen:#0B8F59; --gold:#9A6A00; --rot:#CC3838; --violett:#6646CF;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --sans:"Inter",system-ui,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#04070E; --flaeche:#0B111C; --flaeche2:#121A28; --linie:#1D2636;
+    --text:#ECF0F6; --grau:#8A93A6;
+    --blau:#4DA3FF; --gruen:#26D68C; --gold:#F5C442; --rot:#F05A5A; --violett:#A98BFF;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#04070E; --flaeche:#0B111C; --flaeche2:#121A28; --linie:#1D2636;
+  --text:#ECF0F6; --grau:#8A93A6;
+  --blau:#4DA3FF; --gruen:#26D68C; --gold:#F5C442; --rot:#F05A5A; --violett:#A98BFF;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--blau);outline-offset:2px}
+h1,h2,h3{font-family:var(--mono);text-wrap:balance;margin:0;line-height:1.2}
+h1,h2,.karte b,.weiter a,.seite a{overflow-wrap:anywhere;hyphens:auto}
+.weiter a{min-width:0}
+p{margin:0}
+.mono{font-family:var(--mono)}
+.klein{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--grau)}
+
+.rahmen{max-width:1180px;margin:0 auto;padding:0 16px 48px}
+.kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;flex-wrap:wrap}
+.marke{display:flex;flex-direction:column;text-decoration:none;color:inherit}
+.marke b{font-family:var(--mono);font-size:18px}
+.thema{display:flex;border:1px solid var(--linie);border-radius:10px;overflow:hidden;background:var(--flaeche)}
+.thema button{border:0;background:none;padding:8px 10px;font-size:13px;font-family:var(--mono);color:var(--grau)}
+.thema button[aria-pressed="true"]{background:var(--flaeche2);color:var(--text)}
+
+.gitter{display:block}
+.seite{display:none}
+@media (min-width:960px){
+  .gitter{display:grid;grid-template-columns:270px minmax(0,1fr);gap:28px;align-items:start}
+  .seite{display:flex;flex-direction:column;gap:12px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto;border:1px solid var(--linie);border-radius:14px;background:var(--flaeche);padding:14px}
+}
+.seite input{width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--linie);background:var(--bg);color:var(--text);font:inherit;font-size:14px}
+.seite h3{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--akz);margin-top:6px}
+.seite a{display:block;padding:5px 6px;border-radius:6px;font-size:14px;color:var(--text);text-decoration:none}
+.seite a:hover{background:var(--flaeche2)}
+.seite a.aus{color:var(--grau);pointer-events:none}
+.seite a.hier{background:var(--flaeche2)}
+
+.zurueck{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--linie);background:var(--flaeche);border-radius:10px;padding:8px 12px;font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--text);margin-bottom:14px}
+.titelblock{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.titelblock h1{font-size:clamp(20px,6.1vw,26px)}
+.titelblock p{color:var(--grau);max-width:60ch}
+
+.bento{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width:620px){.bento{grid-template-columns:1fr 1fr}.bento .breit{grid-column:span 2}}
+.kachel{display:flex;flex-direction:column;gap:10px;text-align:left;text-decoration:none;color:var(--text);background:var(--flaeche);border:1px solid var(--linie);border-top:3px solid var(--akz);border-radius:16px;padding:18px;min-height:170px}
+.kachel:hover{background:var(--flaeche2)}
+.kachel svg{width:44px;height:44px;color:var(--akz)}
+.kachel h2{font-size:19px}
+.kachel p{color:var(--grau);font-size:15px;flex:1}
+.balken{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;color:var(--grau);font-variant-numeric:tabular-nums}
+.balken i{flex:1;height:6px;border-radius:3px;background:var(--flaeche2);overflow:hidden;display:block}
+.balken i b{display:block;height:100%;background:var(--akz)}
+.kachel.aus{opacity:.65;pointer-events:none}
+
+.karten{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:620px){.karten{grid-template-columns:1fr 1fr}}
+.karte{display:flex;flex-direction:column;gap:4px;text-decoration:none;color:var(--text);background:var(--flaeche);border:1px solid var(--linie);border-left:3px solid var(--akz);border-radius:12px;padding:14px}
+.karte:hover{background:var(--flaeche2)}
+.karte .klein{display:flex;justify-content:space-between;gap:8px}
+.karte b{font-family:var(--mono);font-size:16px}
+.karte.aus{border-left-color:var(--linie);color:var(--grau);pointer-events:none}
+.haken{color:var(--gruen)}
+
+.buehne{background:var(--flaeche);border:1px solid var(--linie);border-radius:16px 16px 0 0;overflow:hidden}
+canvas{display:block;width:100%;aspect-ratio:360/280}
+.steuer{background:var(--flaeche);border:1px solid var(--linie);border-top:0;border-radius:0 0 16px 16px;padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.reihe{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rund{width:42px;height:42px;border-radius:50%;border:1px solid var(--linie);background:var(--flaeche2);display:grid;place-items:center;flex:none}
+.rund.haupt{background:var(--akz);border-color:var(--akz);color:var(--bg)}
+.rund svg{width:18px;height:18px}
+input[type=range]{flex:1;min-width:120px;accent-color:var(--akz);height:28px}
+.chip{min-width:40px;height:36px;padding:0 10px;border-radius:9px;border:1px solid var(--linie);background:var(--flaeche2);font-family:var(--mono);font-size:14px}
+.chip[aria-pressed="true"]{background:var(--akz);border-color:var(--akz);color:var(--bg);font-weight:700}
+.tempo{display:flex;align-items:center;gap:8px;margin-left:auto}
+.erkl{margin-top:14px;background:var(--flaeche);border:1px solid var(--linie);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.erkl .klein{color:var(--akz)}
+.erkl h2{font-size:18px}
+.erkl p{max-width:65ch}
+.merk{margin-top:12px;border:1px dashed var(--akz);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.merk p{font-family:var(--mono);font-weight:700}
+.boxen{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+@media (min-width:620px){.boxen{grid-template-columns:1fr 1fr}}
+.box{background:var(--flaeche);border:1px solid var(--linie);border-left:3px solid var(--f);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.box .klein{color:var(--f)}
+.box p{font-size:15px}
+.weiter{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.weiter a{flex:1;border:1px solid var(--linie);background:var(--flaeche);border-radius:12px;padding:12px;text-decoration:none;color:var(--text);font-family:var(--mono);font-size:14px;display:flex;flex-direction:column;gap:2px}
+.weiter a:last-child{text-align:right}
+.weiter a.aus{color:var(--grau);pointer-events:none}
+</style>
+</head>
+<body>
+<div class="rahmen">
+  <header class="kopf">
+    <a class="marke" href="#start"><span class="klein">Kompass Schule</span><b>Quantenphysik</b></a>
+    <div class="thema" role="group" aria-label="Farbschema">
+      <button type="button" data-thema="dunkel">☾ Dunkel</button>
+      <button type="button" data-thema="hell">☀ Hell</button>
+      <button type="button" data-thema="auto">◐ Auto</button>
+    </div>
+  </header>
+  <div class="gitter">
+    <nav class="seite" id="seite" aria-label="Alle Lektionen"></nav>
+    <main id="inhalt"></main>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ---------- Speicher (darf fehlen) ---------- */
+function lies(k,ersatz){try{const v=localStorage.getItem(k);return v===null?ersatz:JSON.parse(v)}catch(e){return ersatz}}
+function schreib(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+/* ---------- Daten: einzige Quelle für App, Shorts und Stimme ---------- */
+const BEREICHE=[
+ {id:1,name:"Licht in Portionen",kurz:"Licht kommt nicht gleichmäßig an, sondern in kleinsten Paketen: den Photonen.",farbe:"gold",icon:"licht"},
+ {id:2,name:"Materie als Welle",kurz:"Elektronen verhalten sich am Doppelspalt wie Wellen und landen doch als Punkte.",farbe:"blau",icon:"welle"},
+ {id:3,name:"Das Atom",kurz:"Energiestufen, Spektrallinien und Orbitale: warum Atome so gebaut sind.",farbe:"gruen",icon:"atom"},
+ {id:4,name:"Die seltsamen Regeln",kurz:"Unschärfe, Überlagerung, Tunneleffekt und Verschränkung.",farbe:"violett",icon:"wuerfel"},
+ {id:5,name:"Quanten im Alltag",kurz:"Laser, LED, Solarzelle und Quantencomputer: wo Quantenphysik drinsteckt.",farbe:"rot",icon:"chip"}
+];
+const LEKTIONEN=[
+ {nr:1,b:1,titel:"Was ist ein Quant?",zeichne:"quant",
+  bild:"Eine Rampe und eine Treppe im Vergleich, Münzen als kleinste Portion, ein Lichtstrahl aus einzelnen Photonen und Sand unter der Lupe.",
+  schritte:[
+   {titel:"Rampe oder Treppe",dauer:7,text:"Auf einer Rampe kannst du auf jeder beliebigen Höhe stehen. Auf einer Treppe gibt es nur bestimmte Höhen: Stufe 1, Stufe 2, Stufe 3. Dazwischen geht nichts. In der Welt der Atome ist vieles wie eine Treppe."},
+   {titel:"Die kleinste Portion",dauer:7,text:"Ein Quant ist die kleinste Portion, die es von etwas gibt. Beim Geld ist das der Cent. Du kannst 1 Cent bezahlen oder 2 Cent, aber keinen halben."},
+   {titel:"Auch Licht kommt in Portionen",dauer:7,text:"Ein Lichtstrahl sieht gleichmäßig aus. In Wirklichkeit besteht er aus einzelnen Portionen. Eine solche Lichtportion heißt Photon. Halbe Photonen gibt es nicht."},
+   {titel:"Warum wir nichts davon merken",dauer:8,text:"Die Portionen sind winzig. Eine Lampe, die 1 Watt Licht abgibt, sendet rund 3 Trillionen Photonen pro Sekunde aus. Das ist wie bei Sand: Von weitem sieht ein Sandhaufen glatt aus, erst aus der Nähe erkennt man die Körner."}
+  ],
+  merksatz:"Ein Quant ist die kleinste Portion. Dazwischen gibt es nichts.",
+  boxen:{
+   was:"Ein Quant ist die kleinste, nicht mehr teilbare Portion einer Größe, zum Beispiel von Energie oder Licht. Die Quantenphysik beschreibt eine Welt, in der vieles nur in solchen Portionen vorkommt.",
+   so:"Frage dich: Kann die Größe jeden beliebigen Wert haben, wie die Höhe auf einer Rampe? Oder nur bestimmte Werte, wie die Stufen einer Treppe? Im zweiten Fall ist sie gequantelt.",
+   bedeutet:"Im Alltag sind die Portionen so klein, dass alles fließend wirkt. Bei einzelnen Atomen und Elektronen bestimmen die Portionen dagegen alles.",
+   tipp:"Das Wort Quant kommt vom lateinischen „quantum“. Das heißt „wie viel“."
+  }},
+ {nr:2,b:1,titel:"Der glühende Körper und Plancks Idee",zeichne:"planck",
+  bild:"Glühende Körper bei drei Temperaturen, dann die gemessene Helligkeitskurve, die falsche Kurve der alten Theorie und Plancks Lösung mit Energieportionen.",
+  schritte:[
+   {titel:"Glühen verrät die Temperatur",dauer:7,text:"Wird ein Stück Eisen erhitzt, fängt es an zu leuchten. Bei etwa 800 Grad glüht es rot, bei 1.100 Grad orange, bei 1.500 Grad weißgelb. Je heißer, desto heller und weißer."},
+   {titel:"Die Messkurve",dauer:7,text:"Um 1900 maßen Physiker genau, wie hell ein glühender Körper in jeder Farbe leuchtet. Die Kurve steigt an, hat einen höchsten Punkt und fällt wieder ab. Weit im Ultravioletten, kurz UV, kommt fast nichts mehr."},
+   {titel:"Die alte Physik versagt",dauer:8,text:"Die Rechnung der damaligen Physik passte nur im Infraroten. Zum UV hin sagte sie immer mehr Strahlung voraus, am Ende unendlich viel. Jeder warme Ofen müsste uns dann mit UV-Licht verbrennen. Das war offensichtlich falsch."},
+   {titel:"Plancks Idee",dauer:8,text:"Im Jahr 1900 fand Max Planck die Lösung. Er nahm an: Energie wird nicht beliebig fein abgegeben, sondern nur in Portionen. Die Größe einer Portion ist E = h · f. Blaues Licht hat eine höhere Frequenz als rotes, also größere Portionen."},
+   {titel:"Die Kurve stimmt",dauer:8,text:"Mit den Portionen passt die Rechnung genau zur Messung. Für UV-Licht wären sehr große Portionen nötig, und dafür reicht die Wärme nur selten. Darum fällt die Kurve dort ab. Das Jahr 1900 gilt als Geburtsjahr der Quantenphysik."}
+  ],
+  merksatz:"Energie gibt es nur in Portionen: E = h · f.",
+  boxen:{
+   was:"Jeder heiße Körper sendet Licht aus. Um die gemessene Helligkeit je Farbe zu erklären, musste Max Planck annehmen, dass Energie nur in Portionen abgegeben wird.",
+   so:"Die Größe einer Portion ist Plancks Konstante h mal Frequenz f. Hohe Frequenz, also blaues Licht oder UV, bedeutet große Portionen. Niedrige Frequenz, also rotes Licht, bedeutet kleine.",
+   bedeutet:"Planck hielt seine Portionen zuerst nur für einen Rechentrick. Erst Einstein nahm sie 1905 wörtlich. Davon handelt die nächste Lektion.",
+   tipp:"Plancks Konstante ist winzig: h = 6,626 · 10⁻³⁴ Joulesekunden. Das ist eine Zahl mit 33 Nullen hinter dem Komma. Deshalb fallen die Portionen im Alltag nicht auf."
+  }},
+ {nr:3,b:1,titel:"Der Fotoeffekt",zeichne:"fotoeffekt",
+  bild:"Licht trifft auf eine Metallplatte. Rotes Licht löst keine Elektronen heraus, blaues Licht sofort. Ein Balkenbild zeigt, warum.",
+  schritte:[
+   {titel:"Licht schlägt Elektronen heraus",dauer:7,text:"Fällt Licht auf eine Metallplatte, können Elektronen aus dem Metall herausfliegen. Das nennt man Fotoeffekt. Entdeckt wurde er schon 1887, erklären konnte ihn lange niemand."},
+   {titel:"Rotes Licht: nichts",dauer:7,text:"Mit rotem Licht passiert bei den meisten Metallen nichts. Auch dann nicht, wenn das Licht extrem hell ist und man lange wartet. Kein einziges Elektron kommt heraus."},
+   {titel:"Blaues Licht: sofort",dauer:7,text:"Mit blauem oder ultraviolettem Licht kommen sofort Elektronen heraus, selbst wenn das Licht ganz schwach ist. Wäre Licht nur eine Welle, müsste es umgekehrt sein: Dann müsste helles Licht immer wirken, egal in welcher Farbe."},
+   {titel:"Einsteins Erklärung",dauer:9,text:"1905 erklärte Albert Einstein den Versuch. Licht besteht aus Portionen, den Photonen. Ein Photon gibt seine ganze Energie an ein einziges Elektron ab. Ein rotes Photon hat zu wenig Energie, um das Elektron herauszulösen. Ein blaues hat genug."},
+   {titel:"Heller heißt mehr, nicht schneller",dauer:8,text:"Mehr blaues Licht bedeutet mehr Photonen und damit mehr Elektronen. Schneller werden die Elektronen dadurch nicht. Ihr Tempo hängt nur von der Farbe des Lichts ab. Für diese Erklärung bekam Einstein den Nobelpreis für das Jahr 1921."}
+  ],
+  merksatz:"Ein Photon, ein Elektron. Ob es reicht, entscheidet die Farbe, nicht die Helligkeit.",
+  boxen:{
+   was:"Beim Fotoeffekt löst Licht Elektronen aus einem Metall. Der Versuch zeigt, dass Licht aus einzelnen Portionen besteht, den Photonen.",
+   so:"Erstens die Farbe prüfen: Hat ein Photon genug Energie, um ein Elektron herauszulösen? Zweitens die Helligkeit: Sie bestimmt nur, wie viele Elektronen herauskommen.",
+   bedeutet:"Viele schwache Photonen können sich nicht zusammentun. Jedes Elektron bekommt die Energie von genau einem Photon. Das passt nur zu Teilchen, nicht zu einer gleichmäßigen Welle.",
+   tipp:"Ein verwandter Effekt steckt in jeder Solarzelle und in jedem Kamerasensor: Dort setzen Photonen Elektronen im Material frei, und es fließt Strom."
+  }},
+ {nr:4,b:1,titel:"Das Photon und E = h · f",zeichne:"photon",
+  bild:"Ein Photon als kleines Wellenpaket, rotes und blaues Licht mit verschiedener Frequenz, Energiebalken für drei Farben und das Spektrum von Radio bis Röntgen.",
+  schritte:[
+   {titel:"Das Lichtteilchen",dauer:6,text:"Ein Photon ist die kleinste Portion Licht. Es hat keine Masse und ist immer mit Lichtgeschwindigkeit unterwegs. Das sind rund 300.000 Kilometer in einer Sekunde."},
+   {titel:"Farbe ist Frequenz",dauer:8,text:"Licht schwingt, und die Zahl der Schwingungen pro Sekunde heißt Frequenz. Rotes Licht schwingt rund 430 Billionen Mal pro Sekunde, blaues rund 670 Billionen Mal. Die Frequenz bestimmt die Farbe."},
+   {titel:"Die Formel",dauer:8,text:"Die Energie eines Photons ist Plancks Konstante h mal Frequenz f. Ein blaues Photon hat deshalb mehr Energie als ein rotes. Gemessen wird in Elektronenvolt, kurz eV. Das ist eine winzige Einheit, passend für einzelne Teilchen."},
+   {titel:"Das ganze Spektrum",dauer:9,text:"Radiowellen, Wärmestrahlung, sichtbares Licht, UV und Röntgenstrahlung sind im Grunde dasselbe: Photonen mit verschiedener Frequenz. Je höher die Frequenz, desto mehr Energie hat jedes einzelne Photon. Ab dem UV reicht sie, um Zellen zu schädigen. Darum gibt es Sonnenbrand von UV-Licht, aber nicht von Radiowellen."}
+  ],
+  merksatz:"Je höher die Frequenz, desto mehr Energie hat das Photon.",
+  boxen:{
+   was:"Ein Photon ist ein Lichtquant: die kleinste Portion von Licht und jeder anderen elektromagnetischen Strahlung. Seine Energie hängt nur von der Frequenz ab.",
+   so:"Energie gleich h mal f. Doppelte Frequenz bedeutet doppelte Energie. Helleres Licht hat nicht stärkere Photonen, sondern mehr davon.",
+   bedeutet:"Ob Strahlung gefährlich ist, hängt vor allem an der Energie des einzelnen Photons. Viele schwache Photonen wärmen nur. Ein einzelnes starkes Photon kann ein Molekül zerstören.",
+   tipp:"Rechenaufgabe: Ein rotes Photon hat etwa 1,8 eV, ein blaues etwa 2,8 eV. Das blaue hat also gut anderthalbmal so viel Energie, denn 2,8 : 1,8 ≈ 1,6."
+  }},
+ {nr:5,b:1,titel:"Licht stößt Elektronen (Compton)",zeichne:"compton",
+  bild:"Ein Röntgen-Photon trifft ein ruhendes Elektron. Das Elektron fliegt weg, das Photon wird abgelenkt und hat danach eine längere Welle. Zuletzt ein Sonnensegel, das vom Licht geschoben wird.",
+  schritte:[
+   {titel:"Billard mit Licht",dauer:7,text:"1923 schoss der Amerikaner Arthur Compton Röntgenstrahlung auf Elektronen. Röntgenstrahlung besteht aus Photonen mit besonders viel Energie. Die Frage war: Was passiert, wenn so ein Photon ein Elektron trifft?"},
+   {titel:"Der Stoß",dauer:7,text:"Das Photon stößt das Elektron an wie eine Billardkugel die andere. Das Elektron fliegt zur einen Seite weg, das Photon wird zur anderen Seite abgelenkt."},
+   {titel:"Das Photon verliert Energie",dauer:8,text:"Nach dem Stoß hat das Photon eine längere Welle als vorher. Eine längere Welle bedeutet eine niedrigere Frequenz und damit weniger Energie. Die fehlende Energie steckt jetzt in der Bewegung des Elektrons."},
+   {titel:"Licht kann schieben",dauer:8,text:"Compton konnte den Stoß genau so berechnen wie einen Stoß zwischen zwei Kugeln. Ein Photon hat also nicht nur Energie, sondern auch Schwung, den Impuls. Deshalb kann Licht Dinge anschieben. Ein Sonnensegel im Weltall wird allein vom Sonnenlicht beschleunigt."}
+  ],
+  merksatz:"Ein Photon kann stoßen wie eine Kugel und gibt dabei Energie ab.",
+  boxen:{
+   was:"Beim Compton-Effekt stößt ein Photon mit einem Elektron zusammen. Das Photon wird abgelenkt und verliert Energie, das Elektron nimmt sie auf.",
+   so:"Welle vor und nach dem Stoß vergleichen. Je stärker das Photon abgelenkt wird, desto länger ist seine Welle danach und desto mehr Energie hat das Elektron bekommen.",
+   bedeutet:"Nach dem Fotoeffekt war das der zweite klare Beweis für Lichtteilchen. Compton bekam dafür 1927 den Nobelpreis.",
+   tipp:"Der Lichtdruck ist sehr klein. Auf ein Sonnensegel von der Größe eines Fußballfelds drückt das Sonnenlicht in Erdnähe nur etwa so stark wie das Gewicht von einigen Gramm."
+  }},
+ {nr:6,b:2,titel:"Der Doppelspalt mit Licht",zeichne:"lichtspalt",
+  bild:"Zwei Wellen verstärken sich oder löschen sich aus. Licht fällt auf zwei Spalte, auf dem Schirm dahinter entstehen helle und dunkle Streifen.",
+  schritte:[
+   {titel:"Wellen überlagern sich",dauer:7,text:"Treffen zwei Wellen aufeinander, addieren sie sich. Trifft Berg auf Berg, wird die Welle doppelt so hoch: Sie verstärken sich. Trifft Berg auf Tal, heben sie sich auf: Sie löschen sich aus."},
+   {titel:"Licht auf zwei Spalte",dauer:7,text:"Um 1801 schickte der Engländer Thomas Young Licht auf eine Wand mit zwei schmalen Spalten. Dahinter stand ein Schirm. Damals stritt man, ob Licht aus Teilchen oder aus Wellen besteht."},
+   {titel:"Aus einer Welle werden zwei",dauer:7,text:"Hinter jedem Spalt breitet sich das Licht wieder nach allen Seiten aus. Aus einer Welle werden so zwei, und sie schwingen im gleichen Takt. Auf dem Weg zum Schirm überlagern sie sich."},
+   {titel:"Helle und dunkle Streifen",dauer:8,text:"Auf dem Schirm entstehen viele helle und dunkle Streifen. Hell ist es dort, wo sich die beiden Wellen verstärken. Dunkel ist es dort, wo sie sich auslöschen. Für Young war damit klar: Licht ist eine Welle."}
+  ],
+  merksatz:"Zwei Wellen im Takt verstärken sich, im Gegentakt löschen sie sich aus.",
+  boxen:{
+   was:"Interferenz ist die Überlagerung von Wellen. Beim Doppelspalt mit Licht zeigt sie sich als Muster aus hellen und dunklen Streifen.",
+   so:"Licht einer Farbe auf zwei eng benachbarte Spalte schicken und den Schirm dahinter ansehen. Mehr als zwei Streifen bedeuten: Hier überlagern sich Wellen.",
+   bedeutet:"Kugeln könnten sich nicht gegenseitig auslöschen. Das Streifenmuster galt deshalb rund 100 Jahre lang als Beweis, dass Licht eine Welle ist. Bereich 1 zeigt, warum das nur die halbe Wahrheit ist.",
+   tipp:"Je größer die Wellenlänge, desto weiter liegen die Streifen auseinander. Rotes Licht macht breitere Streifen als blaues."
+  }},
+ {nr:7,b:2,titel:"Materiewellen (de Broglie)",zeichne:"debroglie",
+  bild:"De Broglies Idee: Auch Teilchen haben eine Wellenlänge. Die Formel, der Vergleich langsam und schnell, Elektron und Fußball, zuletzt Beugungsringe hinter einem Kristall.",
+  schritte:[
+   {titel:"Eine kühne Idee",dauer:7,text:"Licht ist eine Welle und zeigt trotzdem Eigenschaften von Teilchen. 1924 drehte der Franzose Louis de Broglie den Gedanken um: Dann könnten auch Teilchen wie das Elektron Eigenschaften einer Welle haben."},
+   {titel:"Die Formel",dauer:8,text:"De Broglie gab gleich eine Formel an. Die Wellenlänge ist Plancks Konstante h, geteilt durch Masse mal Geschwindigkeit. Das Zeichen für die Wellenlänge ist der griechische Buchstabe Lambda."},
+   {titel:"Schneller heißt kürzer",dauer:7,text:"Je schneller ein Teilchen ist, desto kürzer ist seine Welle. Im Bild ist das untere Elektron dreimal so schnell wie das obere. Seine Wellenlänge ist deshalb nur ein Drittel so groß."},
+   {titel:"Elektron und Fußball",dauer:8,text:"Ein Elektron mit 3.000 Kilometern pro Sekunde hat eine Wellenlänge von 0,24 Nanometern. Das ist etwa so groß wie ein Atom und lässt sich messen. Ein geschossener Fußball ist so schwer, dass seine Wellenlänge unmessbar klein ist. Darum merken wir im Alltag nichts davon."},
+   {titel:"Der Beweis",dauer:8,text:"1927 schossen Forscher in den USA und in Großbritannien Elektronen auf Kristalle und dünne Metallfolien. Es entstanden Muster, wie sie nur Wellen erzeugen. Die gemessene Wellenlänge passte zur Formel. 1929 bekam de Broglie den Nobelpreis."}
+  ],
+  merksatz:"Jedes Teilchen hat eine Wellenlänge: λ = h / (m · v).",
+  boxen:{
+   was:"Eine Materiewelle ist die Welle, die zu einem Teilchen gehört. Ihre Wellenlänge hängt von Masse und Geschwindigkeit ab.",
+   so:"Plancks Konstante h durch Masse mal Geschwindigkeit teilen. Je schwerer und je schneller das Teilchen, desto kürzer die Welle.",
+   bedeutet:"Bei Elektronen ist die Wellenlänge etwa so groß wie ein Atom, deshalb zeigen sie Welleneigenschaften. Bei Alltagsdingen ist sie unvorstellbar klein und spielt keine Rolle.",
+   tipp:"Rechenaufgabe: Ein Elektron mit 3.000 Kilometern pro Sekunde hat eine Wellenlänge von etwa 0,24 Nanometern. Bei doppelter Geschwindigkeit ist sie halb so groß: 0,12 Nanometer."
+  }},
+ {nr:8,b:2,titel:"Der Doppelspalt mit einzelnen Elektronen",zeichne:"doppelspalt",
+  bild:"Eine Quelle schießt einzelne Elektronen auf eine Wand mit zwei Spalten. Auf dem Schirm dahinter entsteht Punkt für Punkt ein Streifenmuster.",
+  schritte:[
+   {titel:"Der Versuch",dauer:6,text:"Links steht eine Quelle, die Elektronen abschießt. In der Mitte ist eine Wand mit zwei schmalen Spalten. Rechts fängt ein Schirm die Elektronen auf. Jedes Elektron hinterlässt dort genau einen Punkt."},
+   {titel:"Was man erwartet",dauer:7,text:"Wären Elektronen kleine Kugeln, würde jedes durch einen der beiden Spalte fliegen. Auf dem Schirm müssten dann zwei Streifen entstehen, einer hinter jedem Spalt."},
+   {titel:"Ein Elektron nach dem anderen",dauer:8,text:"Jetzt wird immer nur ein einziges Elektron abgeschossen. Erst wenn es angekommen ist, folgt das nächste. Die Punkte auf dem Schirm scheinen zufällig verteilt zu sein. Niemand kann vorhersagen, wo das nächste Elektron landet."},
+   {titel:"Das Streifenmuster",dauer:8,text:"Mit immer mehr Elektronen zeigt sich ein Muster: Streifen mit vielen Treffern wechseln sich mit fast leeren Streifen ab. Es sind nicht zwei Streifen, sondern viele. So ein Muster heißt Interferenz. Man kennt es sonst nur von Wellen."},
+   {titel:"Die Welle geht durch beide Spalte",dauer:9,text:"Erklären lässt sich das nur so: Zu jedem Elektron gehört eine Welle, und sie geht durch beide Spalte zugleich. Dahinter überlagern sich die beiden Teile. Wo sie sich verstärken, landen viele Elektronen. Wo sie sich auslöschen, landet fast keines."}
+  ],
+  merksatz:"Ein Elektron landet als Punkt, verteilt sich aber wie eine Welle.",
+  boxen:{
+   was:"Der Doppelspalt-Versuch zeigt, dass Elektronen keine kleinen Kugeln sind. Einzeln abgeschossen bauen sie Punkt für Punkt ein Streifenmuster auf, wie es sonst nur Wellen erzeugen.",
+   so:"Erstens Elektronen einzeln auf eine Wand mit zwei Spalten schießen. Zweitens jeden Treffer auf dem Schirm festhalten. Drittens warten: Aus scheinbar zufälligen Punkten werden Streifen.",
+   bedeutet:"Wo ein einzelnes Elektron landet, lässt sich nicht vorhersagen. Vorhersagen lässt sich nur, wo viele landen und wo fast keine. Die Quantenphysik rechnet deshalb mit Wahrscheinlichkeiten.",
+   tipp:"Den Versuch gibt es wirklich. Claus Jönsson zeigte das Streifenmuster 1961 in Tübingen. 1989 filmte ein Team um Akira Tonomura in Japan, wie es sich Punkt für Punkt aufbaut."
+  }},
+ {nr:9,b:2,titel:"Welle oder Teilchen?",zeichne:"dualismus",
+  bild:"Am Doppelspalt breitet sich das Elektron wie eine Welle aus und kommt als Punkt an. Mit einem Messgerät an den Spalten bleiben nur zwei Streifen.",
+  schritte:[
+   {titel:"Unterwegs wie eine Welle",dauer:7,text:"Zwischen Quelle und Schirm verhält sich das Elektron wie eine Welle. Sie geht durch beide Spalte und überlagert sich dahinter. Nur so lässt sich das Streifenmuster erklären."},
+   {titel:"Angekommen wie ein Teilchen",dauer:7,text:"Am Schirm ist von der Welle nichts zu sehen. Jedes Elektron kommt als Ganzes an einer einzigen Stelle an. Ein halbes Elektron oder einen verschmierten Fleck findet man nie."},
+   {titel:"Nachsehen zerstört das Muster",dauer:9,text:"Stellt man an den Spalten ein Messgerät auf, das feststellt, durch welchen Spalt jedes Elektron geht, verschwindet das Streifenmuster. Übrig bleiben zwei Streifen, wie bei Kugeln. Das Wissen über den Weg zerstört die Interferenz."},
+   {titel:"Weder noch",dauer:8,text:"Ein Elektron ist weder eine kleine Kugel noch eine Wasserwelle. Es ist ein Quantenobjekt. Je nach Versuch zeigt es Eigenschaften einer Welle oder eines Teilchens. Dasselbe gilt für Licht."}
+  ],
+  merksatz:"Ausbreiten wie eine Welle, ankommen wie ein Teilchen.",
+  boxen:{
+   was:"Welle-Teilchen-Dualismus heißt: Quantenobjekte wie Elektronen und Photonen zeigen je nach Versuch Eigenschaften von Wellen oder von Teilchen.",
+   so:"Frage dich, was der Versuch zeigt. Geht es um die Ausbreitung, also das Streifenmuster, brauchst du das Wellenbild. Geht es um den Nachweis, also einzelne Treffer, brauchst du das Teilchenbild.",
+   bedeutet:"Welle und Teilchen sind Bilder aus unserem Alltag. Für die Quantenwelt passt keines ganz. Erst beide zusammen beschreiben, was man misst.",
+   tipp:"Sobald sich herausfinden lässt, durch welchen Spalt ein Elektron ging, ist das Streifenmuster weg. Dafür muss kein Mensch hinschauen, das Messgerät allein genügt."
+  }},
+ {nr:10,b:2,titel:"Die Wahrscheinlichkeitswelle",zeichne:"wahrscheinlich",
+  bild:"Aus der Welle wird durch Quadrieren eine Kurve der Wahrscheinlichkeit. Viele zufällige Treffer füllen diese Kurve nach und nach auf.",
+  schritte:[
+   {titel:"Was schwingt da eigentlich?",dauer:7,text:"Bei einer Wasserwelle schwingt Wasser, beim Schall die Luft. Aber was schwingt bei der Welle eines Elektrons? 1926 gab Max Born die Antwort, die bis heute gilt: Die Welle beschreibt eine Wahrscheinlichkeit."},
+   {titel:"Welle zum Quadrat",dauer:8,text:"Man nimmt die Höhe der Welle an einer Stelle mit sich selbst mal. Das Ergebnis sagt, wie wahrscheinlich man das Elektron dort findet. Weil Minus mal Minus Plus ergibt, kommt nie ein negativer Wert heraus."},
+   {titel:"Oft und nie",dauer:7,text:"Wo die Kurve hoch ist, landen viele Elektronen. Wo sie null ist, landet keines. Das sind genau die vollen und die leeren Streifen beim Doppelspalt."},
+   {titel:"Der einzelne Treffer ist Zufall",dauer:8,text:"Wo das nächste Elektron landet, weiß niemand. Erst viele Treffer zusammen füllen die Kurve auf. Die Quantenphysik sagt also nicht den einzelnen Treffer voraus, sondern die Verteilung."},
+   {titel:"Wie beim Würfeln, nur grundsätzlicher",dauer:9,text:"Auch ein einzelner Würfelwurf lässt sich nicht vorhersagen, 1.000 Würfe aber schon: Jede Zahl kommt etwa gleich oft. Beim Würfel fehlen uns nur die genauen Einzelheiten des Wurfs. In der Quantenphysik ist der Zufall nach heutigem Wissen echt."}
+  ],
+  merksatz:"Die Welle sagt nicht, wo das Elektron ist, sondern wie oft man es wo findet.",
+  boxen:{
+   was:"Die Wahrscheinlichkeitswelle, auch Wellenfunktion genannt, beschreibt ein Quantenobjekt. Ihr Quadrat gibt an, mit welcher Wahrscheinlichkeit man es an einem Ort findet.",
+   so:"Höhe der Welle an einer Stelle ablesen und mit sich selbst malnehmen. Großer Wert: Dort gibt es viele Treffer. Null: Dort gibt es keine.",
+   bedeutet:"Für ein einzelnes Ereignis liefert die Quantenphysik nur eine Wahrscheinlichkeit. Für sehr viele Ereignisse stimmen ihre Vorhersagen dafür äußerst genau.",
+   tipp:"Rechenaufgabe: Ist die Welle an Stelle A doppelt so hoch wie an Stelle B, landen bei A viermal so viele Elektronen, denn 2 · 2 = 4."
+  }},
+ {nr:11,b:3,titel:"Bohrs Atommodell",zeichne:"bohr",
+  bild:"Ein Elektron, das in den Kern stürzen müsste. Dann Bohrs drei erlaubte Bahnen, ein Sprung von Bahn 3 auf Bahn 2 mit einem roten Photon und zuletzt eine Wolke statt der Bahnen.",
+  schritte:[
+   {titel:"Das Problem",dauer:7,text:"Um 1911 stellte man sich das Atom wie ein kleines Sonnensystem vor: Das Elektron kreist um den Kern. Nach den damaligen Gesetzen müsste ein kreisendes Elektron aber ständig Energie abstrahlen. Es würde in einem winzigen Bruchteil einer Sekunde in den Kern stürzen. Atome dürfte es gar nicht geben."},
+   {titel:"Bohrs Regel",dauer:7,text:"1913 stellte der Däne Niels Bohr eine neue Regel auf. Für das Elektron sind nur ganz bestimmte Bahnen erlaubt. Auf diesen Bahnen strahlt es keine Energie ab. Dazwischen kann es sich nicht aufhalten."},
+   {titel:"Jede Bahn hat ihre Energie",dauer:7,text:"Auf der innersten Bahn hat das Elektron die kleinste Energie. Das ist der Grundzustand. Je weiter außen die Bahn liegt, desto mehr Energie hat das Elektron."},
+   {titel:"Der Quantensprung",dauer:8,text:"Das Elektron kann von einer Bahn auf eine andere springen. Springt es nach innen, gibt es Energie ab, und zwar als ein einzelnes Photon. Beim Sprung von Bahn 3 auf Bahn 2 entsteht im Wasserstoff rotes Licht."},
+   {titel:"Was stimmt, was nicht",dauer:8,text:"Bohrs Modell erklärt, warum Atome stabil sind und nur bestimmte Farben aussenden. Die Energiestufen stimmen. Die Kreisbahnen stimmen nicht: Ein Elektron fliegt nicht wie ein Planet. Später wurden die Bahnen durch Wolken ersetzt, die Orbitale."}
+  ],
+  merksatz:"Im Atom hat das Elektron nur bestimmte Energien. Bei jedem Sprung entsteht oder verschwindet ein Photon.",
+  boxen:{
+   was:"Bohrs Atommodell von 1913 beschreibt das Wasserstoff-Atom mit festen Bahnen für das Elektron. Jede Bahn steht für eine bestimmte Energie.",
+   so:"Erstens: Nur bestimmte Bahnen sind erlaubt. Zweitens: Auf einer Bahn strahlt das Elektron nicht. Drittens: Beim Sprung zwischen zwei Bahnen wird ein Photon abgegeben oder aufgenommen.",
+   bedeutet:"Ein Quantensprung ist winzig, die kleinste Änderung, die es gibt. In der Alltagssprache meint man damit einen riesigen Fortschritt. Physikalisch ist es genau umgekehrt.",
+   tipp:"Die Abstände im Bild sind nicht maßstäblich. In Wirklichkeit liegt Bahn 2 viermal und Bahn 3 neunmal so weit vom Kern entfernt wie Bahn 1."
+  }},
+ {nr:12,b:3,titel:"Energiestufen und Spektrallinien",zeichne:"stufen",
+  bild:"Eine Leiter aus Energiestufen. Ein Elektron springt nach oben und fällt zurück, dabei entstehen Photonen in Rot, Türkis und Violett. Darunter die Linien im Spektrum von Wasserstoff und Natrium.",
+  schritte:[
+   {titel:"Die Energieleiter",dauer:7,text:"Die erlaubten Energien eines Atoms kann man wie eine Leiter zeichnen. Ganz unten ist Stufe 1, der Grundzustand. Nach oben rücken die Stufen immer enger zusammen. Zwischen den Stufen gibt es nichts."},
+   {titel:"Anregen",dauer:7,text:"Bekommt das Atom Energie, zum Beispiel durch ein passendes Photon, durch Hitze oder durch Strom, springt das Elektron auf eine höhere Stufe. Das Atom ist dann angeregt. Dort bleibt das Elektron meist nur winzige Sekundenbruchteile."},
+   {titel:"Zurückfallen",dauer:8,text:"Fällt das Elektron zurück, gibt es die Energie als Photon ab. Ein großer Sprung ergibt ein Photon mit viel Energie, ein kleiner eines mit wenig. Im Wasserstoff entstehen bei Sprüngen auf Stufe 2 rotes, türkises und violettes Licht."},
+   {titel:"Der Fingerabdruck",dauer:8,text:"Zerlegt man das Licht von leuchtendem Wasserstoff in seine Farben, sieht man keinen Regenbogen, sondern einzelne Linien. Jede Linie gehört zu einem bestimmten Sprung. Jedes Element hat seine eigenen Stufen und damit seine eigenen Linien. Natrium leuchtet zum Beispiel gelb."},
+   {titel:"Sterne lesen",dauer:8,text:"Auch im Licht der Sterne stecken diese Linien, dort als dunkle Lücken im Regenbogen. Die Atome in der Hülle des Sterns verschlucken genau ihre Farben. So erkennt man aus der Ferne, woraus ein Stern besteht. Helium wurde 1868 auf der Sonne entdeckt, lange bevor man es auf der Erde fand."}
+  ],
+  merksatz:"Jede Linie im Spektrum ist ein Sprung zwischen zwei Energiestufen.",
+  boxen:{
+   was:"Energiestufen sind die erlaubten Energien eines Elektrons im Atom. Spektrallinien sind die Farben, die bei Sprüngen zwischen diesen Stufen entstehen.",
+   so:"Abstand zwischen zwei Stufen ansehen. Großer Abstand: Photon mit viel Energie, also eher violett oder UV. Kleiner Abstand: Photon mit wenig Energie, also eher rot oder infrarot.",
+   bedeutet:"An den Linien erkennt man jedes Element eindeutig. Damit untersucht man Sterne, prüft Metalle und weist Stoffe in winzigen Mengen nach.",
+   tipp:"Natrium kannst du selbst sehen: Streust du etwas Kochsalz in eine Gasflamme, leuchtet sie gelb. Das ist die Natrium-Linie bei 589 Nanometern."
+  }},
+ {nr:13,b:3,titel:"Orbitale statt Bahnen",zeichne:"orbital",
+  bild:"Eine durchgestrichene Kreisbahn und daneben eine Punktwolke. Die Wolke baut sich aus einzelnen Messungen auf. Dann drei Formen: Kugel, Hantel und Kleeblatt. Zuletzt eine Welle, die um den Kern passt, und eine, die nicht passt.",
+  schritte:[
+   {titel:"Keine Bahn",dauer:7,text:"Ein Elektron ist auch eine Welle. Deshalb hat es im Atom keinen festen Weg wie ein Planet. Man kann nur angeben, wo man es mit welcher Wahrscheinlichkeit findet."},
+   {titel:"Die Wolke",dauer:8,text:"Misst man den Ort des Elektrons immer wieder, ergibt jede Messung einen Punkt. Viele Punkte zusammen bilden eine Wolke. Den Bereich, in dem das Elektron zu 90 Prozent zu finden ist, nennt man Orbital."},
+   {titel:"Verschiedene Formen",dauer:8,text:"Orbitale haben verschiedene Formen. Das einfachste ist eine Kugel und heißt s-Orbital. Das p-Orbital sieht aus wie eine Hantel, das d-Orbital oft wie ein Kleeblatt. Je höher die Energiestufe, desto mehr Formen gibt es."},
+   {titel:"Die Welle muss passen",dauer:8,text:"Warum sind nur bestimmte Energien erlaubt? Die Welle des Elektrons muss um den Kern herum zu sich selbst passen, wie eine Saite, die zwischen zwei Enden schwingt. Passt sie nicht, löscht sie sich selbst aus. Jede passende Welle ist ein Orbital mit einer festen Energie."}
+  ],
+  merksatz:"Ein Orbital zeigt, wo sich ein Elektron wahrscheinlich aufhält, nicht, wie es fliegt.",
+  boxen:{
+   was:"Ein Orbital ist der Bereich um den Atomkern, in dem ein Elektron mit hoher Wahrscheinlichkeit zu finden ist. Es ersetzt die Kreisbahn aus Bohrs Modell.",
+   so:"Stell dir viele Messungen des Ortes vor. Wo die Punkte dicht liegen, ist das Elektron oft. Die Form der Punktwolke ist die Form des Orbitals.",
+   bedeutet:"Die Formen der Orbitale bestimmen, in welche Richtungen ein Atom Bindungen eingeht. Daraus ergibt sich zum Beispiel der Winkel im Wasser-Molekül.",
+   tipp:"Die Bilder zeigen einen flachen Schnitt. In Wirklichkeit sind Orbitale räumlich: Das s-Orbital ist eine Kugel, vom p-Orbital gibt es drei, die in die drei Raumrichtungen zeigen."
+  }},
+ {nr:14,b:3,titel:"Spin und Pauli-Prinzip",zeichne:"spin",
+  bild:"Zwei Elektronen mit Spin auf und Spin ab. Ein Strahl aus Silber-Atomen teilt sich im Magnetfeld in genau zwei Teile. Kästchen zeigen, was Pauli erlaubt und verbietet, und wie sich die Stufen mit zehn Elektronen füllen.",
+  schritte:[
+   {titel:"Der Spin",dauer:7,text:"Elektronen haben eine Eigenschaft, die es im Alltag nicht gibt: den Spin. Er macht das Elektron zu einer winzigen Magnetnadel. Misst man ihn, gibt es nur zwei Ergebnisse: Spin auf oder Spin ab."},
+   {titel:"Der Beweis mit dem Magneten",dauer:8,text:"1922 schickten Otto Stern und Walther Gerlach in Frankfurt Silber-Atome durch ein besonderes Magnetfeld. Gewöhnliche kleine Magnete würden dabei einen breiten Streifen ergeben. Der Strahl teilte sich aber in genau zwei Teile. Dazwischen kam nichts an."},
+   {titel:"Paulis Verbot",dauer:8,text:"1925 fand Wolfgang Pauli eine strenge Regel: Zwei Elektronen in einem Atom dürfen nie in allen Eigenschaften übereinstimmen. In ein Orbital passen deshalb höchstens zwei Elektronen, eines mit Spin auf und eines mit Spin ab."},
+   {titel:"Die Stufen füllen sich",dauer:9,text:"Wegen Paulis Verbot können nicht alle Elektronen auf der untersten Stufe sitzen. Ist ein Orbital voll, muss das nächste Elektron auf eine höhere Stufe. So füllen sich die Stufen von unten nach oben. Im Bild siehst du die 10 Elektronen von Neon."}
+  ],
+  merksatz:"In ein Orbital passen höchstens zwei Elektronen: eines mit Spin auf, eines mit Spin ab.",
+  boxen:{
+   was:"Der Spin ist eine Quanteneigenschaft des Elektrons mit nur zwei möglichen Messwerten. Das Pauli-Prinzip sagt: Keine zwei Elektronen eines Atoms sind in allem gleich.",
+   so:"Orbitale von unten nach oben füllen. In jedes Orbital zuerst ein Elektron mit Spin auf, dann eines mit Spin ab. Dann ist es voll.",
+   bedeutet:"Ohne das Pauli-Prinzip säßen alle Elektronen ganz unten. Alle Atome wären sich ähnlich, und es gäbe keine Chemie, wie wir sie kennen.",
+   tipp:"Der Name Spin kommt vom englischen Wort für Drehung. Das Elektron dreht sich aber nicht wirklich wie ein Kreisel. Der Spin ist eine eigene Eigenschaft, so wie die Ladung."
+  }},
+ {nr:15,b:3,titel:"Warum das Periodensystem so aussieht",zeichne:"perioden",
+  bild:"Ein Atom mit drei Schalen. Die Schalen füllen sich von Wasserstoff bis Natrium. Lithium und Natrium im Vergleich, dann die ersten drei Zeilen des Periodensystems.",
+  schritte:[
+   {titel:"Schalen",dauer:7,text:"Energiestufen, die nah beieinander liegen, fasst man zu einer Schale zusammen. In die erste Schale passen 2 Elektronen, in die zweite 8. Bei den leichten Elementen ist auch die dritte Schale mit 8 Elektronen erst einmal voll."},
+   {titel:"Auffüllen",dauer:9,text:"Wasserstoff hat 1 Elektron, Helium 2. Damit ist die erste Schale voll. Lithium muss mit seinem dritten Elektron eine neue Schale anfangen. Bei Neon mit 10 Elektronen ist auch die zweite Schale voll, und Natrium beginnt die dritte."},
+   {titel:"Außen entscheidet",dauer:8,text:"Für die Chemie zählen vor allem die Elektronen in der äußersten Schale. Lithium und Natrium haben dort beide genau 1 Elektron. Deshalb verhalten sie sich ähnlich: Beide sind weiche Metalle, die heftig mit Wasser reagieren."},
+   {titel:"Spalten und Zeilen",dauer:8,text:"Im Periodensystem stehen Elemente mit gleich vielen Außenelektronen untereinander. Ganz links stehen die mit 1 Außenelektron. Ganz rechts stehen die Edelgase mit voller Schale, sie reagieren fast gar nicht. Mit jeder neuen Zeile beginnt eine neue Schale."},
+   {titel:"Quantenphysik erklärt die Chemie",dauer:7,text:"Das Periodensystem wurde 1869 aufgestellt, nur durch Vergleichen der Stoffe. Warum es so aussieht, weiß man erst seit der Quantenphysik: Energiestufen und Paulis Verbot ergeben die Schalen, und die Schalen ergeben das Periodensystem."}
+  ],
+  merksatz:"Die Zahl der Außenelektronen bestimmt, wie sich ein Element verhält.",
+  boxen:{
+   was:"Das Periodensystem ordnet alle Elemente nach der Zahl ihrer Protonen. Sein Aufbau aus Zeilen und Spalten folgt aus den Schalen, in denen die Elektronen sitzen.",
+   so:"Elektronen von innen nach außen verteilen: 2 in die erste Schale, 8 in die zweite, dann weiter. Die Zahl in der äußersten Schale sagt dir die Spalte.",
+   bedeutet:"Atome mit voller Außenschale sind zufrieden und reagieren kaum. Alle anderen geben Elektronen ab, nehmen welche auf oder teilen sie. So entstehen chemische Bindungen.",
+   tipp:"Rechenaufgabe: Chlor hat 17 Elektronen. 2 + 8 = 10 sitzen innen, also bleiben 7 außen. Chlor fehlt genau 1 Elektron zur vollen Schale. Darum reagiert es so gern mit Natrium, das 1 übrig hat: Es entsteht Kochsalz."
+  }},
+ {nr:16,b:4,titel:"Heisenbergs Unschärfe"},
+ {nr:17,b:4,titel:"Überlagerung"},
+ {nr:18,b:4,titel:"Die Messung"},
+ {nr:19,b:4,titel:"Schrödingers Katze"},
+ {nr:20,b:4,titel:"Der Tunneleffekt"},
+ {nr:21,b:4,titel:"Verschränkung"},
+ {nr:22,b:5,titel:"Der Laser"},
+ {nr:23,b:5,titel:"Halbleiter, LED und Solarzelle"},
+ {nr:24,b:5,titel:"Das Rastertunnelmikroskop"},
+ {nr:25,b:5,titel:"Der Quantencomputer"},
+ {nr:26,b:5,titel:"Abhörsichere Schlüssel (Quantenkryptografie)"}
+];
+const fertig=l=>!!l.schritte;
+const zwei=n=>String(n).padStart(2,"0");
+const bereich=id=>BEREICHE.find(b=>b.id===id);
+let gesehen=lies("qs-gesehen",[]); if(!Array.isArray(gesehen))gesehen=[];
+
+const ICONS={
+ licht:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="24" cy="24" r="7" fill="currentColor"/><path d="M24 5v7M24 36v7M5 24h7M36 24h7M10.500 10.500l5 5M32.500 32.500l5 5M37.500 10.500l-5 5M15.500 32.500l-5 5"/></svg>',
+ welle:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 18c5-10 9-10 14 0s9 10 14 0 9-10 12-4"/><path d="M4 34c5-10 9-10 14 0s9 10 14 0 9-10 12-4"/></svg>',
+ atom:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="24" cy="24" r="3.500" fill="currentColor"/><ellipse cx="24" cy="24" rx="20" ry="8"/><ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(60 24 24)"/><ellipse cx="24" cy="24" rx="20" ry="8" transform="rotate(120 24 24)"/></svg>',
+ wuerfel:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="7" y="7" width="34" height="34" rx="7"/><g fill="currentColor" stroke="none"><circle cx="16" cy="16" r="3"/><circle cx="32" cy="16" r="3"/><circle cx="24" cy="24" r="3"/><circle cx="16" cy="32" r="3"/><circle cx="32" cy="32" r="3"/></g></svg>',
+ chip:'<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="12" y="12" width="24" height="24" rx="4"/><rect x="19" y="19" width="10" height="10" rx="2" fill="currentColor"/><path d="M18 5v7M30 5v7M18 36v7M30 36v7M5 18h7M5 30h7M36 18h7M36 30h7"/></svg>'
+};
+const SYM={
+ play:'<svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 3l12 7-12 7z"/></svg>',
+ pause:'<svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 3h4v14H4zM12 3h4v14h-4z"/></svg>',
+ neu:'<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a6 6 0 1 0 2-4.500"/><path d="M4 3v4h4"/></svg>'
+};
+
+/* ---------- Farbschema ---------- */
+const wurzel=document.documentElement, vorgabe=wurzel.getAttribute("data-theme");
+let thema=lies("qs-thema","auto");
+function setzeThema(t){
+  thema=t; schreib("qs-thema",t);
+  if(t==="dunkel")wurzel.setAttribute("data-theme","dark");
+  else if(t==="hell")wurzel.setAttribute("data-theme","light");
+  else if(vorgabe)wurzel.setAttribute("data-theme",vorgabe); else wurzel.removeAttribute("data-theme");
+  document.querySelectorAll("[data-thema]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.thema===t));
+  farbenLesen(); if(P)zeichne();
+}
+let C={};
+function farbenLesen(){
+  const s=getComputedStyle(wurzel);
+  ["bg","flaeche","flaeche2","linie","text","grau","blau","gruen","gold","rot","violett"].forEach(n=>C[n]=s.getPropertyValue("--"+n).trim());
+}
+document.querySelectorAll("[data-thema]").forEach(b=>b.onclick=()=>setzeThema(b.dataset.thema));
+try{matchMedia("(prefers-color-scheme:dark)").addEventListener("change",()=>{farbenLesen();if(P)zeichne()})}catch(e){}
+
+/* ---------- Ansichten ---------- */
+const inhalt=document.getElementById("inhalt"), seite=document.getElementById("seite");
+function fortschritt(b){const ls=LEKTIONEN.filter(l=>l.b===b.id);const n=ls.filter(l=>gesehen.includes(l.nr)).length;return{n,alle:ls.length}}
+
+function zeigeStart(){
+  P=null;
+  inhalt.innerHTML=`<div class="titelblock"><span class="klein">5 Bereiche · ${LEKTIONEN.filter(fertig).length} von ${LEKTIONEN.length} Lektionen fertig</span><h1>Quantenphysik Schritt für Schritt</h1>
+  <p>Jede Lektion ist ein kurzes Erklärbild, das sich Schritt für Schritt aufbaut. Du bestimmst das Tempo.</p></div>
+  <div class="bento">${BEREICHE.map((b,i)=>{const f=fortschritt(b);return `<a class="kachel${i===0?" breit":""}" style="--akz:var(--${b.farbe})" href="#bereich-${b.id}">
+    ${ICONS[b.icon]}<span class="klein">Bereich ${b.id}</span><h2>${b.name}</h2><p>${b.kurz}</p>
+    <span class="balken"><i><b style="width:${100*f.n/f.alle}%"></b></i>${f.n}/${f.alle}</span></a>`}).join("")}
+   <div class="kachel aus" style="--akz:var(--grau)"><span class="klein">Quiz</span><h2>Teste dein Wissen</h2><p>10 zufällige Fragen. Das Quiz folgt, sobald die Lektionen stehen.</p></div>
+  </div>`;
+}
+function zeigeBereich(id){
+  P=null; const b=bereich(id); if(!b)return zeigeStart();
+  inhalt.innerHTML=`<a class="zurueck" href="#start">← Startseite</a>
+  <div class="titelblock" style="--akz:var(--${b.farbe})"><span class="klein" style="color:var(--akz)">Bereich ${b.id}</span><h1>${b.name}</h1><p>${b.kurz}</p></div>
+  <div class="karten" style="--akz:var(--${b.farbe})">${LEKTIONEN.filter(l=>l.b===id).map(l=>
+   `<a class="karte${fertig(l)?"":" aus"}" href="#lektion-${zwei(l.nr)}"><span class="klein"><span>Lektion ${l.nr}</span><span>${gesehen.includes(l.nr)?'<span class="haken">✓ gesehen</span>':fertig(l)?"":"folgt"}</span></span><b>${l.titel}</b></a>`).join("")}</div>`;
+}
+function nachbar(l,d){
+  const n=LEKTIONEN.find(x=>x.nr===l.nr+d);
+  if(!n)return `<a class="aus"><span class="klein">${d<0?"Anfang":"Ende"}</span></a>`;
+  return `<a class="${fertig(n)?"":"aus"}" href="#lektion-${zwei(n.nr)}"><span class="klein">${d<0?"← Zurück":"Weiter →"}${fertig(n)?"":" · folgt"}</span>${n.titel}</a>`;
+}
+function zeigeLektion(nr){
+  const l=LEKTIONEN.find(x=>x.nr===nr); if(!l||!fertig(l))return zeigeStart();
+  const b=bereich(l.b), S=l.schritte, total=S.reduce((a,s)=>a+s.dauer,0);
+  inhalt.innerHTML=`<div style="--akz:var(--${b.farbe})">
+  <a class="zurueck" href="#bereich-${b.id}">← ${b.name}</a>
+  <div class="titelblock"><span class="klein" style="color:var(--akz)">Lektion ${l.nr}</span><h1>${l.titel}</h1></div>
+  <div class="buehne"><canvas id="cv" role="img" aria-label="${l.bild}"></canvas></div>
+  <div class="steuer">
+   <div class="reihe"><button class="rund haupt" id="pl" type="button" aria-label="Abspielen">${SYM.play}</button>
+    <input type="range" id="sp" min="0" max="${total}" step="0.01" value="0" aria-label="Spulen">
+    <button class="rund" id="neu" type="button" aria-label="Neustart">${SYM.neu}</button></div>
+   <div class="reihe" id="chips">${S.map((s,i)=>`<button class="chip" type="button" data-s="${i}" aria-label="Schritt ${i+1}: ${s.titel}">${i+1}</button>`).join("")}
+    <span class="tempo"><span class="klein">Tempo</span>${[[.5,"½×"],[1,"1×"],[2,"2×"]].map(([v,t])=>`<button class="chip" type="button" data-tempo="${v}" aria-label="Geschwindigkeit ${t}">${t}</button>`).join("")}</span></div>
+  </div>
+  <section class="erkl" aria-live="polite"><span class="klein" id="sn"></span><h2 id="st"></h2><p id="sx"></p></section>
+  <div class="merk"><span class="klein" style="color:var(--akz)">Merksatz</span><p>${l.merksatz}</p></div>
+  <div class="boxen">
+   <div class="box" style="--f:var(--blau)"><span class="klein">Was ist das?</span><p>${l.boxen.was}</p></div>
+   <div class="box" style="--f:var(--gruen)"><span class="klein">So geht’s</span><p>${l.boxen.so}</p></div>
+   <div class="box" style="--f:var(--gold)"><span class="klein">Was bedeutet es?</span><p>${l.boxen.bedeutet}</p></div>
+   <div class="box" style="--f:var(--rot)"><span class="klein">Tipp</span><p>${l.boxen.tipp}</p></div>
+  </div>
+  <div class="weiter">${nachbar(l,-1)}${nachbar(l,1)}</div></div>`;
+  starte(l,b,total);
+}
+function baueSeite(filter){
+  const f=(filter||"").toLowerCase(), hier=location.hash;
+  const alt=seite.querySelector("input"), wert=alt?alt.value:"";
+  seite.innerHTML=`<input id="suche" type="search" placeholder="Lektion suchen" aria-label="Lektion suchen">`+BEREICHE.map(b=>{
+    const ls=LEKTIONEN.filter(l=>l.b===b.id&&l.titel.toLowerCase().includes(f)); if(!ls.length)return"";
+    return `<h3 style="--akz:var(--${b.farbe})">${b.name}</h3>`+ls.map(l=>`<a class="${fertig(l)?"":"aus"}${hier==="#lektion-"+zwei(l.nr)?" hier":""}" href="#lektion-${zwei(l.nr)}">${zwei(l.nr)} · ${l.titel}${gesehen.includes(l.nr)?' <span class="haken">✓</span>':""}</a>`).join("")}).join("");
+  const s=document.getElementById("suche"); s.value=filter===undefined?wert:filter;
+  s.oninput=()=>{const p=s.selectionStart;baueSeite(s.value);const n=document.getElementById("suche");n.focus();n.setSelectionRange(p,p)};
+}
+function ansicht(){
+  const h=location.hash.slice(1)||"start"; let m;
+  if((m=h.match(/^bereich-(\d)$/)))zeigeBereich(+m[1]);
+  else if((m=h.match(/^lektion-(\d+)$/)))zeigeLektion(+m[1]);
+  else zeigeStart();
+  baueSeite(""); window.scrollTo(0,0);
+}
+
+/* ---------- Abspieler ---------- */
+let P=null;
+function starte(l,b,total){
+  const cv=document.getElementById("cv"), S=l.schritte;
+  const grenzen=[0]; S.forEach(s=>grenzen.push(grenzen[grenzen.length-1]+s.dauer));
+  P={l,b,cv,ctx:cv.getContext("2d"),S,grenzen,total,t:S[0].dauer,lauf:false,tempo:1,frisch:true,alt:-1,letzte:0};
+  const pl=document.getElementById("pl"), sp=document.getElementById("sp");
+  pl.onclick=()=>{ if(P.lauf){P.lauf=false}else{ if(P.frisch||P.t>=P.total)P.t=0; P.frisch=false; P.lauf=true; P.letzte=performance.now(); requestAnimationFrame(takt)} knopf(); zeichne() };
+  document.getElementById("neu").onclick=()=>{P.t=0;P.frisch=false;P.lauf=true;P.letzte=performance.now();requestAnimationFrame(takt);knopf()};
+  sp.oninput=()=>{P.t=+sp.value;P.frisch=false;zeichne()};
+  document.querySelectorAll("#chips [data-s]").forEach(c=>c.onclick=()=>{P.t=P.grenzen[+c.dataset.s];P.frisch=false;if(!P.lauf){P.lauf=true;P.letzte=performance.now();requestAnimationFrame(takt)}knopf();zeichne()});
+  document.querySelectorAll("#chips [data-tempo]").forEach(c=>c.onclick=()=>{P.tempo=+c.dataset.tempo;tempoKnopf()});
+  const anpassen=()=>{const d=window.devicePixelRatio||1,w=cv.clientWidth;if(!w)return;cv.width=Math.round(w*d);cv.height=Math.round(w*280/360*d);zeichne()};
+  if(window.ResizeObserver)new ResizeObserver(anpassen).observe(cv); else window.addEventListener("resize",anpassen);
+  anpassen(); tempoKnopf(); knopf();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(P&&P.cv===cv)zeichne()});
+}
+function knopf(){const pl=document.getElementById("pl");if(!pl||!P)return;pl.innerHTML=P.lauf?SYM.pause:SYM.play;pl.setAttribute("aria-label",P.lauf?"Pause":"Abspielen")}
+function tempoKnopf(){document.querySelectorAll("#chips [data-tempo]").forEach(c=>c.setAttribute("aria-pressed",+c.dataset.tempo===P.tempo))}
+function takt(jetzt){
+  if(!P||!P.lauf)return;
+  P.t+=Math.min(.1,(jetzt-P.letzte)/1000)*P.tempo; P.letzte=jetzt;
+  if(P.t>=P.total){P.t=P.total;P.lauf=false;knopf();
+    if(!gesehen.includes(P.l.nr)){gesehen.push(P.l.nr);schreib("qs-gesehen",gesehen);baueSeite()}}
+  zeichne(); if(P.lauf)requestAnimationFrame(takt);
+}
+function lage(){
+  let i=P.S.length-1; for(let k=0;k<P.S.length;k++){if(P.t<P.grenzen[k+1]){i=k;break}}
+  return{i,p:Math.min(1,Math.max(0,(P.t-P.grenzen[i])/P.S[i].dauer))};
+}
+function zeichne(){
+  if(!P||!P.cv.width)return;
+  const {i,p}=lage(), x=P.ctx, k=P.cv.width/360;
+  x.setTransform(k,0,0,k,0,0); x.clearRect(0,0,360,280);
+  ZEICHNER[P.l.zeichne](x,i,p,P.t,C[P.b.farbe]);
+  const sp=document.getElementById("sp"); if(sp&&document.activeElement!==sp)sp.value=P.t; else if(sp&&Math.abs(+sp.value-P.t)>.02)sp.value=P.t;
+  if(i!==P.alt){P.alt=i;
+    document.getElementById("sn").textContent=`Schritt ${i+1} / ${P.S.length}`;
+    document.getElementById("st").textContent=P.S[i].titel;
+    document.getElementById("sx").textContent=P.S[i].text;
+    document.querySelectorAll("#chips [data-s]").forEach(c=>c.setAttribute("aria-pressed",+c.dataset.s===i));}
+}
+
+/* ---------- Zeichen-Werkzeug (für alle Lektionen) ---------- */
+const weich=p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+const klemm=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const misch=(a,b,t)=>a+(b-a)*t;
+function pille(x,cx,cy,text,farbe,alpha=1){
+  if(alpha<=0)return; x.save(); x.globalAlpha=alpha;
+  x.font='700 11px "JetBrains Mono",monospace'; const w=x.measureText(text).width+16,h=20;
+  const l=klemm(cx-w/2,5,355-w);
+  x.beginPath(); x.roundRect(l,cy-h/2,w,h,10); x.fillStyle=C.bg; x.fill(); x.lineWidth=1.2; x.strokeStyle=farbe; x.stroke();
+  x.fillStyle=farbe; x.textAlign="center"; x.textBaseline="middle"; x.fillText(text,l+w/2,cy+.5); x.restore();
+}
+function kugel(x,cx,cy,r,farbe,alpha=1){
+  x.save(); x.globalAlpha=alpha; x.beginPath(); x.arc(cx,cy,r,0,6.2832); x.fillStyle=farbe; x.fill();
+  x.lineWidth=.8; x.strokeStyle=C.bg; x.stroke(); x.restore();
+}
+function pfeil(x,x1,y1,x2,y2,farbe,alpha=1){
+  if(alpha<=0)return; const w=Math.atan2(y2-y1,x2-x1);
+  x.save(); x.globalAlpha=alpha; x.strokeStyle=farbe; x.fillStyle=farbe; x.lineWidth=1.6; x.lineCap="round";
+  x.beginPath(); x.moveTo(x1,y1); x.lineTo(x2,y2); x.stroke();
+  x.beginPath(); x.moveTo(x2,y2); x.lineTo(x2-7*Math.cos(w-.45),y2-7*Math.sin(w-.45)); x.lineTo(x2-7*Math.cos(w+.45),y2-7*Math.sin(w+.45)); x.closePath(); x.fill(); x.restore();
+}
+function schrift(x,text,cx,cy,farbe,gr=11,alpha=1,fett=500){
+  if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.font=fett+" "+gr+'px "JetBrains Mono",monospace';
+  x.fillStyle=farbe; x.textAlign="center"; x.textBaseline="middle"; x.fillText(text,cx,cy); x.restore();
+}
+function block(x,l,o,w,h,farbe,alpha=1,r=4){
+  if(alpha<=0||w<=0)return; x.save(); x.globalAlpha=alpha; x.fillStyle=farbe; x.beginPath(); x.roundRect(l,o,w,h,Math.min(r,w/2)); x.fill(); x.restore();
+}
+function haufen(x,cx,cy,R,n,r,alpha=1){ if(alpha<=0)return; blume(n).forEach((q,i)=>kugel(x,cx+q[0]*R,cy+q[1]*R,r,(i*7)%5<2?C.rot:C.blau,alpha)) }
+function ring(x,cx,cy,r,farbe,alpha=1,dicke=2){
+  if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.strokeStyle=farbe; x.lineWidth=dicke; x.beginPath(); x.arc(cx,cy,r,0,6.2832); x.stroke(); x.restore();
+}
+function legende(x,a){
+  kugel(x,112,264,5,C.rot,a); kugel(x,196,264,5,C.blau,a);
+  x.save(); x.globalAlpha=a; x.font='500 11px "JetBrains Mono",monospace'; x.fillStyle=C.grau; x.textBaseline="middle"; x.fillText("Proton",122,264.5); x.fillText("Neutron",206,264.5); x.restore();
+}
+function blume(n){const a=[];for(let i=0;i<n;i++){const r=Math.sqrt((i+.5)/n),w=i*2.39996;a.push([r*Math.cos(w),r*Math.sin(w)])}return a}
+
+/* ---------- Zeichnung: Doppelspalt (Wellen-Bild) ---------- */
+function zufall(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+/* feste Trefferliste (immer gleich, damit Bild und Short übereinstimmen): Streifenabstand 30, passend zur Wellenlänge 6,5 im Bild */
+const TREFFER=(()=>{const z=zufall(8082026),a=[];while(a.length<1400){const y=43+z()*174,v=z(),I=Math.pow(Math.cos(Math.PI*(y-130)/30),2)*Math.exp(-Math.pow((y-130)/62,2));if(v<I)a.push([270+z()*76,y])}return a})();
+const zahl=n=>n.toLocaleString("de-DE");
+/* Trefferliste mit Messgerät an den Spalten: nur zwei Streifen */
+const TREFFER2=(()=>{const z=zufall(9092026),a=[];while(a.length<500){const y=(z()<.5?106:154)+(z()+z()+z()-1.5)*18;a.push([270+z()*76,y])}return a})();
+/* Welle für L10 und daraus gezogene Treffer */
+const psi=u=>Math.cos(Math.PI*u/30)*Math.exp(-u*u/11250);
+const PROBEN=(()=>{const z=zufall(10102026),a=[];while(a.length<400){const u=-140+z()*280;if(z()<psi(u)*psi(u))a.push(u)}return a})();
+
+/* ---------- Werkzeug für Wellen-Bilder ---------- */
+const DS={QX:34,QY:130,WX:141,SX:250,O:40,U:220,S1:118,S2:142,PL:266,PR:350};
+function dsAufbau(x,a0,a1,a2,name){const d=DS;
+  block(x,12,118,24,24,C.grau,a0,5); block(x,32,126,6,8,C.gold,a0,2);
+  x.save(); x.globalAlpha=a1; x.fillStyle=C.text; [[d.O,d.S1-4],[d.S1+4,d.S2-4],[d.S2+4,d.U]].forEach(([o,u])=>x.fillRect(d.WX-3,o,6,u-o)); x.restore();
+  block(x,d.SX-1.5,d.O,3,d.U-d.O,C.text,a2,1);
+  x.save(); x.globalAlpha=a2; x.fillStyle=C.bg; x.strokeStyle=C.linie; x.lineWidth=1; x.beginPath(); x.roundRect(d.PL,d.O,d.PR-d.PL,d.U-d.O,6); x.fill(); x.stroke(); x.restore();
+  pille(x,36,238,name,C.grau,a0); pille(x,d.WX,238,"DOPPELSPALT",C.grau,a1); pille(x,d.SX,238,"SCHIRM",C.grau,a2);
+  schrift(x,"von vorn",316,238,C.grau,10,a2);
+}
+function dsWellen(x,farbe,aVorn,t,aHinten){const d=DS,lam=6.5,v=(t*9)%lam;
+  x.save(); x.strokeStyle=farbe; x.lineWidth=1.6;
+  if(aVorn>0){x.save(); x.globalAlpha=aVorn; x.beginPath(); x.rect(d.QX+4,d.O,d.WX-7-d.QX,d.U-d.O); x.clip();
+    for(let r=v;r<125;r+=lam){x.beginPath();x.arc(d.QX,d.QY,r,-1.2,1.2);x.stroke()} x.restore();}
+  if(aHinten>0){x.save(); x.globalAlpha=aHinten; x.beginPath(); x.rect(d.WX+3,d.O,d.SX-d.WX-5,d.U-d.O); x.clip();
+    [d.S1,d.S2].forEach(sy=>{for(let r=v;r<160;r+=lam){x.beginPath();x.arc(d.WX+3,sy,r,-1.5708,1.5708);x.stroke()}}); x.restore();}
+  x.restore();
+}
+function dsStreifen(x,farbe,a){ if(a<=0)return; const d=DS; x.save(); x.fillStyle=farbe;
+  for(let y=42;y<218;y++){x.globalAlpha=a*Math.pow(Math.cos(Math.PI*(y-130)/30),2)*Math.exp(-Math.pow((y-130)/62,2)); x.fillRect(d.PL+3,y,d.PR-d.PL-6,1)}
+  x.restore();
+}
+function dsPunkte(x,liste,n,r,blitz){ if(n<=0)return; x.save(); x.fillStyle=C.gold;
+  for(let i=0;i<n;i++){x.beginPath();x.arc(liste[i][0],liste[i][1],r,0,6.2832);x.fill()} x.restore();
+  if(blitz>0){const q=liste[n-1]; ring(x,DS.SX,q[1],3+(1-blitz)*7,C.gold,blitz,1.5); ring(x,q[0],q[1],3+(1-blitz)*7,C.gold,blitz,1.5)}
+}
+function sinus(x,l,r,cy,amp,lam,phase,farbe,alpha=1,dicke=2){
+  if(alpha<=0||r<=l)return; x.save(); x.globalAlpha=alpha; x.strokeStyle=farbe; x.lineWidth=dicke; x.lineJoin="round"; x.lineCap="round"; x.beginPath();
+  for(let px=l;px<=r;px+=1.5){const py=cy-amp*Math.sin((px-phase)*6.2832/lam); px===l?x.moveTo(px,py):x.lineTo(px,py)}
+  x.stroke(); x.restore();
+}
+/* Kurve py=fn(px) von l bis r; mit basis wird die Fläche bis zur Grundlinie zart gefüllt */
+function kurve(x,fn,l,r,farbe,alpha=1,dicke=2,basis=null){
+  if(alpha<=0)return; x.save(); x.strokeStyle=farbe; x.fillStyle=farbe; x.lineWidth=dicke; x.lineJoin="round";
+  const weg=()=>{x.beginPath(); for(let px=l;px<=r;px+=1){px===l?x.moveTo(px,fn(px)):x.lineTo(px,fn(px))}};
+  if(basis!==null){weg(); x.lineTo(r,basis); x.lineTo(l,basis); x.closePath(); x.globalAlpha=alpha*.25; x.fill()}
+  weg(); x.globalAlpha=alpha; x.stroke(); x.restore();
+}
+function linie(x,x1,y1,x2,y2,farbe,alpha=1,dicke=1,strich=null){
+  if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.strokeStyle=farbe; x.lineWidth=dicke; if(strich)x.setLineDash(strich);
+  x.beginPath(); x.moveTo(x1,y1); x.lineTo(x2,y2); x.stroke(); x.restore();
+}
+const AUGEN=[[],[[0,0]],[[-1,-1],[1,1]],[[-1,-1],[0,0],[1,1]],[[-1,-1],[1,-1],[-1,1],[1,1]],[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],[[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[1,1]]];
+
+/* ---------- Werkzeug für Teilchen-Bilder (Bereich 1) ---------- */
+/* Photon als kleines Wellenpaket, Mitte bei cx/cy, Flugrichtung = winkel */
+function paket(x,cx,cy,winkel,lam,farbe,alpha=1,lang=40,amp=6){
+  if(alpha<=0)return; x.save(); x.translate(cx,cy); x.rotate(winkel); x.globalAlpha=alpha; x.strokeStyle=farbe; x.lineWidth=2; x.lineJoin="round"; x.lineCap="round"; x.beginPath();
+  for(let u=-lang/2;u<=lang/2;u+=1){const v=amp*Math.exp(-Math.pow(u/(lang/3.2),2))*Math.sin(u*6.2832/lam); u===-lang/2?x.moveTo(u,v):x.lineTo(u,v)}
+  x.stroke(); x.restore();
+}
+const KOERNER=(()=>{const z=zufall(1012026),a=[];while(a.length<60){const u=z()*2-1,v=z()*2-1;if(u*u+v*v<.85)a.push([u,v])}return a})();
+/* Strahlungskurve: Planck und die alte Theorie (Rayleigh-Jeans), beide auf denselben Höchstwert bezogen */
+/* waagrecht die Frequenz: links Infrarot, rechts UV. Bei kleiner Frequenz stimmen beide überein. */
+const plk=u=>u<1e-6?0:u*u*u/(Math.exp(u)-1), PL_MAX=plk(2.8214), rjeans=u=>u*u, plL=px=>(px-50)/28;
+const GLUT=["#D8432B","#F08A24","#FFE9B0"];
+
+/* ---------- Werkzeug für Atom-Bilder (Bereich 3) ---------- */
+/* Punktwolke: Winkel nach fn verteilt, Abstand vom Kern im Mittel 1 */
+const wolke=(saat,n,fn,k=3)=>{const z=zufall(saat),a=[];while(a.length<n){const th=z()*6.2832;if(z()<fn(th)){let u=1;for(let i=0;i<k;i++)u*=z();const r=-Math.log(u+1e-12)/k;a.push([r*Math.cos(th),r*Math.sin(th),r])}}return a};
+/* p und d im Bild etwas schärfer als in Wirklichkeit, damit die Form klar zu sehen ist */
+const WOLKE_S=wolke(13012026,350,()=>1), WOLKE_P=wolke(13022026,300,th=>Math.pow(Math.cos(th),4),6), WOLKE_D=wolke(13032026,320,th=>Math.pow(Math.sin(2*th),4),6);
+const S90=[...WOLKE_S].map(q=>q[2]).sort((a,b)=>a-b)[315];
+function punkte(x,liste,cx,cy,mass,farbe,alpha=1,n=liste.length,r=1.3){ if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.fillStyle=farbe;
+  for(let i=0;i<n;i++){x.beginPath();x.arc(cx+liste[i][0]*mass,cy+liste[i][1]*mass,r,0,6.2832);x.fill()} x.restore(); }
+function kreis(x,cx,cy,r,farbe,alpha=1,dicke=1.2,strich=null){ if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.strokeStyle=farbe; x.lineWidth=dicke; if(strich)x.setLineDash(strich); x.beginPath(); x.arc(cx,cy,r,0,6.2832); x.stroke(); x.restore(); }
+function rahmen(x,l,o,w,h,farbe,alpha=1,fuell=null,r=6){ if(alpha<=0)return; x.save(); x.globalAlpha=alpha; x.beginPath(); x.roundRect(l,o,w,h,r); if(fuell){x.fillStyle=fuell;x.fill()} x.strokeStyle=farbe; x.lineWidth=1.4; x.stroke(); x.restore(); }
+const LINIEN={rot:"#E8402A",tuerkis:"#2FC6C0",violett:"#6A5BEA",tief:"#8A46E0",gelb:"#F5C400"};
+const ELEMENTE=[["H","Wasserstoff"],["He","Helium"],["Li","Lithium"],["Be","Beryllium"],["B","Bor"],["C","Kohlenstoff"],["N","Stickstoff"],["O","Sauerstoff"],["F","Fluor"],["Ne","Neon"],["Na","Natrium"],["Mg","Magnesium"],["Al","Aluminium"],["Si","Silizium"],["P","Phosphor"],["S","Schwefel"],["Cl","Chlor"],["Ar","Argon"]];
+/* Atom mit Schalen: n Elektronen, verteilt 2, 8, 8 */
+function schalenAtom(x,cx,cy,n,mass,alpha=1,aussenFarbe=null){
+  const voll=[2,8,8], je=[Math.min(n,2),Math.min(Math.max(n-2,0),8),Math.min(Math.max(n-10,0),8)]; let aussen=0; je.forEach((v,i)=>{if(v>0)aussen=i});
+  je.forEach((v,i)=>{ if(v===0&&i>0)return; const r=(14+i*14)*mass; kreis(x,cx,cy,r,C.grau,alpha*.8,1.1);
+    for(let k=0;k<v;k++){const w=-1.5708+k*6.2832/voll[i]; kugel(x,cx+r*Math.cos(w),cy+r*Math.sin(w),3.6,i===aussen&&aussenFarbe?aussenFarbe:C.gold,alpha)}});
+  kugel(x,cx,cy,5,C.rot,alpha);
+}
+
+const ZEICHNER={
+ quant(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*3), b=klemm(p*3-.8), f=.5-.5*Math.cos(t*1.2), bx=misch(44,140,f), k=Math.floor(t*1.3)%4;
+    x.save(); x.fillStyle=C.flaeche2; x.strokeStyle=C.grau; x.lineWidth=1.4;
+    x.globalAlpha=a; x.beginPath(); x.moveTo(30,200); x.lineTo(150,200); x.lineTo(150,112); x.closePath(); x.fill(); x.stroke();
+    x.globalAlpha=b; x.beginPath(); x.moveTo(200,200); for(let i=0;i<4;i++){x.lineTo(200+i*30,178-i*22); x.lineTo(230+i*30,178-i*22)} x.lineTo(320,200); x.closePath(); x.fill(); x.stroke(); x.restore();
+    kugel(x,bx,200-(bx-30)*.733-8,6,akz,a); kugel(x,215+k*30,178-k*22-7,6,akz,b);
+    pille(x,90,62,"RAMPE: jede Höhe",C.text,a); pille(x,262,62,"TREPPE: nur Stufen",C.text,b);
+    pille(x,180,242,"die Quantenwelt ist eine Treppe",akz,klemm(p*3-1.8));
+  }else if(s===1){const b=klemm(p*3-1.3);
+    pille(x,180,54,"1 Cent: die kleinste Portion",C.text,klemm(p*3));
+    for(let i=0;i<5;i++){const a=klemm(p*6-i*.5); x.save(); x.globalAlpha=a; x.fillStyle=akz; x.beginPath(); x.arc(80+i*50,106,17,0,6.2832); x.fill(); x.restore(); schrift(x,"1",80+i*50,107,C.bg,15,a,700)}
+    x.save(); x.globalAlpha=b*.6; x.fillStyle=akz; x.beginPath(); x.arc(180,178,17,1.5708,4.7124); x.closePath(); x.fill(); x.restore();
+    linie(x,158,158,202,198,C.rot,b,2.5); linie(x,202,158,158,198,C.rot,b,2.5);
+    pille(x,180,230,"einen halben Cent gibt es nicht",C.rot,b);
+  }else if(s===2){const a=klemm(p*3), b=klemm(p*3-1);
+    schrift(x,"so sieht Licht aus: gleichmäßig",185,52,C.grau,11,a); block(x,12,70,24,24,C.grau,a,5); block(x,38,75,292,14,akz,a*.7,4);
+    schrift(x,"so ist es: einzelne Portionen",185,140,C.grau,11,b); block(x,12,158,24,24,C.grau,b,5);
+    for(let i=0;i<13;i++){const px=42+((i*22+t*40)%286); kugel(x,px,170,4,akz,b)}
+    pille(x,180,226,"PHOTON = kleinste Portion Licht",akz,klemm(p*3-1.8));
+  }else{const a=klemm(p*3), b=klemm(p*3-1.2);
+    schrift(x,"3.000.000.000.000.000.000",180,44,akz,15,a,700); pille(x,180,74,"Photonen pro Sekunde bei 1 Watt Licht",C.text,a);
+    kurve(x,px=>210-46*Math.exp(-Math.pow((px-105)/42,2)),40,170,akz,b,2,210);
+    linie(x,150,188,221,178,C.grau,b,1,[2,4]); KOERNER.forEach(q=>kugel(x,255+q[0]*30,170+q[1]*30,2.2,akz,b));
+    ring(x,255,170,34,C.text,b,2); linie(x,279,194,297,212,C.text,b,3.5);
+    pille(x,180,250,"wie Sand: von weitem glatt, von nahem Körner",akz,klemm(p*3-2));
+  }
+ },
+ planck(x,s,p,t,akz){
+  const Y=v=>210-150*v/(2.2*PL_MAX), mess=px=>Y(plk(plL(px)));
+  const achsen=a=>{block(x,151,50,73,160,C.gold,a*.1,0); linie(x,50,210,334,210,C.grau,a,1.2); linie(x,50,210,50,44,C.grau,a,1.2);
+    schrift(x,"Infrarot",100,224,C.grau,10,a); schrift(x,"sichtbar",187,224,C.grau,10,a); schrift(x,"UV",278,224,C.grau,10,a); schrift(x,"Helligkeit",86,38,C.grau,10,a)};
+  if(s===0){const namen=["rot","orange","weißgelb"], grad=["800 °C","1.100 °C","1.500 °C"];
+    for(let i=0;i<3;i++){const a=klemm(p*4-i*.8), cx=75+i*105;
+      x.save(); x.globalAlpha=a; x.shadowColor=GLUT[i]; x.shadowBlur=14+6*Math.sin(t*3+i); x.fillStyle=GLUT[i]; x.strokeStyle=C.linie; x.lineWidth=1; x.beginPath(); x.roundRect(cx-22,86,44,84,8); x.fill(); x.restore();
+      x.save(); x.globalAlpha=a; x.strokeStyle=C.grau; x.lineWidth=1; x.beginPath(); x.roundRect(cx-22,86,44,84,8); x.stroke(); x.restore();
+      schrift(x,namen[i],cx,66,C.grau,11,a); pille(x,cx,196,grad[i],C.text,a)}
+    pille(x,180,244,"je heißer, desto heller und weißer",akz,klemm(p*4-2.6));
+  }else if(s===1){const a=klemm(p*4), bis=50+280*klemm((p-.15)/.6);
+    achsen(a); if(bis>51)kurve(x,mess,50,bis,C.text,1,2.4);
+    pille(x,200,104,"gemessene Kurve",C.text,klemm(p*4-3));
+  }else if(s===2){const a=klemm(p*3), g=klemm((p-.2)/.5);
+    achsen(1); kurve(x,mess,50,330,C.text,1,2.4);
+    x.save(); x.beginPath(); x.rect(50,46,282,164); x.clip(); x.setLineDash([5,4]);
+    if(g>0)kurve(x,px=>Y(rjeans(plL(px))),50,misch(51,112,g),C.rot,a,2.2); x.restore();
+    pfeil(x,132,58,106,58,C.rot,klemm(p*3-1.4));
+    pille(x,232,58,"alte Theorie: immer mehr",C.rot,klemm(p*3-1.4)); pille(x,222,150,"Messung",C.text,a);
+  }else if(s===3){const b=klemm(p*3-1.2);
+    pille(x,180,22,"1900 · Max Planck",akz,klemm(p*3)); schrift(x,"E = h · f",180,68,akz,28,klemm(p*3-.4),700);
+    schrift(x,"Energie einer Portion = Plancks Konstante mal Frequenz",180,100,C.grau,9.5,klemm(p*3-.8));
+    linie(x,60,200,300,200,C.grau,b,1.2);
+    block(x,96,200-24,36,24,C.rot,b,3); block(x,228,200-66,36,66,C.blau,klemm(p*3-1.6),3);
+    pille(x,114,222,"rotes Licht",C.rot,b); pille(x,246,222,"blaues Licht",C.blau,klemm(p*3-1.6));
+    schrift(x,"kleine Portion",114,246,C.grau,10,b); schrift(x,"große Portion",246,246,C.grau,10,klemm(p*3-1.6));
+  }else{const a=klemm(p*3), g=klemm((p-.15)/.5);
+    achsen(1); kurve(x,mess,50,330,C.text,1,2.4);
+    if(g>0)kurve(x,mess,50,50+280*g,akz,.55,7);
+    pille(x,232,70,"mit Portionen: Rechnung = Messung",akz,klemm(p*3-1.6));
+    pille(x,232,100,"Geburt der Quantenphysik",C.text,klemm(p*3-2.1));
+  }
+ },
+ fotoeffekt(x,s,p,t,akz){
+  const el=C.gruen;
+  const platte=(l,r,a=1)=>{block(x,l,176,r-l,44,C.grau,a,6); schrift(x,"METALL",(l+r)/2,208,C.bg,10,a,700)};
+  const elektronen=(l,r,n,a=1,zit=0)=>{for(let i=0;i<n;i++)kugel(x,l+16+i*(r-l-32)/(n-1)+Math.sin(t*14+i*2)*zit,187,4.5,el,a)};
+  const licht=(xs,farbe,lam,a)=>xs.forEach((x0,i)=>{const f=(t*.55+i*.37)%1; paket(x,x0+f*55,36+f*130,1.17,lam,farbe,a*klemm(f*6)*klemm((1-f)*8),34,6)});
+  const raus=(xs,a)=>xs.forEach((x0,i)=>{const f=(t*.45+i*.41)%1; kugel(x,x0+f*46,178-f*112,4.5,el,a*klemm((1-f)*4))});
+  if(s===0){const a=klemm(p*3);
+    platte(40,320,a); elektronen(40,320,9,a); licht([50,110,170,230],akz,7,klemm(p*3-.5)); raus([120,190,260],klemm(p*3-1.5));
+    pille(x,62,18,"LICHT",akz,klemm(p*3-.5)); pille(x,296,40,"ELEKTRONEN",el,klemm(p*3-1.5));
+  }else if(s===1){
+    platte(40,320); elektronen(40,320,9,1,.8); licht([28,62,96,130,164,198,232,264],C.rot,10,1);
+    pille(x,180,16,"rotes Licht, sehr hell",C.rot,klemm(p*4)); pille(x,180,250,"kein einziges Elektron kommt heraus",C.grau,klemm(p*3-1.2));
+  }else if(s===2){
+    platte(40,320); elektronen(40,320,9); licht([90,205],C.blau,5,1); raus([150,265],klemm(p*4-.6));
+    pille(x,180,16,"blaues Licht, ganz schwach",C.blau,klemm(p*4)); pille(x,180,250,"Elektronen kommen sofort",el,klemm(p*3-1.2));
+  }else if(s===3){const a=klemm(p*3-.5), b=klemm(p*3-1.2), c=klemm(p*3-1.9), g=weich(klemm((p-.2)/.4));
+    pille(x,180,22,"1905 · Albert Einstein",akz,klemm(p*3));
+    linie(x,40,196,320,196,C.grau,a,1.2);
+    block(x,62,196-36*g,40,36*g,C.rot,a,3); block(x,258,196-104*g,40,104*g,C.blau,a,3);
+    linie(x,40,136,320,136,C.text,b,1.4,[5,4]); schrift(x,"nötig zum Herauslösen",180,124,C.text,10,b);
+    paket(x,82,196-36*g-16,0,10,C.rot,a,30,5); paket(x,278,196-104*g-16,0,5,C.blau,a,30,5);
+    pille(x,82,216,"rotes Photon",C.rot,a); pille(x,278,216,"blaues Photon",C.blau,a);
+    pille(x,82,244,"zu wenig",C.grau,c); pille(x,278,244,"reicht",el,c);
+  }else{const a=klemm(p*3), b=klemm(p*3-1);
+    platte(30,165,a); platte(195,330,a); elektronen(30,165,4,a); elektronen(195,330,4,a);
+    licht([42],C.blau,5,a); licht([198,222,246,270],C.blau,5,a);
+    raus([100],b); raus([232,256,280,304],b);
+    pille(x,97,16,"wenig Licht",C.blau,a); pille(x,262,16,"viel Licht",C.blau,a);
+    pille(x,97,250,"wenige Elektronen",el,b); pille(x,262,250,"viele, gleich schnell",el,b);
+  }
+ },
+ photon(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*3);
+    linie(x,24,110,336,110,C.linie,a,1,[2,5]); paket(x,36+((t*75)%290),110,0,9,akz,a,54,13);
+    pille(x,180,48,"PHOTON",akz,a); pille(x,180,176,"immer 300.000 km pro Sekunde",C.text,klemm(p*3-.8)); pille(x,180,206,"keine Masse",C.grau,klemm(p*3-1.5));
+  }else if(s===1){const a=klemm(p*3), b=klemm(p*3-.9);
+    sinus(x,40,320,84,14,46,t*24,C.rot,a,2.4); sinus(x,40,320,170,14,29.5,t*24,C.blau,b,2.4);
+    pille(x,180,48,"rot: 430 Billionen Schwingungen je Sekunde",C.rot,a); pille(x,180,206,"blau: 670 Billionen Schwingungen je Sekunde",C.blau,b);
+    pille(x,180,248,"Frequenz bestimmt die Farbe",C.text,klemm(p*3-1.8));
+  }else if(s===2){
+    schrift(x,"E = h · f",180,46,akz,28,klemm(p*3),700);
+    [["rot",1.8,C.rot],["grün",2.3,C.gruen],["blau",2.8,C.blau]].forEach(([n,e,f],i)=>{const a=klemm(p*4-.8-i*.6), w=e*58*weich(a), y=92+i*36;
+      schrift(x,n,70,y+10,f,11,a,700); block(x,104,y,w,20,f,a,4); schrift(x,String(e).replace(".",",")+" eV",104+e*58+30,y+10,C.text,11,klemm(a*2-1))});
+    pille(x,180,222,"höhere Frequenz = mehr Energie",C.text,klemm(p*4-2.8));
+    schrift(x,"eV = Elektronenvolt, eine winzige Energie-Einheit",180,250,C.grau,9.5,klemm(p*4-3.2));
+  }else{const a=klemm(p*3), b=klemm(p*3-1), teile=[["Radio",C.grau],["Infrarot",C.rot],["Licht",C.gold],["UV",C.violett],["Röntgen",C.blau]];
+    pille(x,180,26,"alles Photonen, nur verschiedene Frequenz",akz,a);
+    teile.forEach(([n,f],i)=>{const ai=klemm(p*5-i*.5); block(x,30+i*60,70,58,30,f,ai*.28,4); schrift(x,n,59+i*60,85.500,C.text,10,ai,700)});
+    let ph=t*3; kurve(x,px=>{ph+=6.2832/(44*Math.exp(-(px-30)/300*2.1));return 140-12*Math.sin(ph)},30,330,C.text,a,1.8);
+    pfeil(x,60,190,300,190,C.grau,b); schrift(x,"Energie je Photon steigt",180,178,C.grau,10,b);
+    pille(x,180,236,"ab UV: Photonen können Zellen schädigen",C.rot,klemm(p*3-1.8));
+  }
+ },
+ compton(x,s,p,t,akz){
+  const EX=180,EY=140, rf=C.violett, el=C.gruen, we=.6, wp=-.8;
+  if(s===0){const a=klemm(p*3);
+    linie(x,20,EY,EX-10,EY,C.linie,a,1,[2,5]); paket(x,misch(34,146,weich(p)),EY,0,6,rf,a,40,8); kugel(x,EX,EY,7,el,a);
+    pille(x,180,22,"1923 · Arthur Compton",akz,a); pille(x,84,104,"RÖNTGEN-PHOTON",rf,klemm(p*3-.6)); pille(x,224,176,"ELEKTRON, ruht",el,klemm(p*3-1.2));
+  }else if(s===1){const u=weich(klemm(p*1.3)), ex=EX+u*72*Math.cos(we), ey=EY+u*72*Math.sin(we), fx=EX+u*96*Math.cos(wp), fy=EY+u*96*Math.sin(wp);
+    linie(x,20,EY,EX-10,EY,C.linie,1,1,[2,5]); ring(x,EX,EY,8+u*22,akz,1-u,2);
+    linie(x,EX,EY,ex,ey,el,.4,1.2,[2,4]); linie(x,EX,EY,fx,fy,rf,.4,1.2,[2,4]);
+    kugel(x,ex,ey,7,el); paket(x,fx,fy,wp,10,rf,1,40,8);
+    pille(x,180,22,"Stoß wie beim Billard",C.text,klemm(p*4));
+    pille(x,286,100,"Photon: abgelenkt",rf,klemm(u*3-2)); pille(x,258,218,"Elektron: fliegt weg",el,klemm(u*3-2));
+  }else if(s===2){const a=klemm(p*3), b=klemm(p*3-.9), c=klemm(p*3-1.6), ex=EX+72*Math.cos(we), ey=EY+72*Math.sin(we), fx=EX+96*Math.cos(wp), fy=EY+96*Math.sin(wp);
+    linie(x,20,EY,EX,EY,C.linie,1,1,[2,5]); linie(x,EX,EY,ex,ey,el,.4,1.2,[2,4]); linie(x,EX,EY,fx,fy,rf,.4,1.2,[2,4]);
+    paket(x,84,EY,0,6,rf,a,40,8); pille(x,84,170,"vorher: kurze Welle",rf,a);
+    paket(x,fx,fy,wp,10,rf,b,40,8); pille(x,252,38,"nachher: längere Welle",rf,b);
+    kugel(x,ex,ey,7,el); pfeil(x,ex+9*Math.cos(we),ey+9*Math.sin(we),ex+30*Math.cos(we),ey+30*Math.sin(we),el,c);
+    pille(x,180,250,"längere Welle = weniger Energie",akz,klemm(p*3-2));
+  }else{const a=klemm(p*3), b=klemm(p*3-1), sch=24*p;
+    pille(x,180,22,"Photonen haben Schwung (Impuls)",akz,a);
+    [78,108,138,168].forEach((y,i)=>{const f=(t*.5+i*.27)%1; paket(x,misch(34,178+sch,f),y,0,8,C.gold,a*klemm(f*6)*klemm((1-f)*8),34,6)});
+    block(x,198+sch,62,7,122,C.text,a,2); linie(x,201.5+sch,184,201.5+sch,200,C.grau,a,1.2); block(x,193+sch,200,17,10,C.grau,a,3);
+    pfeil(x,216+sch,123,262+sch,123,akz,b); pille(x,290,150,"LICHTDRUCK",akz,b);
+    pille(x,150,232,"SONNENSEGEL",C.grau,a); pille(x,180,258,"Licht kann Dinge anschieben",C.text,klemm(p*3-1.8));
+  }
+ },
+ bohr(x,s,p,t,akz){
+  const MX=180,MY=138,RB=[14,48,94], kern=()=>kugel(x,MX,MY,5,C.rot);
+  if(s===0){const sp=u=>{const r=misch(92,7,Math.pow(u,1.4)), w=u*u*24; return[MX+r*Math.cos(w),MY+r*Math.sin(w)]};
+    x.save(); x.strokeStyle=C.gold; x.globalAlpha=.45; x.lineWidth=1.4; x.beginPath(); for(let u=0;u<=p;u+=.003){const q=sp(u); u===0?x.moveTo(q[0],q[1]):x.lineTo(q[0],q[1])} x.stroke(); x.restore();
+    kern(); const e=sp(p); kugel(x,e[0],e[1],5,C.gold);
+    pille(x,180,18,"kreisende Ladung strahlt Energie ab",C.text,klemm(p*4)); pille(x,180,262,"müsste in den Kern stürzen",C.rot,klemm(p*3-1.6));
+  }else if(s===1){
+    RB.forEach((r,i)=>{const a=klemm(p*4-i*.8); kreis(x,MX,MY,r,akz,a,1.6); schrift(x,"Bahn "+(i+1),MX+r*.707+(i===0?15:22),MY-r*.707-(i===0?9:5),akz,10,a,700)});
+    kern(); kugel(x,MX+14*Math.cos(t*2.4),MY+14*Math.sin(t*2.4),4.5,C.gold);
+    pille(x,180,18,"1913 · Niels Bohr",akz,klemm(p*4)); pille(x,180,262,"nur diese Bahnen sind erlaubt",C.text,klemm(p*4-2.6));
+  }else if(s===2){const a=klemm(p*3-.6);
+    RB.forEach(r=>kreis(x,MX,MY,r,akz,1,1.6)); kern(); kugel(x,MX+14*Math.cos(t*2.4),MY+14*Math.sin(t*2.4),4.5,C.gold);
+    pfeil(x,MX-22,MY,MX-88,MY,C.gold,a); schrift(x,"Energie",MX-70,MY+13,C.gold,10,a,700);
+    pille(x,180,18,"innen: kleinste Energie",C.text,klemm(p*3)); pille(x,180,262,"außen: mehr Energie",C.gold,klemm(p*3-1.2));
+  }else if(s===3){const w=-.6, j=weich(klemm((p-.25)/.15)), r=misch(94,48,j), f=klemm((p-.4)/.45);
+    RB.forEach(rr=>kreis(x,MX,MY,rr,akz,1,1.6)); kern();
+    linie(x,MX+48*Math.cos(w),MY+48*Math.sin(w),MX+94*Math.cos(w),MY+94*Math.sin(w),C.gold,.5,1.2,[2,3]);
+    kugel(x,MX+r*Math.cos(w),MY+r*Math.sin(w),5,C.gold);
+    if(j>=1)paket(x,MX+(70+f*100)*Math.cos(w+.5),MY+(70+f*100)*Math.sin(w+.5),w+.5,9,LINIEN.rot,klemm(f*8)*klemm((1-f)*5),38,7);
+    pille(x,180,18,"Sprung von Bahn 3 auf Bahn 2",C.text,klemm(p*4)); pille(x,180,262,"frei wird ein rotes Photon",LINIEN.rot,klemm((p-.45)*5));
+  }else{const a=klemm(p*2.5);
+    RB.forEach(r=>kreis(x,MX,MY,r,akz,1-.7*a,1.6,[4,4])); punkte(x,WOLKE_S,MX,MY,26,C.gold,a*.8); kern();
+    pille(x,180,18,"stimmt: feste Energiestufen",akz,klemm(p*3)); pille(x,180,262,"stimmt nicht: Kreisbahnen",C.rot,klemm(p*3-1.2));
+  }
+ },
+ stufen(x,s,p,t,akz){
+  const LV=[220,140,104,84,72], L=44, R=170;
+  const leiter=(a,auf=5)=>{pfeil(x,24,226,24,62,C.grau,a); schrift(x,"Energie",38,48,C.grau,10,a);
+    LV.forEach((y,i)=>{const ai=a*klemm(auf-i); linie(x,L,y,R,y,akz,ai,i===0?2.6:2); if(i<4)schrift(x,"Stufe "+(i+1),198,y,C.grau,10,ai)});
+    linie(x,L,58,R,58,C.grau,a*klemm(auf-4)*.7,1,[3,4])};
+  if(s===0){leiter(1,p*7); kugel(x,107,220,5,C.gold,klemm(p*7-5));
+    pille(x,180,22,"Energiestufen im Wasserstoff-Atom",akz,klemm(p*4)); pille(x,276,150,"oben enger",C.text,klemm(p*7-5)); pille(x,180,258,"Stufe 1 = Grundzustand",C.gold,klemm(p*7-5.5));
+  }else if(s===1){const f=klemm(p/.4), j=weich(klemm((p-.4)/.2));
+    leiter(1); paket(x,misch(262,118,f),misch(246,222,f),3.3,5,C.violett,klemm(f*6)*(f<1?1:0),36,7);
+    linie(x,107,220,107,104,C.gold,j*.5,1.2,[2,3]); kugel(x,107,misch(220,104,j),5,C.gold);
+    pille(x,180,22,"Energie aufnehmen: Sprung nach oben",C.text,klemm(p*4)); pille(x,290,130,"angeregt",C.gold,klemm((p-.6)*5));
+    pille(x,290,222,"Photon",C.violett,klemm(p*5)*(f<1?1:0));
+  }else if(s===2){const f=[["rot",LINIEN.rot,104,66,"rot · 656 nm",11],["tuerkis",LINIEN.tuerkis,84,102,"türkis · 486 nm",8],["violett",LINIEN.violett,72,138,"violett · 434 nm",6.5]];
+    leiter(1);
+    f.forEach(([n,farbe,vonY,px,text,lam],i)=>{const u=klemm(p*3.4-i), d=weich(klemm(u*2));
+      pfeil(x,px,vonY,px,misch(vonY,137,d),farbe,klemm(u*6)); kugel(x,px,misch(vonY,140,d)-(d<1?0:0),4.5,C.gold,klemm(u*6)*(d<1?1:.0));
+      paket(x,246,96+i*42,0,lam,farbe,klemm(u*2-1),30,7); pille(x,302,116+i*42,text,farbe,klemm(u*2-1))});
+    kugel(x,107,140,5,C.gold,klemm(p*3.4-2.5));
+    pille(x,180,22,"zurückfallen: ein Photon wird frei",C.text,klemm(p*4));
+  }else if(s===3){const band=(y,a)=>{x.save();x.globalAlpha=a;x.fillStyle="#07090E";x.strokeStyle=C.grau;x.lineWidth=1;x.beginPath();x.roundRect(40,y,280,34,4);x.fill();x.stroke();x.restore()};
+    const strich=(nm,y,farbe,a,w=2.4)=>{const px=40+(nm-400)/300*280; x.save();x.globalAlpha=a;x.fillStyle=farbe;x.shadowColor=farbe;x.shadowBlur=5;x.fillRect(px-w/2,y+2,w,30);x.restore()};
+    const a=klemm(p*4), b=klemm(p*4-1.8);
+    pille(x,96,46,"WASSERSTOFF",akz,a); band(64,a);
+    [[656,LINIEN.rot],[486,LINIEN.tuerkis],[434,LINIEN.violett],[410,LINIEN.tief]].forEach(([nm,f],i)=>strich(nm,64,f,klemm(p*5-.6-i*.4)));
+    pille(x,82,130,"NATRIUM",akz,b); band(148,b); strich(588,148,LINIEN.gelb,klemm(p*4-2.2),2); strich(591,148,LINIEN.gelb,klemm(p*4-2.2),2);
+    schrift(x,"violett",62,196,C.grau,10,b); schrift(x,"rot",306,196,C.grau,10,b);
+    pille(x,180,226,"jedes Element hat eigene Linien",C.text,klemm(p*4-2.8)); pille(x,180,254,"wie ein Fingerabdruck",C.gold,klemm(p*4-3.2));
+  }else{const a=klemm(p*3), b=klemm(p*3-.8), c=klemm(p*3-1.5);
+    x.save(); x.globalAlpha=a; x.shadowColor="#F5C442"; x.shadowBlur=22+5*Math.sin(t*2); x.fillStyle="#F5C442"; x.beginPath(); x.arc(62,124,26,0,6.2832); x.fill(); x.restore();
+    pfeil(x,96,124,124,124,C.grau,b);
+    x.save(); x.globalAlpha=b; const g=x.createLinearGradient(134,0,330,0); ["#7A3FE0","#3B5BE6","#2FC6C0","#3CC04A","#F5D400","#F08A24","#E8402A"].forEach((f,i)=>g.addColorStop(i/6,f));
+    x.fillStyle=g; x.beginPath(); x.roundRect(134,104,196,40,4); x.fill(); x.restore();
+    [146,168,193,241,257,301].forEach((px,i)=>block(x,px,104,i===3?3:2,40,"#07090E",c,0));
+    pille(x,180,24,"Sternenlicht in Farben zerlegt",C.text,a); pille(x,232,170,"dunkle Linien: Stoffe im Stern",akz,c);
+    pille(x,62,170,"STERN",C.gold,a);
+    pille(x,180,246,"Helium: 1868 auf der Sonne entdeckt",C.gold,klemm(p*3-2));
+  }
+ },
+ orbital(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*3), b=klemm(p*3-1);
+    kreis(x,100,130,48,C.grau,a,1.4); kugel(x,100,130,5,C.rot,a); kugel(x,100+48*Math.cos(t*2),130+48*Math.sin(t*2),4.5,C.gold,a);
+    linie(x,56,86,144,174,C.rot,klemm(p*3-.7),2.5); linie(x,144,86,56,174,C.rot,klemm(p*3-.7),2.5);
+    punkte(x,WOLKE_S,260,130,20,C.gold,b*.9); kugel(x,260,130,5,C.rot,b);
+    pille(x,100,40,"Bahn: so nicht",C.rot,a); pille(x,260,40,"Wolke: so eher",akz,b);
+    pille(x,180,244,"ein Elektron hat keinen festen Weg",C.text,klemm(p*3-1.8));
+  }else if(s===1){const n=Math.round(350*Math.pow(klemm(p/.75),1.5));
+    punkte(x,WOLKE_S,180,134,26,C.gold,.9,n,1.5); kugel(x,180,134,5,C.rot);
+    kreis(x,180,134,S90*26,akz,klemm(p*4-3),1.6,[5,4]);
+    pille(x,180,22,"jeder Punkt: eine Messung",C.text,klemm(p*4)); pille(x,180,258,"ORBITAL: hier ist es zu 90 %",akz,klemm(p*4-3));
+  }else if(s===2){
+    [[70,WOLKE_S,"s: Kugel"],[180,WOLKE_P,"p: Hantel"],[290,WOLKE_D,"d: Kleeblatt"]].forEach(([cx,w,n],i)=>{const a=klemm(p*4-i);
+      punkte(x,w,cx,124,i===0?13:15,C.gold,a*.9,i===0?260:w.length); kugel(x,cx,124,4,C.rot,a); pille(x,cx,202,n,akz,a)});
+    pille(x,180,24,"Orbitale haben verschiedene Formen",C.text,klemm(p*4));
+    schrift(x,"im Bild flach, in Wirklichkeit räumlich",180,244,C.grau,10,klemm(p*4-3));
+  }else{const a=klemm(p*3), b=klemm(p*3-1), schw=Math.cos(t*3);
+    const ringwelle=(cx,n,runden,farbe,alpha)=>{x.save();x.globalAlpha=alpha;x.strokeStyle=farbe;x.lineWidth=2;x.lineJoin="round";x.beginPath();
+      for(let w=0;w<=6.2832*runden+.01;w+=.03){const r=44+9*schw*Math.sin(n*w), qx=cx+r*Math.cos(w), qy=128+r*Math.sin(w); w===0?x.moveTo(qx,qy):x.lineTo(qx,qy)} x.stroke(); x.restore()};
+    kreis(x,100,128,44,C.linie,a,1,[2,4]); ringwelle(100,4,1,akz,a); kugel(x,100,128,5,C.rot,a);
+    kreis(x,260,128,44,C.linie,b,1,[2,4]); ringwelle(260,4.5,2,C.rot,b*.8); kugel(x,260,128,5,C.rot,b);
+    pille(x,180,24,"die Welle muss um den Kern passen",C.text,a);
+    pille(x,100,204,"passt: erlaubt",akz,a); pille(x,260,204,"passt nicht: verboten",C.rot,b);
+    pille(x,180,250,"darum gibt es nur bestimmte Energien",C.gold,klemm(p*3-1.8));
+  }
+ },
+ spin(x,s,p,t,akz){
+  const spinpfeil=(cx,cy,auf,a,h=14)=>auf?pfeil(x,cx,cy+h,cx,cy-h,C.gold,a):pfeil(x,cx,cy-h,cx,cy+h,C.blau,a);
+  if(s===0){const a=klemm(p*3), b=klemm(p*3-.8);
+    kugel(x,120,120,9,C.grau,a); spinpfeil(120,120,true,a,26); kugel(x,240,120,9,C.grau,b); spinpfeil(240,120,false,b,26);
+    pille(x,120,176,"Spin auf",C.gold,a); pille(x,240,176,"Spin ab",C.blau,b);
+    pille(x,180,28,"wie eine winzige Magnetnadel",C.text,a); pille(x,180,236,"nur zwei Ergebnisse möglich",akz,klemm(p*3-1.6));
+  }else if(s===1){const a=klemm(p*4);
+    block(x,12,118,24,24,C.grau,a,5); schrift(x,"Silber-Atome",70,104,C.grau,10,a);
+    block(x,120,56,84,40,C.rot,a,6); schrift(x,"N",162,76,C.bg,14,a,700); block(x,120,164,84,40,C.blau,a,6); schrift(x,"S",162,184,C.bg,14,a,700);
+    block(x,300,56,4,148,C.text,a,1);
+    for(let k=0;k<6;k++){const f=(t*.35+k/6)%1, auf=k%2===0, bx=misch(40,298,f), u=klemm((bx-120)/178), by=130+(auf?-1:1)*38*u*u; kugel(x,bx,by,3,auf?C.gold:C.blau,a)}
+    const n=klemm(p*1.6); ring(x,302,92,3+5*n,C.gold,n,3); ring(x,302,168,3+5*n,C.blau,n,3);
+    pille(x,180,22,"1922 · Stern und Gerlach",akz,a); pille(x,180,236,"genau zwei Flecken, nichts dazwischen",C.text,klemm(p*4-2));
+    schrift(x,"Schirm",322,130,C.grau,10,a);
+  }else if(s===2){const fall=[[80,[1,0],"erlaubt",true],[180,[1,1],"verboten",false],[280,[1,0,1],"verboten",false]];
+    pille(x,180,24,"1925 · Wolfgang Pauli",akz,klemm(p*4));
+    fall.forEach(([cx,sp,text,ok],i)=>{const a=klemm(p*4-.5-i*.8);
+      rahmen(x,cx-28,84,56,56,ok?akz:C.rot,a,C.flaeche2,8);
+      sp.forEach((auf,k)=>spinpfeil(cx+(k-(sp.length-1)/2)*16,112,!!auf,a,15));
+      pille(x,cx,162,text,ok?akz:C.rot,a)});
+    schrift(x,"Kästchen = ein Orbital",180,200,C.grau,10,klemm(p*4-2.6));
+    pille(x,180,240,"höchstens 2, mit verschiedenem Spin",C.gold,klemm(p*4-3));
+  }else{const n=Math.min(10,Math.floor(p*13)), platz=[[100,210],[100,150],[170,106],[210,106],[250,106]], folge=[[0,1],[0,0],[1,1],[1,0],[2,1],[3,1],[4,1],[2,0],[3,0],[4,0]];
+    pfeil(x,26,226,26,84,C.grau,1); schrift(x,"Energie",40,70,C.grau,10);
+    platz.forEach(([cx,cy])=>rahmen(x,cx-17,cy-18,34,36,akz,1,C.flaeche2,6));
+    schrift(x,"1s",64,210,C.grau,11,1,700); schrift(x,"2s",64,150,C.grau,11,1,700); schrift(x,"2p",290,106,C.grau,11,1,700);
+    for(let i=0;i<n;i++){const [k,auf]=folge[i]; spinpfeil(platz[k][0]+(auf?-7:7),platz[k][1],!!auf,1,11)}
+    pille(x,180,24,"von unten nach oben auffüllen",C.text,klemm(p*4)); pille(x,250,196,"Elektronen: "+n,C.gold);
+    pille(x,180,258,n<10?"voll? Dann die nächste Stufe":"10 Elektronen: Neon",akz,klemm(p*4-.6));
+  }
+ },
+ perioden(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*3);
+    schalenAtom(x,116,134,18,1.9,a);
+    [["1. Schale: 2",98,27],["2. Schale: 8",134,53],["3. Schale: 8",170,80]].forEach(([text,y,r],i)=>{const ai=klemm(p*4-1-i*.7), w=-.75+i*.38;
+      linie(x,116+r*Math.cos(w),134+r*Math.sin(w),232,y,akz,ai*.6,1,[2,3]); pille(x,284,y,text,akz,ai)});
+    pille(x,180,22,"Elektronen sitzen in Schalen",C.text,a);
+  }else if(s===1){const n=Math.min(11,1+Math.floor(p*12.5)), e=ELEMENTE[n-1];
+    schalenAtom(x,180,134,n,1.75);
+    pille(x,180,22,e[0]+" · "+e[1]+" · "+n+(n===1?" Elektron":" Elektronen"),akz);
+    const hinweis=n===2||n===10?"Schale voll":n===3||n===11?"eine neue Schale beginnt":"";
+    if(hinweis)pille(x,180,260,hinweis,n===2||n===10?C.gold:C.text);
+  }else if(s===2){const a=klemm(p*3), b=klemm(p*3-.8), puls=2+Math.sin(t*4);
+    schalenAtom(x,96,124,3,1.5,a,akz); schalenAtom(x,256,124,11,1.5,b,akz);
+    ring(x,96,124-42,7+puls,akz,a*.7,1.5); ring(x,256,124-63,7+puls,akz,b*.7,1.5);
+    pille(x,96,204,"Lithium: 1 außen",akz,a); pille(x,256,204,"Natrium: 1 außen",akz,b);
+    pille(x,180,22,"gleich viele Außenelektronen",C.text,a); pille(x,180,250,"darum ähnliches Verhalten",C.gold,klemm(p*3-1.8));
+  }else if(s===3){const X0=44, Y0=62, zelle=(i)=>{const z=i<2?0:i<10?1:2, sp=i===0?0:i===1?7:(i-2)%8; return[X0+sp*34,Y0+z*34,sp]};
+    ELEMENTE.forEach((e,i)=>{const [l,o,sp]=zelle(i), a=klemm(p*14-i*.5), f=sp===0?akz:sp===7?C.gold:null;
+      rahmen(x,l,o,30,30,f||C.linie,a,C.flaeche2,5); if(f)block(x,l,o,30,30,f,a*.28*klemm(p*4-1.8),5); schrift(x,e[0],l+15,o+16,C.text,11,a,700)});
+    const b=klemm(p*4-2), c=klemm(p*4-2.6);
+    pfeil(x,59,186,59,170,akz,b); pille(x,96,198,"1 Außenelektron",akz,b);
+    pfeil(x,297,186,297,170,C.gold,c); pille(x,262,198,"volle Schale: Edelgase",C.gold,c);
+    pille(x,180,24,"Spalte = gleiche Außenschale",C.text,klemm(p*4-1.2)); pille(x,180,246,"Zeile = eine Schale wird aufgefüllt",C.text,klemm(p*4-3.2));
+  }else{const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-1.8), d=klemm(p*4-2.6);
+    pille(x,100,60,"Energiestufen",akz,a); pille(x,260,60,"Pauli-Prinzip",akz,a);
+    pfeil(x,116,74,158,106,C.grau,b); pfeil(x,244,74,202,106,C.grau,b); pille(x,180,120,"Schalen",akz,b);
+    pfeil(x,180,134,180,164,C.grau,c); pille(x,180,180,"Periodensystem",akz,c);
+    pille(x,180,240,"Quantenphysik erklärt die Chemie",C.gold,d);
+  }
+ },
+ lichtspalt(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*2.5), b=klemm(p*2.5-1), ph=t*18, lam=45;
+    sinus(x,30,165,62,12,lam,ph,C.grau,a); sinus(x,30,165,112,12,lam,ph,C.grau,a); sinus(x,30,165,180,24,lam,ph,akz,a,2.6);
+    schrift(x,"+",97,87,C.text,14,a,700); schrift(x,"=",97,144,C.text,14,a,700);
+    sinus(x,195,330,62,12,lam,ph,C.grau,b); sinus(x,195,330,112,12,lam,ph+lam/2,C.grau,b); sinus(x,195,330,180,0,lam,ph,akz,b,2.6);
+    schrift(x,"+",262,87,C.text,14,b,700); schrift(x,"=",262,144,C.text,14,b,700);
+    pille(x,97,22,"im Takt",C.text,a); pille(x,262,22,"im Gegentakt",C.text,b);
+    pille(x,97,232,"verstärken",C.gold,klemm(p*2.5-.5)); pille(x,262,232,"auslöschen",C.grau,klemm(p*2.5-1.5));
+    return;}
+  const a0=s===1?klemm(p*4):1, a1=s===1?klemm(p*4-.5):1, a2=s===1?klemm(p*4-1):1;
+  dsWellen(x,akz,.5*(s===1?klemm(p*3-1):1),t,.5*(s===2?klemm(p*2):s===3?1:0));
+  dsAufbau(x,a0,a1,a2,"LICHT");
+  if(s===1)pille(x,180,18,"Thomas Young · um 1801",akz,klemm(p*3));
+  if(s===2)pille(x,180,18,"hinter jedem Spalt eine neue Welle",akz,klemm(p*3));
+  if(s===3){dsStreifen(x,C.gold,klemm(p*2));
+    pille(x,180,18,"hell = verstärkt · dunkel = ausgelöscht",C.text,klemm(p*3-.6)); pille(x,180,262,"Streifenmuster: Licht ist eine Welle",C.gold,klemm(p*3-1.6));}
+ },
+ debroglie(x,s,p,t,akz){
+  if(s===0){const a=klemm(p*2.5), b=klemm(p*2.5-1);
+    pille(x,180,22,"1924 · Louis de Broglie",akz,a);
+    sinus(x,62,150,82,11,22,t*20,C.gold,a); pfeil(x,164,82,196,82,C.grau,a); kugel(x,216,82,6,C.gold,a);
+    pille(x,180,116,"Licht: Welle, aber auch Teilchen",C.gold,a);
+    kugel(x,76,172,6,akz,b); pfeil(x,96,172,128,172,C.grau,b); sinus(x,142,250,172,11,22,t*20,akz,b*(.55+.35*Math.sin(t*4)));
+    schrift(x,"?",272,172,akz,22,b,700);
+    pille(x,180,206,"Elektron: Teilchen, auch Welle?",akz,b);
+  }else if(s===1){
+    schrift(x,"λ = h / (m · v)",180,82,C.gold,28,klemm(p*3),700);
+    pille(x,180,144,"λ: Wellenlänge",C.text,klemm(p*4-1));
+    pille(x,180,174,"h: Plancks Konstante",C.text,klemm(p*4-1.7));
+    pille(x,180,204,"m · v: Masse mal Geschwindigkeit",C.text,klemm(p*4-2.4));
+  }else if(s===2){const a=klemm(p*3);
+    [[95,28,54],[185,84,18]].forEach(([cy,v,lam])=>{const bx=40+((t*v)%285);
+      linie(x,30,cy,330,cy,C.linie,a,1,[2,5]); sinus(x,30,bx,cy,12,lam,bx,akz,a*.9); kugel(x,bx,cy,6,C.gold,a)});
+    pille(x,180,56,"langsam: lange Welle",C.text,a); pille(x,180,224,"schnell: kurze Welle",C.text,klemm(p*3-.8));
+  }else if(s===3){const a=klemm(p*3), b=klemm(p*3-1);
+    sinus(x,38,142,108,13,22,t*20,akz,a*.9); kugel(x,90,108,7,C.gold,a);
+    pille(x,90,156,"ELEKTRON",akz,a); pille(x,90,184,"0,24 Nanometer",C.gold,a);
+    x.save(); x.globalAlpha=b; x.fillStyle=C.flaeche2; x.strokeStyle=C.text; x.lineWidth=1.6; x.beginPath(); x.arc(268,106,25,0,6.2832); x.fill(); x.stroke();
+    x.fillStyle=C.text; x.beginPath(); for(let i=0;i<5;i++){const w=-1.5708+i*1.2566; x.lineTo(268+9*Math.cos(w),106+9*Math.sin(w))} x.closePath(); x.fill(); x.restore();
+    pille(x,268,156,"FUSSBALL",C.grau,b); pille(x,268,184,"unmessbar klein",C.grau,b);
+    pille(x,180,240,"schwerer = kürzere Wellenlänge",C.text,klemm(p*3-1.8));
+  }else{const a=klemm(p*3), b=klemm((p-.3)/.5);
+    pille(x,180,22,"1927 · Elektronen am Kristall",akz,a);
+    block(x,12,118,24,24,C.grau,a,5); block(x,32,126,6,8,C.gold,a,2);
+    linie(x,40,130,118,130,C.gold,a*.6,1.6,[3,4]); for(let k=0;k<3;k++)kugel(x,42+((t*60+k*26)%74),130,3,C.gold,a);
+    for(let i=0;i<4;i++)for(let j=0;j<5;j++)kugel(x,124+i*8,114+j*8,3,C.grau,a);
+    x.save(); x.globalAlpha=a; x.fillStyle=C.bg; x.strokeStyle=C.linie; x.lineWidth=1; x.beginPath(); x.roundRect(214,68,124,124,8); x.fill(); x.stroke(); x.restore();
+    linie(x,152,124,214,90,C.gold,b*.35,1,[2,4]); linie(x,152,136,214,170,C.gold,b*.35,1,[2,4]);
+    kugel(x,276,130,4,C.gold,b); [18,36,54].forEach((r,k)=>ring(x,276,130,r,C.gold,klemm(b*3-k*.8)*(1-k*.22),k===0?4:3));
+    pille(x,136,176,"KRISTALL",C.grau,a); pille(x,36,176,"QUELLE",C.grau,a);
+    pille(x,276,212,"Ringe wie bei Wellen",C.gold,klemm(b*2-1));
+    pille(x,180,252,"gemessene Wellenlänge passt zur Formel",C.text,klemm(p*4-3));
+  }
+ },
+ dualismus(x,s,p,t,akz){
+  if(s===3){const a=klemm(p*3), b=klemm(p*3-.8), c=klemm(p*3-1.4);
+    pille(x,180,40,"QUANTENOBJEKT",akz,a);
+    pfeil(x,150,56,108,88,C.grau,b); pfeil(x,210,56,252,88,C.grau,c);
+    sinus(x,50,150,124,13,25,t*20,akz,b); pille(x,100,164,"WELLE",akz,b); schrift(x,"bei der Ausbreitung",100,188,C.grau,10,b);
+    kugel(x,260,124,7,C.gold,c); pille(x,260,164,"TEILCHEN",C.gold,c); schrift(x,"beim Nachweis",260,188,C.grau,10,c);
+    pille(x,180,240,"je nach Versuch das eine oder das andere",C.text,klemm(p*3-2));
+    return;}
+  if(s<2)dsWellen(x,akz,s===0?.5*klemm(p*2):.2,t,s===0?.5*klemm(p*2-.5):.2);
+  dsAufbau(x,1,1,1,"QUELLE");
+  if(s===0)pille(x,180,18,"unterwegs: wie eine Welle",akz,klemm(p*3));
+  if(s===1){const m=p*40, idx=Math.min(39,Math.floor(m)), f=p>=1?1:m-idx, n=idx+(f>.5?1:0);
+    dsPunkte(x,TREFFER,n,1.9,f>.5?1-(f-.5)/.5:0);
+    pille(x,180,18,"am Schirm: wie ein Teilchen",C.gold,klemm(p*3)); pille(x,180,262,"Treffer: "+n,C.gold);}
+  if(s===2){const d=DS, a=klemm(p*4), m=t*1.6, idx=Math.floor(m), f=m-idx, sy=(idx*5)%3<2?d.S1:d.S2, bx=misch(40,d.SX-4,f);
+    block(x,150,74,30,18,C.rot,a,4); linie(x,158,92,146,d.S1-2,C.rot,a,1.2,[2,3]); linie(x,172,92,147,d.S2-3,C.rot,a,1.2,[2,3]);
+    pille(x,165,58,"MESSGERÄT",C.rot,a);
+    kugel(x,bx,d.QY+(sy-d.QY)*(bx-d.QX)/(d.WX-d.QX),3,C.gold,a);
+    dsPunkte(x,TREFFER2,Math.round(500*klemm(p/.85)),1.3,0);
+    pille(x,180,18,"Welcher Spalt? Jetzt wird gemessen",C.text,a); pille(x,180,262,"nur noch zwei Streifen",C.gold,klemm(p*3-1.4));}
+ },
+ wahrscheinlich(x,s,p,t,akz){
+  const L=40,R=320;
+  if(s===0){const a=klemm(p*3);
+    linie(x,L,140,R,140,C.linie,a,1,[2,5]); kurve(x,px=>140-42*psi(px-180)*Math.cos(t*2.2),L,R,akz,a,2.4);
+    pille(x,180,24,"1926 · Max Born",akz,a); schrift(x,"?",180,66,akz,30,klemm(p*3-.6),700);
+    pille(x,180,240,"Was schwingt bei einem Elektron?",C.text,klemm(p*3-1.2));
+  }else if(s===1){const a=klemm(p*3), g=weich(klemm((p-.3)/.5));
+    linie(x,L,80,R,80,C.linie,a,1,[2,5]); kurve(x,px=>80-32*psi(px-180),L,R,akz,a,2.2);
+    pille(x,62,40,"WELLE",akz,a);
+    pfeil(x,306,100,306,150,C.grau,klemm(p*3-.6)); schrift(x,"mal sich selbst",248,126,C.grau,10,klemm(p*3-.6));
+    linie(x,L,212,R,212,C.grau,a,1); kurve(x,px=>212-66*g*Math.pow(psi(px-180),2),L,R,C.gold,klemm(p*3-.8),2.2,212);
+    pille(x,180,246,"Welle zum Quadrat = Wahrscheinlichkeit",C.gold,klemm(p*3-1.8));
+  }else if(s===2){const a=klemm(p*3-.5), b=klemm(p*3-1.5);
+    linie(x,L,200,R,200,C.grau,1,1); kurve(x,px=>200-108*Math.pow(psi(px-180),2),L,R,C.gold,1,2.2,200);
+    pille(x,180,46,"hoch: hier landen viele",C.gold,a); pfeil(x,180,60,180,84,C.gold,a);
+    pfeil(x,195,226,195,206,C.grau,b); pille(x,195,240,"null: hier landet keines",C.grau,b);
+  }else if(s===3){const n=Math.round(400*Math.pow(klemm(p/.85),1.6)), hoch=new Array(56).fill(0);
+    linie(x,L,200,R,200,C.grau,1,1);
+    x.save(); x.fillStyle=C.gold;
+    for(let i=0;i<n;i++){const k=Math.floor((PROBEN[i]+140)/5); x.fillRect(L+k*5+.6,200-(hoch[k]+1)*3.6+.5,3.8,3.1); hoch[k]++}
+    x.restore();
+    kurve(x,px=>200-108*Math.pow(psi(px-180),2),L,R,C.grau,.8,1.4);
+    pille(x,180,40,p<.55?"jeder Treffer: Zufall":"viele Treffer: die Kurve",p<.55?C.text:akz); pille(x,180,240,"Treffer: "+n,C.gold);
+  }else{const a=klemm(p*3), b=klemm(p*3-.9), g=weich(klemm((p-.3)/.45)), wurf=p<.3?(Math.floor(t*7)*5)%6+1:4;
+    x.save(); x.globalAlpha=a; x.fillStyle=C.flaeche2; x.strokeStyle=C.text; x.lineWidth=1.6; x.beginPath(); x.roundRect(48,88,60,60,10); x.fill(); x.stroke(); x.restore();
+    AUGEN[wurf].forEach(([dx,dy])=>kugel(x,78+dx*17,118+dy*17,4.5,C.text,a));
+    pille(x,78,172,"1 Wurf: Zufall",C.text,a);
+    linie(x,160,150,324,150,C.grau,b,1);
+    [162,171,158,175,166,168].forEach((w,k)=>{block(x,166+k*26,150-w/175*72*g,18,w/175*72*g,akz,b,3); schrift(x,String(k+1),175+k*26,161,C.grau,10,b)});
+    pille(x,243,186,"1.000 Würfe: Regel",akz,b);
+    pille(x,180,244,"Quantenzufall: nach heutigem Wissen echt",C.gold,klemm(p*3-2));
+  }
+ },
+ doppelspalt(x,s,p,t,akz){
+  const QX=34,QY=130,WX=141,SX=250,O=40,U=220,S1=118,S2=142,PL=266,PR=350;
+  const a0=s===0?klemm(p*4):1, a1=s===0?klemm(p*4-.7):1, a2=s===0?klemm(p*4-1.4):1;
+
+  // Wellen (nur Schritt 5), hinter allem anderen
+  if(s===4){const a=klemm(p*2.5)*.5, lam=6.5, v=(t*9)%lam;
+    x.save(); x.strokeStyle=akz; x.lineWidth=1.6; x.globalAlpha=a;
+    x.save(); x.beginPath(); x.rect(QX+4,O,WX-3-QX-4,U-O); x.clip();
+    for(let r=v;r<125;r+=lam){x.beginPath();x.arc(QX,QY,r,-1.2,1.2);x.stroke()}
+    x.restore();
+    x.save(); x.beginPath(); x.rect(WX+3,O,SX-WX-5,U-O); x.clip();
+    [S1,S2].forEach(sy=>{for(let r=v;r<160;r+=lam){x.beginPath();x.arc(WX+3,sy,r,-1.5708,1.5708);x.stroke()}});
+    x.restore(); x.restore();}
+
+  // Quelle, Wand mit zwei Spalten, Schirm, Schirm von vorn
+  block(x,12,118,24,24,C.grau,a0,5); block(x,32,126,6,8,C.gold,a0,2);
+  x.save(); x.globalAlpha=a1; x.fillStyle=C.text; [[O,S1-4],[S1+4,S2-4],[S2+4,U]].forEach(([o,u])=>x.fillRect(WX-3,o,6,u-o)); x.restore();
+  block(x,SX-1.5,O,3,U-O,C.text,a2,1);
+  x.save(); x.globalAlpha=a2; x.fillStyle=C.bg; x.strokeStyle=C.linie; x.lineWidth=1; x.beginPath(); x.roundRect(PL,O,PR-PL,U-O,6); x.fill(); x.stroke(); x.restore();
+  pille(x,36,238,"QUELLE",C.grau,a0); pille(x,WX,238,"DOPPELSPALT",C.grau,a1); pille(x,SX,238,"SCHIRM",C.grau,a2);
+  schrift(x,"von vorn",316,238,C.grau,10,a2);
+
+  // Erwartung: Kugeln auf geraden Bahnen, zwei Streifen
+  if(s===1){const a=klemm(p*3), b=klemm(p*2.5-.8);
+    [S1,S2].forEach(sy=>{const ye=QY+(sy-QY)*(SX-QX)/(WX-QX);
+      block(x,PL+4,ye-8,PR-PL-8,16,C.gold,b*.5,4);
+      for(let k=0;k<3;k++){const f=(t*.4+k/3)%1, bx=misch(40,SX-4,f); kugel(x,bx,QY+(sy-QY)*(bx-QX)/(WX-QX),3,C.gold,a)}});
+    pille(x,180,18,"Erwartung bei kleinen Kugeln",C.text,a); pille(x,180,262,"zwei Streifen",C.gold,b);}
+
+  // Treffer auf dem Schirm
+  let n=0, blitz=0, f=0;
+  if(s===0){n=p>.8?1:0; blitz=n?1-klemm((p-.8)/.15):0}
+  else if(s===2){const m=p*25, idx=Math.min(24,Math.floor(m)); f=p>=1?1:m-idx; n=idx+(f>.6?1:0); blitz=f>.6?1-(f-.6)/.4:0;
+    if(f<.6)kugel(x,misch(40,124,f/.6),QY,3,C.gold,1-f/.6);}
+  else if(s===3)n=Math.round(25+1375*Math.pow(klemm(p/.8),2));
+  else if(s===4)n=1400;
+  if(n>0){const r=misch(1.9,1.1,klemm(n/300)); x.save(); x.fillStyle=C.gold;
+    for(let i=0;i<n;i++){x.beginPath();x.arc(TREFFER[i][0],TREFFER[i][1],r,0,6.2832);x.fill()} x.restore();
+    if(blitz>0){const q=TREFFER[n-1]; ring(x,SX,q[1],3+(1-blitz)*7,C.gold,blitz,1.5); ring(x,q[0],q[1],3+(1-blitz)*7,C.gold,blitz,1.5)}}
+
+  // Beschriftungen je Schritt
+  if(s===0)pille(x,180,262,"jeder Treffer = ein Punkt",C.gold,klemm((p-.8)*8));
+  if(s===2){pille(x,180,18,"ein Elektron nach dem anderen",C.text,klemm(p*6)); pille(x,180,262,"Treffer: "+n,C.gold);}
+  if(s===3){pille(x,180,18,p<.6?"immer mehr Elektronen":"viele Streifen = Interferenz",p<.6?C.text:akz); pille(x,180,262,"Treffer: "+zahl(n),C.gold);}
+  if(s===4){pille(x,180,18,"die Welle geht durch beide Spalte",akz,klemm(p*4)); pille(x,180,262,"Wellen verstärken sich = viele Treffer",C.gold,klemm(p*4-1.6));}
+ }
+};
+
+/* ---------- Start ---------- */
+setzeThema(["dunkel","hell","auto"].includes(thema)?thema:"auto");
+window.addEventListener("hashchange",ansicht);
+ansicht();
+/* Als App installierbar (nur auf der eigenen Adresse, nicht im Artefakt) */
+if("serviceWorker" in navigator&&location.protocol==="https:"&&location.hostname.endsWith("kompassapps.de")){navigator.serviceWorker.register("sw.js").catch(()=>{})}
+</script>
+</body>
+</html>
