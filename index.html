@@ -133,12 +133,16 @@ input[type=range]{flex:1;min-width:120px;accent-color:var(--akz);height:28px}
 .weiter a{flex:1;border:1px solid var(--linie);background:var(--flaeche);border-radius:12px;padding:12px;text-decoration:none;color:var(--text);font-family:var(--mono);font-size:14px;display:flex;flex-direction:column;gap:2px}
 .weiter a:last-child{text-align:right}
 .weiter a.aus{color:var(--grau);pointer-events:none}
+.zurueck{display:inline-flex;align-items:center;gap:4px;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);text-decoration:none;border:1px solid var(--linie);background:var(--flaeche);border-radius:10px;padding:8px 12px}
+.zurueck:hover{border-color:var(--grau)}
+.links{display:flex;align-items:center;gap:12px}
 </style>
 </head>
 <body>
 <div class="rahmen">
   <header class="kopf">
-    <a class="marke" href="#start"><span class="klein">Kompass Schule</span><b>Quantenphysik</b></a>
+    <div class="links"><a class="zurueck" href="https://start.kompassapps.de">‹ Zurück</a>
+    <a class="marke" href="#start"><span class="klein">Kompass Schule</span><b>Quantenphysik</b></a></div>
     <div class="thema" role="group" aria-label="Farbschema">
       <button type="button" data-thema="dunkel">☾ Dunkel</button>
       <button type="button" data-thema="hell">☀ Hell</button>
