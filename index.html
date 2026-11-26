@@ -84,6 +84,19 @@ p{margin:0}
 .balken i{flex:1;height:6px;border-radius:3px;background:var(--flaeche2);overflow:hidden;display:block}
 .balken i b{display:block;height:100%;background:var(--akz)}
 .kachel.aus{opacity:.65;pointer-events:none}
+.quiz h1{font-size:clamp(19px,5.4vw,23px)}
+.quiz .buehne{border-radius:16px;margin-top:14px;max-width:520px}
+.antworten{display:grid;gap:8px;margin-top:14px}
+.antw{text-align:left;padding:13px 14px;border-radius:12px;border:1px solid var(--linie);background:var(--flaeche);font:inherit;font-size:16px;color:var(--text);cursor:pointer}
+.antw:hover:not(:disabled){background:var(--flaeche2)}
+.antw:disabled{cursor:default;color:var(--text);opacity:1}
+.antw.matt{color:var(--grau)}
+.antw.richtig{border-color:var(--gruen);box-shadow:inset 4px 0 0 var(--gruen)}
+.antw.falsch{border-color:var(--rot);box-shadow:inset 4px 0 0 var(--rot)}
+.knopfreihe{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.kn{padding:12px 16px;border-radius:12px;border:1px solid var(--linie);background:var(--flaeche);font-family:var(--mono);font-size:14px;text-decoration:none;color:var(--text);cursor:pointer}
+.kn.haupt{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:700}
+.punktzahl{font-family:var(--mono);font-size:44px;font-weight:700;color:var(--gold)}
 
 .karten{display:grid;grid-template-columns:1fr;gap:10px}
 @media (min-width:620px){.karten{grid-template-columns:1fr 1fr}}
@@ -479,11 +492,86 @@ const LEKTIONEN=[
    bedeutet:"Die Natur ist im Kleinsten nicht in getrennte Einzelteile zerlegbar. Verschränkung ist heute ein Werkzeug: für Quantencomputer und für abhörsichere Schlüssel.",
    tipp:"2017 schickte ein chinesischer Satellit verschränkte Photonen an zwei Bodenstationen, die rund 1.200 Kilometer auseinander lagen. Die Verschränkung blieb erhalten."
   }},
- {nr:22,b:5,titel:"Der Laser"},
- {nr:23,b:5,titel:"Halbleiter, LED und Solarzelle"},
- {nr:24,b:5,titel:"Das Rastertunnelmikroskop"},
- {nr:25,b:5,titel:"Der Quantencomputer"},
- {nr:26,b:5,titel:"Abhörsichere Schlüssel (Quantenkryptografie)"}
+ {nr:22,b:5,titel:"Der Laser",zeichne:"laser",
+  bild:"Eine Lampe strahlt bunt in alle Richtungen, ein Laser einfarbig in eine. Atome werden auf eine höhere Stufe gehoben. Ein Photon löst ein zweites, gleiches aus. Zwischen zwei Spiegeln wächst daraus eine Lawine.",
+  schritte:[
+   {titel:"Lampe und Laser",dauer:7,text:"Eine Lampe sendet Licht in vielen Farben und in alle Richtungen. Die Wellen schwingen durcheinander. Laserlicht ist anders: eine einzige Farbe, eine Richtung, und alle Wellen schwingen im Gleichtakt."},
+   {titel:"Atome anregen",dauer:7,text:"Im Laser steckt ein Material, dessen Atome mit Energie versorgt werden, zum Beispiel mit Strom oder einer hellen Lampe. Die Elektronen springen dabei auf eine höhere Stufe. Am Ende sind mehr Atome angeregt als nicht angeregt."},
+   {titel:"Ein Photon holt ein zweites",dauer:8,text:"Trifft ein passendes Photon auf ein angeregtes Atom, fällt das Elektron herunter und gibt ein zweites Photon ab. Dieses ist ein genauer Zwilling: gleiche Farbe, gleiche Richtung, gleicher Takt. Albert Einstein hat das 1917 vorhergesagt."},
+   {titel:"Zwischen zwei Spiegeln",dauer:8,text:"Zwei Spiegel schicken die Photonen immer wieder durch das Material. Bei jedem Durchgang lösen sie weitere Zwillinge aus. Aus einem Photon werden zwei, dann vier, dann acht. Ein Spiegel lässt einen kleinen Teil hindurch. Das ist der Laserstrahl."},
+   {titel:"Laser im Alltag",dauer:8,text:"Den ersten Laser baute Theodore Maiman im Jahr 1960. Heute tragen Laser das Internet durch Glasfasern, lesen Strichcodes an der Kasse, schneiden Stahl und korrigieren Augen."}
+  ],
+  merksatz:"Im Laser löst ein Photon weitere, genau gleiche Photonen aus. So entsteht Licht im Gleichtakt.",
+  boxen:{
+   was:"Laser ist eine Abkürzung aus dem Englischen. Übersetzt heißt sie: Lichtverstärkung durch angeregte Aussendung von Strahlung.",
+   so:"Energie hebt viele Atome auf eine höhere Stufe. Ein Photon löst bei einem solchen Atom ein zweites, gleiches Photon aus. Zwei Spiegel schicken das Licht immer wieder durch das Material.",
+   bedeutet:"Laserlicht hat eine einzige Farbe, läuft fast ohne Auffächern geradeaus und schwingt im Gleichtakt. Deshalb lässt es sich auf einen winzigen Punkt bündeln.",
+   tipp:"Nie in einen Laserstrahl schauen, auch nicht in einen Laserpointer. Das gebündelte Licht kann das Auge in Sekundenbruchteilen schädigen."
+  }},
+ {nr:23,b:5,titel:"Halbleiter, LED und Solarzelle",zeichne:"halbleiter",
+  bild:"Aus den scharfen Stufen eines Atoms werden im Kristall breite Bänder. Metall, Halbleiter und Isolator unterscheiden sich durch die Lücke dazwischen. In der LED fällt ein Elektron über die Lücke und sendet Licht, in der Solarzelle hebt Licht es hinauf.",
+  schritte:[
+   {titel:"Aus Stufen werden Bänder",dauer:7,text:"Ein einzelnes Atom hat scharfe Energiestufen. Rücken zwei Atome zusammen, spaltet sich jede Stufe in zwei. In einem Kristall sitzen unvorstellbar viele Atome dicht an dicht. Die vielen Stufen liegen so eng, dass sie zu breiten Bändern verschmelzen."},
+   {titel:"Die Lücke entscheidet",dauer:8,text:"Zwischen den Bändern kann eine Lücke liegen, in der kein Elektron sein darf. Im Metall gibt es keine Lücke: Elektronen bewegen sich frei, Metall leitet. Im Isolator ist die Lücke groß: nichts fließt. Im Halbleiter ist sie klein."},
+   {titel:"Ein Elektron springt hoch",dauer:7,text:"Im Halbleiter genügt wenig Energie, etwa Wärme oder Licht, um ein Elektron über die Lücke zu heben. Oben ist es frei beweglich. Unten bleibt ein freier Platz zurück, ein Loch. Auch das Loch wandert und trägt Strom."},
+   {titel:"Die LED: Strom wird Licht",dauer:8,text:"In einer Leuchtdiode treibt Strom Elektronen ins obere Band. Fällt ein Elektron in ein Loch, gibt es die Energie der Lücke als Photon ab. Die Größe der Lücke bestimmt die Farbe: klein für Rot, groß für Blau. Für die blaue LED gab es 2014 den Nobelpreis."},
+   {titel:"Die Solarzelle: Licht wird Strom",dauer:8,text:"Die Solarzelle arbeitet umgekehrt. Ein Photon hebt ein Elektron über die Lücke. Der Aufbau der Zelle zieht Elektron und Loch in verschiedene Richtungen. So fließt Strom. Auch jeder Computer-Chip besteht aus Halbleitern: aus Milliarden winziger Schalter."}
+  ],
+  merksatz:"Im Halbleiter trennt eine kleine Energielücke zwei Bänder. Fällt ein Elektron hinüber, entsteht Licht. Hebt Licht es hinauf, fließt Strom.",
+  boxen:{
+   was:"Ein Halbleiter ist ein Stoff, der Strom nur ein wenig leitet, zum Beispiel Silizium. Wie gut er leitet, lässt sich gezielt einstellen.",
+   so:"Im Kristall gibt es erlaubte Energiebänder und dazwischen eine verbotene Lücke. Elektronen müssen über die Lücke gehoben werden, damit Strom fließt.",
+   bedeutet:"Ohne die Quantenphysik der Bänder gäbe es keine Chips, keine LEDs und keine Solarzellen. Fast alle heutige Elektronik beruht darauf.",
+   tipp:"Die Lücke bestimmt die Farbe der LED. Das ist E = h · f aus Lektion 4: große Lücke, viel Energie, hohe Frequenz, blaues Licht."
+  }},
+ {nr:24,b:5,titel:"Das Rastertunnelmikroskop",zeichne:"rtm",
+  bild:"Eine grobe Lichtwelle über winzigen Atomen. Dann eine Metallspitze dicht über einer Oberfläche: Elektronen tunneln durch die Lücke. Die Spitze fährt die Oberfläche ab und zeichnet ihre Höhe auf, Zeile für Zeile entsteht ein Bild.",
+  schritte:[
+   {titel:"Zu klein für Licht",dauer:7,text:"Ein Atom ist etwa 0,2 Nanometer groß. Sichtbares Licht hat eine Wellenlänge von rund 500 Nanometern. Die Welle ist viel zu grob, um einzelne Atome abzubilden. Mit einem Lichtmikroskop sind Atome nicht zu sehen."},
+   {titel:"Eine Spitze, ganz nah",dauer:7,text:"Das Rastertunnelmikroskop benutzt eine Metallspitze, die vorn in einem einzigen Atom endet. Sie wird bis auf weniger als einen Nanometer an die Oberfläche herangefahren. Sie berührt die Oberfläche nicht."},
+   {titel:"Elektronen tunneln",dauer:8,text:"Zwischen Spitze und Oberfläche liegt eine kleine Spannung. Die Lücke ist eine Barriere, aber Elektronen tunneln hindurch. Es fließt ein winziger Strom. Er hängt sehr stark vom Abstand ab: Ist die Spitze nur 0,1 Nanometer näher, wird er etwa 10-mal so stark."},
+   {titel:"Zeile für Zeile abtasten",dauer:8,text:"Die Spitze fährt in Zeilen über die Oberfläche. Eine Regelung hebt und senkt sie so, dass der Strom gleich bleibt. Der Abstand bleibt damit gleich. Die Auf-und-ab-Bewegung der Spitze zeichnet die Form der Oberfläche nach."},
+   {titel:"Atome sehen und verschieben",dauer:8,text:"Aus vielen Zeilen setzt der Computer ein Bild zusammen, auf dem einzelne Atome als Hügel erscheinen. Gerd Binnig und Heinrich Rohrer erfanden das Gerät 1981 und erhielten 1986 den Nobelpreis. 1989 schob ein Forscher 35 Atome einzeln zu einem Schriftzug zusammen."}
+  ],
+  merksatz:"Das Rastertunnelmikroskop tastet eine Oberfläche mit einer feinen Spitze ab und misst den Tunnelstrom. So werden einzelne Atome sichtbar.",
+  boxen:{
+   was:"Ein Rastertunnelmikroskop ist ein Gerät, das Oberflächen nicht mit Licht abbildet, sondern mit einer Spitze abtastet.",
+   so:"Elektronen tunneln durch die Lücke zwischen Spitze und Oberfläche. Der Strom zeigt sehr genau an, wie groß der Abstand ist.",
+   bedeutet:"Man kann Atome einzeln sichtbar machen und sogar verschieben. Das Gerät funktioniert nur bei Oberflächen, die Strom leiten.",
+   tipp:"Das Bild ist nicht maßstäblich. In Wirklichkeit ist eine Lichtwelle rund 2.500-mal so lang, wie ein Atom breit ist. Den Tunneleffekt erklärt Lektion 20."
+  }},
+ {nr:25,b:5,titel:"Der Quantencomputer",zeichne:"qcomputer",
+  bild:"Ein Bit zeigt 0 oder 1, ein Qubit einen Zeiger zwischen beiden. Mit jedem Qubit verdoppeln sich die Möglichkeiten. Balken für alle Antworten: Interferenz lässt die richtige wachsen. Dazu Kühlung und Einsatzgebiete.",
+  schritte:[
+   {titel:"Bit und Qubit",dauer:7,text:"Ein normaler Computer rechnet mit Bits. Ein Bit ist entweder 0 oder 1. Ein Quantencomputer rechnet mit Qubits. Ein Qubit kann in einer Überlagerung aus 0 und 1 sein, wie in Lektion 17."},
+   {titel:"Viele Qubits zusammen",dauer:8,text:"Verschränkte Qubits haben einen gemeinsamen Zustand. Er umfasst alle Kombinationen aus 0 und 1 zugleich. Mit jedem weiteren Qubit verdoppelt sich ihre Zahl: 2, 4, 8 und so weiter. Bei 300 Qubits sind es mehr Kombinationen, als es Atome im sichtbaren Weltall gibt."},
+   {titel:"Rechnen mit Interferenz",dauer:8,text:"Am Ende steht eine Messung, und sie liefert nur ein einziges Ergebnis. Der Trick: Das Rechenverfahren lenkt die Wahrscheinlichkeitswellen so, dass sich falsche Antworten auslöschen und die richtige sich verstärkt. Dann kommt sie bei der Messung fast sicher heraus."},
+   {titel:"Sehr empfindlich",dauer:7,text:"Jede kleine Störung von außen wirkt wie eine Messung und zerstört die Überlagerung. Viele Quantencomputer werden deshalb auf fast minus 273 Grad Celsius gekühlt, kälter als der Weltraum. Trotzdem passieren Fehler, die aufwendig korrigiert werden müssen."},
+   {titel:"Wofür er gut ist",dauer:8,text:"Ein Quantencomputer ist nicht bei allem schneller, sondern nur bei bestimmten Aufgaben. Er könnte Moleküle für Medikamente und Werkstoffe berechnen. Er könnte große Zahlen in ihre Teiler zerlegen und so heutige Verschlüsselung brechen. Die Geräte von heute sind dafür noch zu klein und zu fehleranfällig."}
+  ],
+  merksatz:"Ein Quantencomputer rechnet mit Qubits in Überlagerung. Interferenz hebt die richtige Antwort hervor.",
+  boxen:{
+   was:"Ein Quantencomputer ist eine Rechenmaschine, die Überlagerung, Verschränkung und Interferenz zum Rechnen benutzt.",
+   so:"Qubits werden in eine gemeinsame Überlagerung gebracht und Schritt für Schritt verändert. Zum Schluss wird gemessen.",
+   bedeutet:"Für wenige, aber wichtige Aufgaben könnte er Dinge schaffen, für die normale Computer länger bräuchten, als das Weltall alt ist. Den PC oder das Handy ersetzt er nicht.",
+   tipp:"Oft heißt es, ein Quantencomputer probiere alle Lösungen gleichzeitig aus. Das stimmt so nicht: Man kann nur ein Ergebnis auslesen. Entscheidend ist die Interferenz."
+  }},
+ {nr:26,b:5,titel:"Abhörsichere Schlüssel (Quantenkryptografie)",zeichne:"krypto",
+  bild:"Alice schickt Bob einen Schlüssel, Eve kopiert ihn unbemerkt. Dann die Quanten-Lösung: einzelne Photonen mit vier Richtungen, zwei Filter-Arten, eine Tabelle mit behaltenen Bits. Eve in der Leitung verändert Photonen und fällt auf.",
+  schritte:[
+   {titel:"Das Problem mit dem Schlüssel",dauer:7,text:"Wer geheime Nachrichten austauschen will, braucht einen gemeinsamen Schlüssel. In der Fachwelt heißen die beiden Alice und Bob. Der Schlüssel muss irgendwie von Alice zu Bob kommen. Kopiert ihn die Lauscherin Eve unterwegs, merkt das niemand."},
+   {titel:"Photonen als Bits",dauer:8,text:"Alice schickt den Schlüssel als einzelne Photonen. Jedes schwingt in einer von vier Richtungen. Es gibt zwei Filter-Arten: gerade und schräg. In jeder Art steht eine Richtung für 0 und die andere für 1. Alice wählt Filter und Bit jedes Mal zufällig."},
+   {titel:"Bob misst mit Zufalls-Filter",dauer:8,text:"Bob weiß nicht, welche Filter-Art Alice benutzt hat. Er wählt bei jedem Photon zufällig. Passt sein Filter, misst er das richtige Bit. Passt er nicht, ist sein Ergebnis Zufall. Danach vergleichen beide offen nur die Filter-Arten und behalten die Bits, bei denen sie gleich waren."},
+   {titel:"Lauschen hinterlässt Spuren",dauer:8,text:"Eve kann ein einzelnes Photon nicht kopieren. Sie muss es messen und dabei den Filter raten. Rät sie falsch, verändert ihre Messung das Photon. Bei Bob entstehen Fehler, etwa in jedem vierten behaltenen Bit. Alice und Bob vergleichen eine Stichprobe. Finden sie Fehler, werfen sie den Schlüssel weg."},
+   {titel:"Schon im Einsatz",dauer:8,text:"Das Verfahren heißt BB84, nach Charles Bennett und Gilles Brassard, die es 1984 erdacht haben. Es funktioniert heute durch Glasfasern über mehr als 100 Kilometer und mit Hilfe von Satelliten. 2017 sicherte ein solcher Schlüssel ein Videogespräch zwischen China und Österreich, über 7.600 Kilometer."}
+  ],
+  merksatz:"Wer einen Quanten-Schlüssel belauscht, muss messen und verändert ihn dabei. Das fällt auf.",
+  boxen:{
+   was:"Quantenkryptografie ist ein Verfahren, mit dem zwei Partner einen geheimen Schlüssel austauschen und dabei jeden Lauscher bemerken.",
+   so:"Der Schlüssel reist als einzelne Photonen. Weil eine Messung den Zustand verändert, hinterlässt jedes Mithören Fehler.",
+   bedeutet:"Die Sicherheit beruht hier nicht darauf, dass eine Rechenaufgabe schwer ist, sondern auf Naturgesetzen. Auch ein Quantencomputer kann sie nicht brechen.",
+   tipp:"Übertragen wird nur der Schlüssel, nicht die Nachricht. Die Nachricht selbst wird damit verschlüsselt und geht über eine ganz normale Leitung."
+  }}
 ];
 const fertig=l=>!!l.schritte;
 const zwei=n=>String(n).padStart(2,"0");
@@ -533,7 +621,8 @@ function zeigeStart(){
   <div class="bento">${BEREICHE.map((b,i)=>{const f=fortschritt(b);return `<a class="kachel${i===0?" breit":""}" style="--akz:var(--${b.farbe})" href="#bereich-${b.id}">
     ${ICONS[b.icon]}<span class="klein">Bereich ${b.id}</span><h2>${b.name}</h2><p>${b.kurz}</p>
     <span class="balken"><i><b style="width:${100*f.n/f.alle}%"></b></i>${f.n}/${f.alle}</span></a>`}).join("")}
-   <div class="kachel aus" style="--akz:var(--grau)"><span class="klein">Quiz</span><h2>Teste dein Wissen</h2><p>10 zufällige Fragen. Das Quiz folgt, sobald die Lektionen stehen.</p></div>
+   <a class="kachel" style="--akz:var(--gold)" href="#quiz"><span class="klein">Quiz</span><h2>Teste dein Wissen</h2><p>10 zufällige Fragen aus allen Bereichen: Wissen, Rechnen und Bilder.</p>
+    <span class="balken">${lies("qs-quiz",null)===null?"noch nicht gespielt":"Bestwert: "+lies("qs-quiz",0)+" von 10"}</span></a>
   </div>`;
 }
 function zeigeBereich(id){
@@ -573,6 +662,103 @@ function zeigeLektion(nr){
   <div class="weiter">${nachbar(l,-1)}${nachbar(l,1)}</div></div>`;
   starte(l,b,total);
 }
+/* ---------- Quiz ---------- */
+/* l = Lektion, typ = W (Wissen), R (Rechnen), B (Bild), a = Antworten (die erste ist richtig), e = Erklärung, bild = [Schritt, Fortschritt] */
+const FRAGEN=[
+ {l:1,typ:"W",f:"Was ist ein Quant?",a:["Die kleinste Portion, zum Beispiel von Energie","Ein besonders schnelles Teilchen","Ein anderes Wort für Atomkern","Eine Lichtfarbe"],e:"In der Quantenwelt gibt es vieles nur in festen Portionen, wie die Stufen einer Treppe. Eine solche Portion heißt Quant."},
+ {l:2,typ:"W",f:"Wer hatte im Jahr 1900 die Idee, dass Energie nur in Portionen abgegeben wird?",a:["Max Planck","Albert Einstein","Niels Bohr","Werner Heisenberg"],e:"Max Planck konnte das Licht glühender Körper nur erklären, indem er annahm, dass Energie in Portionen abgegeben wird."},
+ {l:3,typ:"W",f:"Wovon hängt es beim Fotoeffekt ab, ob Licht überhaupt Elektronen aus einem Metall löst?",a:["Von der Frequenz, also der Farbe des Lichts","Von der Helligkeit des Lichts","Davon, wie lange das Licht scheint","Von der Größe der Metallplatte"],e:"Jedes Photon braucht genug Energie für ein Elektron. Die Energie eines Photons hängt nur von der Frequenz ab. Mehr Helligkeit bedeutet nur mehr Photonen."},
+ {l:3,typ:"W",f:"Wofür erhielt Albert Einstein den Nobelpreis?",a:["Für die Erklärung des Fotoeffekts","Für die Relativitätstheorie","Für die Erfindung des Lasers","Für das Atommodell"],e:"Einstein erklärte 1905 den Fotoeffekt mit Lichtportionen, den Photonen. Dafür bekam er den Nobelpreis für das Jahr 1921."},
+ {l:4,typ:"R",f:"E = h · f. Ein Photon hat die doppelte Frequenz eines anderen. Wie groß ist seine Energie?",a:["Doppelt so groß","Halb so groß","Viermal so groß","Gleich groß"],e:"In E = h · f ist h eine feste Zahl. Verdoppelt sich die Frequenz f, verdoppelt sich auch die Energie E."},
+ {l:4,typ:"W",f:"Welches Licht besteht aus Photonen mit mehr Energie?",a:["Blaues Licht","Rotes Licht","Beide gleich","Das hellere von beiden"],e:"Blaues Licht hat eine höhere Frequenz als rotes. Nach E = h · f hat jedes blaue Photon deshalb mehr Energie."},
+ {l:4,typ:"R",f:"Eine Lampe wird heller gestellt und sendet doppelt so viele Photonen derselben Farbe. Wie ändert sich die Energie eines einzelnen Photons?",a:["Gar nicht","Sie verdoppelt sich","Sie halbiert sich","Sie vervierfacht sich"],e:"Die Energie eines Photons hängt nur von der Frequenz ab, also von der Farbe. Helleres Licht heißt: mehr Photonen, nicht stärkere."},
+ {l:5,typ:"W",f:"Röntgenlicht stößt mit einem Elektron zusammen (Compton-Effekt). Was passiert mit dem Licht?",a:["Es gibt Energie ab, seine Wellenlänge wird länger","Es wird heller","Es wird schneller","Es behält genau seine Wellenlänge"],e:"Das Photon stößt das Elektron an wie eine Billardkugel und gibt dabei Energie ab. Weniger Energie bedeutet: längere Wellenlänge."},
+ {l:6,typ:"W",f:"Was sieht man auf dem Schirm, wenn Licht durch einen Doppelspalt fällt?",a:["Viele helle und dunkle Streifen","Genau zwei helle Streifen","Einen einzigen hellen Fleck","Eine gleichmäßig helle Fläche"],e:"Die Wellen aus beiden Spalten überlagern sich. Wo sie sich verstärken, wird es hell, wo sie sich auslöschen, dunkel. Das heißt Interferenz."},
+ {l:6,typ:"W",f:"Wie entstehen die dunklen Streifen hinter dem Doppelspalt?",a:["Dort trifft Wellenberg auf Wellental","Dort ist die Wand im Weg","Dort sind die Photonen zu langsam","Dort ist der Schirm weniger empfindlich"],e:"Trifft ein Wellenberg auf ein Wellental, löschen sich die Wellen aus. An diesen Stellen bleibt der Schirm dunkel."},
+ {l:7,typ:"W",f:"Was hat Louis de Broglie über Teilchen wie Elektronen vorhergesagt?",a:["Sie haben auch eine Wellenlänge","Sie haben eine Farbe","Sie haben keine Masse","Sie fliegen immer auf Kreisbahnen"],e:"Nach de Broglie gehört zu jedem Teilchen eine Welle. Je größer Masse und Geschwindigkeit, desto kürzer ist die Wellenlänge."},
+ {l:7,typ:"R",f:"Die Wellenlänge eines Teilchens ist h geteilt durch Masse mal Geschwindigkeit. Ein Elektron wird doppelt so schnell. Wie ändert sich seine Wellenlänge?",a:["Sie halbiert sich","Sie verdoppelt sich","Sie bleibt gleich","Sie vervierfacht sich"],e:"Die Geschwindigkeit steht unter dem Bruchstrich. Wird sie doppelt so groß, wird die Wellenlänge halb so groß."},
+ {l:7,typ:"W",f:"Warum bemerkt man bei einem Fußball nichts von seiner Materiewelle?",a:["Seine Wellenlänge ist unvorstellbar klein","Große Dinge haben keine Welle","Er fliegt zu langsam","Die Luft stört die Welle"],e:"Je schwerer ein Körper, desto kürzer seine Wellenlänge. Beim Fußball ist sie so winzig, dass sie sich nie zeigt."},
+ {l:8,typ:"W",f:"Elektronen fliegen einzeln durch einen Doppelspalt. Was zeigt der Schirm nach sehr vielen Elektronen?",a:["Ein Streifenmuster aus lauter einzelnen Punkten","Genau zwei Streifen","Gleichmäßig verteilte Punkte","Einen einzigen Punkt"],e:"Jedes Elektron kommt als einzelner Punkt an. Aber viele Punkte zusammen ergeben das Streifenmuster einer Welle."},
+ {l:8,typ:"W",f:"Was passiert mit dem Streifenmuster, wenn man an den Spalten misst, welchen Weg jedes Elektron nimmt?",a:["Es verschwindet, es bleiben zwei Streifen","Es wird schärfer","Es bleibt unverändert","Es wird doppelt so breit"],e:"Die Messung an den Spalten legt den Weg fest. Damit ist die Überlagerung beider Wege zerstört und das Streifenmuster verschwindet."},
+ {l:9,typ:"W",f:"Ist ein Elektron eine Welle oder ein Teilchen?",a:["Je nach Versuch zeigt es die eine oder die andere Seite","Immer nur ein Teilchen","Immer nur eine Welle","Morgens Welle, abends Teilchen"],e:"Quantenobjekte sind weder das eine noch das andere. Unterwegs verhalten sie sich wie Wellen, beim Nachweis wie Teilchen."},
+ {l:10,typ:"W",f:"Was beschreibt die Wahrscheinlichkeitswelle eines Elektrons?",a:["Mit welcher Wahrscheinlichkeit man es wo findet","Wo es sich ganz genau befindet","Wie schwer es ist","Wie warm es ist"],e:"Die Welle sagt nicht, wo das Elektron ist. Sie sagt nur, wie wahrscheinlich man es an einer Stelle findet."},
+ {l:11,typ:"W",f:"Was nahm Niels Bohr über die Elektronen im Atom an?",a:["Sie kreisen nur auf bestimmten Bahnen mit fester Energie","Sie kreisen in jedem beliebigen Abstand","Sie sitzen fest im Kern","Sie stehen still"],e:"Bei Bohr sind nur bestimmte Bahnen erlaubt. Dazwischen gibt es nichts. So erklärte er, warum Atome stabil sind."},
+ {l:12,typ:"W",f:"Wie entsteht eine Spektrallinie?",a:["Ein Elektron springt auf eine tiefere Stufe und sendet ein Photon aus","Ein Elektron verlässt das Atom","Zwei Atome stoßen zusammen","Der Atomkern dreht sich"],e:"Beim Sprung nach unten gibt das Elektron den Energieunterschied als Photon ab. Diese Energie legt die Farbe der Linie fest."},
+ {l:12,typ:"W",f:"Warum hat jedes chemische Element seine eigenen Spektrallinien?",a:["Jedes Element hat eigene Energiestufen","Jedes Element ist anders warm","Jedes Element hat eine eigene Lichtgeschwindigkeit","Das ist Zufall"],e:"Die Linien sind wie ein Fingerabdruck. So erkennt man sogar, woraus weit entfernte Sterne bestehen."},
+ {l:12,typ:"R",f:"Ein Elektron fällt von einer Stufe mit −1,5 eV auf eine Stufe mit −3,4 eV. Wie viel Energie hat das ausgesandte Photon?",a:["1,9 eV","4,9 eV","3,4 eV","1,5 eV"],e:"Das Photon bekommt den Unterschied der beiden Stufen: 3,4 minus 1,5 ergibt 1,9 eV. Beim Wasserstoff ist das rotes Licht."},
+ {l:13,typ:"W",f:"Was ist ein Orbital?",a:["Ein Bereich, in dem man das Elektron wahrscheinlich findet","Eine feste Kreisbahn","Ein Teil des Atomkerns","Ein besonders schweres Elektron"],e:"Ein Elektron hat keine Bahn. Das Orbital zeigt als Wolke, wo es sich mit hoher Wahrscheinlichkeit aufhält."},
+ {l:14,typ:"W",f:"Wie viele Elektronen passen höchstens in ein Orbital?",a:["Zwei, mit entgegengesetztem Spin","Eins","Acht","Beliebig viele"],e:"Nach dem Pauli-Prinzip dürfen zwei Elektronen nie in allem übereinstimmen. In ein Orbital passen daher nur zwei: Spin auf und Spin ab."},
+ {l:15,typ:"W",f:"Was bestimmt vor allem, wie sich ein Element chemisch verhält?",a:["Die Elektronen in der äußersten Schale","Die Zahl der Neutronen","Die Größe des Atomkerns","Die Farbe des Elements"],e:"Elemente mit gleich vielen Außenelektronen verhalten sich ähnlich. Deshalb stehen sie im Periodensystem untereinander."},
+ {l:15,typ:"W",f:"Warum gehen Edelgase wie Helium und Neon kaum Verbindungen ein?",a:["Ihre äußere Schale ist voll besetzt","Sie haben keine Elektronen","Sie sind zu leicht","Sie sind zu kalt"],e:"Eine volle äußere Schale ist besonders stabil. Das Atom gibt kein Elektron her und nimmt keines auf."},
+ {l:16,typ:"W",f:"Was sagt Heisenbergs Unschärfe?",a:["Ort und Impuls sind nie beide zugleich beliebig genau bestimmt","Kleine Dinge sieht man nur unscharf","Messgeräte sind immer ungenau","Elektronen stehen niemals still, weil sie warm sind"],e:"Je genauer der Ort festliegt, desto unbestimmter ist der Impuls, und umgekehrt."},
+ {l:16,typ:"W",f:"Liegt die Unschärfe an zu schlechten Messgeräten?",a:["Nein, sie ist eine Eigenschaft der Natur","Ja, bessere Geräte werden sie beseitigen","Ja, sie liegt an der Wärme","Nur bei sehr großen Objekten"],e:"Auch das beste Gerät ändert nichts daran. Ein Quantenobjekt hat nicht gleichzeitig einen genauen Ort und einen genauen Impuls."},
+ {l:17,typ:"W",f:"Was bedeutet Überlagerung?",a:["Mehrere Möglichkeiten bestehen zugleich, bis gemessen wird","Zwei Teilchen liegen übereinander","Ein Teilchen wechselt sehr schnell hin und her","Ein Teilchen teilt sich in zwei Hälften"],e:"In einer Überlagerung ist der Zustand nicht heimlich schon festgelegt. Erst die Messung liefert eines der möglichen Ergebnisse."},
+ {l:18,typ:"W",f:"Was passiert bei einer Messung an einem Quantenobjekt in Überlagerung?",a:["Es zeigt genau ein Ergebnis, die Überlagerung endet","Man sieht alle Möglichkeiten zugleich","Es verschwindet","Es passiert nichts Besonderes"],e:"Die Messung liefert ein einzelnes Ergebnis. Welches, ist Zufall. Nur die Wahrscheinlichkeiten lassen sich berechnen."},
+ {l:19,typ:"W",f:"Was wollte Erwin Schrödinger mit seiner Katze zeigen?",a:["Wie seltsam Quantenregeln wären, wenn sie für Alltagsdinge gälten","Dass Katzen neun Leben haben","Dass Tierversuche in der Physik nötig sind","Dass Radioaktivität ungefährlich ist"],e:"Die Katze ist ein Gedankenversuch. Er fragt, wo die Grenze zwischen Quantenwelt und Alltag liegt. Große Dinge verlieren ihre Überlagerung sofort."},
+ {l:20,typ:"W",f:"Was ist der Tunneleffekt?",a:["Ein Quantenobjekt durchdringt eine Barriere, für die seine Energie nicht reicht","Ein Teilchen bohrt ein Loch in eine Wand","Ein Teilchen fliegt um die Barriere herum","Licht wird in einem Tunnel langsamer"],e:"Die Welle klingt in der Barriere ab, aber ein Rest kommt dahinter an. Also findet man das Teilchen manchmal auf der anderen Seite."},
+ {l:20,typ:"W",f:"Die Barriere wird etwas dicker. Was passiert mit der Zahl der Teilchen, die hindurchtunneln?",a:["Sie sinkt sehr stark","Sie bleibt gleich","Sie steigt","Sie sinkt nur ganz wenig"],e:"Die Welle klingt in der Barriere sehr schnell ab. Schon eine etwas dickere Barriere lässt viel weniger durch."},
+ {l:21,typ:"W",f:"Kann man mit verschränkten Teilchen Nachrichten schneller als das Licht schicken?",a:["Nein, jede Seite sieht für sich nur Zufall","Ja, ohne jede Verzögerung","Ja, aber nur bis 1.200 Kilometer","Ja, aber nur im Weltraum"],e:"Das Muster zeigt sich erst, wenn beide Seiten ihre Ergebnisse vergleichen. Das geht nur auf normalem Weg, höchstens mit Lichtgeschwindigkeit."},
+ {l:21,typ:"B",bild:[2,1],f:"Das Bild zeigt Messungen an verschränkten Paaren. Links kommt „auf“ heraus. Was misst man dann rechts?",a:["Immer „ab“","Immer „auf“","Zufällig „auf“ oder „ab“","Gar nichts"],e:"Bei diesen verschränkten Paaren passen die Ergebnisse immer zusammen: links auf, rechts ab, und umgekehrt."},
+ {l:22,typ:"W",f:"Was passiert im Laser, wenn ein passendes Photon auf ein angeregtes Atom trifft?",a:["Das Atom gibt ein zweites, genau gleiches Photon ab","Das Photon wird verschluckt","Das Atom zerfällt","Das Photon wird langsamer"],e:"Das heißt stimulierte Emission. Der Zwilling hat dieselbe Farbe, dieselbe Richtung und denselben Takt."},
+ {l:22,typ:"B",bild:[3,1],f:"Im Bild laufen Photonen zwischen zwei Spiegeln hin und her. Warum lässt der rechte Spiegel etwas Licht durch?",a:["Dieser Teil ist der Laserstrahl","Der Spiegel ist kaputt","Damit das Gerät nicht zu heiß wird","Damit frische Luft hineinkommt"],e:"Ein Spiegel ist absichtlich ein wenig durchlässig. Was dort austritt, ist der Laserstrahl."},
+ {l:22,typ:"W",f:"In welchem Jahr wurde der erste Laser gebaut?",a:["1960","1905","1984","2001"],e:"Theodore Maiman baute 1960 den ersten Laser. Vorhergesagt hatte Einstein den Vorgang dahinter schon 1917."},
+ {l:23,typ:"W",f:"Was bestimmt die Farbe des Lichts einer LED?",a:["Die Größe der Energielücke im Halbleiter","Die Stärke des Stroms","Die Farbe des Gehäuses","Die Temperatur"],e:"Fällt ein Elektron über die Lücke, wird deren Energie zum Photon. Kleine Lücke: rotes Licht. Große Lücke: blaues Licht."},
+ {l:23,typ:"B",bild:[1,.7],f:"Das Bild zeigt die Energiebänder dreier Stoffe. Warum leitet der Isolator keinen Strom?",a:["Die Lücke ist zu groß, kein Elektron kommt hinüber","Er hat keine Elektronen","Sein unteres Band ist leer","Er ist zu kalt"],e:"Im Isolator ist das untere Band voll und die Lücke groß. Die Elektronen kommen nicht ins obere Band und können sich nicht bewegen."},
+ {l:24,typ:"W",f:"Was misst ein Rastertunnelmikroskop?",a:["Den Tunnelstrom zwischen Spitze und Oberfläche","Das Licht, das die Atome zurückwerfen","Die Wärme der Oberfläche","Den Druck der Spitze auf die Oberfläche"],e:"Die Spitze berührt die Oberfläche nicht. Elektronen tunneln durch die Lücke, und dieser Strom zeigt den Abstand sehr genau an."},
+ {l:24,typ:"R",f:"Rückt die Spitze 0,1 Nanometer näher, wird der Tunnelstrom etwa 10-mal so stark. Wie stark wird er, wenn sie 0,2 Nanometer näher rückt?",a:["Etwa 100-mal so stark","Etwa 20-mal so stark","Etwa 12-mal so stark","Etwa 1.000-mal so stark"],e:"Für jeden Schritt von 0,1 Nanometern kommt der Faktor 10 dazu: 10 mal 10 ergibt 100."},
+ {l:24,typ:"B",bild:[3,.38],f:"Die Spitze fährt über die Oberfläche und gleich über einen Hügel. Was hält die Regelung dabei gleich?",a:["Den Tunnelstrom und damit den Abstand","Die Höhe der Spitze","Die Geschwindigkeit der Elektronen","Die Temperatur der Spitze"],e:"Die Regelung hebt und senkt die Spitze so, dass der Strom gleich bleibt. Ihre Auf-und-ab-Bewegung zeichnet die Oberfläche nach."},
+ {l:25,typ:"R",f:"Mit jedem Qubit verdoppelt sich die Zahl der Kombinationen: 1 Qubit hat 2, 2 Qubits haben 4. Wie viele sind es bei 4 Qubits?",a:["16","8","12","32"],e:"2, 4, 8, 16: Bei jedem weiteren Qubit wird verdoppelt."},
+ {l:25,typ:"W",f:"Warum werden viele Quantencomputer extrem stark gekühlt?",a:["Weil jede Störung die Überlagerung zerstört","Weil sie sonst zu laut sind","Weil sie viel Strom verbrauchen","Weil Qubits aus Eis bestehen"],e:"Wärme stört die Qubits. Jede Störung wirkt wie eine Messung und beendet die Überlagerung."},
+ {l:25,typ:"W",f:"Probiert ein Quantencomputer einfach alle Lösungen gleichzeitig aus und liest sie dann ab?",a:["Nein, eine Messung liefert nur ein Ergebnis","Ja, genau so arbeitet er","Ja, aber nur bei kleinen Aufgaben","Nein, er rät die Lösung"],e:"Auslesen kann man nur ein Ergebnis. Der Trick ist die Interferenz: Falsche Antworten löschen sich aus, die richtige wird verstärkt."},
+ {l:26,typ:"W",f:"Warum fällt eine Lauscherin beim Quanten-Schlüssel auf?",a:["Sie muss messen und verändert dabei Photonen","Die Photonen werden bei ihr langsamer","Die Leitung wird wärmer","Sie braucht dafür ein Passwort"],e:"Ein einzelnes Photon lässt sich nicht kopieren. Wer misst und den falschen Filter wählt, verändert es. Das zeigt sich als Fehler im Schlüssel."},
+ {l:26,typ:"B",bild:[2,1],f:"Das Bild zeigt sechs Photonen von Alice an Bob. Warum werden die Bits mit dem grauen Kreuz weggeworfen?",a:["Bob hat dort einen anderen Filter benutzt als Alice","Die Photonen sind verloren gegangen","Dort hat jemand gelauscht","Diese Bits waren Nullen"],e:"Nur bei gleichem Filter misst Bob sicher das richtige Bit. Bei verschiedenen Filtern ist sein Ergebnis Zufall und wird nicht verwendet."}
+];
+const TYP={W:"Wissensfrage",R:"Rechenfrage",B:"Bildfrage"};
+const mische=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let Q=null;
+function quizNeu(){
+  /* aus jedem Bereich zwei Fragen, nie zwei zur selben Lektion */
+  const wahl=[]; BEREICHE.forEach(b=>{const lk=new Set(); mische(FRAGEN.filter(q=>LEKTIONEN.find(l=>l.nr===q.l).b===b.id)).forEach(q=>{if(lk.size<2&&!lk.has(q.l)){lk.add(q.l);wahl.push(q)}})});
+  Q={fragen:mische(wahl),i:0,punkte:0,offen:true}; quizFrage();
+}
+function zeigeQuiz(){
+  P=null;
+  if(Q&&Q.i<Q.fragen.length){ if(!Q.offen){Q.i++;Q.offen=true} return Q.i<Q.fragen.length?quizFrage():quizEnde() }
+  const best=lies("qs-quiz",null);
+  inhalt.innerHTML=`<div class="quiz" style="--akz:var(--gold)"><a class="zurueck" href="#start">← Startseite</a>
+  <div class="titelblock"><span class="klein" style="color:var(--akz)">Quiz</span><h1>Teste dein Wissen</h1>
+  <p>10 zufällige Fragen, zwei aus jedem Bereich. Nach jeder Antwort siehst du die Erklärung und kannst zur Lektion springen.</p>
+  <p>${best===null?"Du hast noch nicht gespielt.":"Dein Bestwert: "+best+" von 10."}</p></div>
+  <div class="knopfreihe"><button class="kn haupt" id="qstart" type="button">Quiz starten</button></div></div>`;
+  document.getElementById("qstart").onclick=quizNeu;
+}
+function quizFrage(){
+  const q=Q.fragen[Q.i], l=LEKTIONEN.find(x=>x.nr===q.l), b=bereich(l.b), antw=mische(q.a);
+  inhalt.innerHTML=`<div class="quiz" style="--akz:var(--${b.farbe})"><a class="zurueck" href="#start">← Startseite</a>
+  <div class="titelblock"><span class="klein" style="color:var(--akz)">Frage ${Q.i+1} von ${Q.fragen.length} · ${TYP[q.typ]} · ${b.name}</span><h1>${q.f}</h1></div>
+  ${q.bild?`<div class="buehne"><canvas id="qcv" role="img" aria-label="${l.bild}"></canvas></div>`:""}
+  <div class="antworten">${antw.map((t,i)=>`<button class="antw" type="button" data-i="${i}">${t}</button>`).join("")}</div>
+  <div id="qnach" aria-live="polite"></div></div>`;
+  if(q.bild){const cv=document.getElementById("qcv"), mal=()=>{const d=window.devicePixelRatio||1,w=cv.clientWidth;if(!w)return;cv.width=Math.round(w*d);cv.height=Math.round(w*280/360*d);const x=cv.getContext("2d"),k=cv.width/360;x.setTransform(k,0,0,k,0,0);x.clearRect(0,0,360,280);ZEICHNER[l.zeichne](x,q.bild[0],q.bild[1],3,C[b.farbe])};
+    mal(); if(window.ResizeObserver)new ResizeObserver(mal).observe(cv); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(cv.isConnected)mal()})}
+  const kn=[...inhalt.querySelectorAll(".antw")];
+  kn.forEach(k=>k.onclick=()=>{ if(!Q.offen)return; Q.offen=false; const ok=antw[+k.dataset.i]===q.a[0]; if(ok)Q.punkte++;
+    kn.forEach(z=>{z.disabled=true; const t=antw[+z.dataset.i]; if(t===q.a[0])z.classList.add("richtig"); else if(z===k)z.classList.add("falsch"); else z.classList.add("matt")});
+    const letzte=Q.i===Q.fragen.length-1;
+    document.getElementById("qnach").innerHTML=`<div class="box" style="--f:var(--${ok?"gruen":"rot"});margin-top:12px"><span class="klein">${ok?"Richtig":"Leider falsch"}</span><p>${q.e}</p></div>
+    <div class="knopfreihe"><button class="kn haupt" id="qweiter" type="button">${letzte?"Zum Ergebnis":"Nächste Frage"}</button><a class="kn" href="#lektion-${zwei(l.nr)}">Zur Lektion ${l.nr}</a></div>`;
+    const w=document.getElementById("qweiter"); w.onclick=()=>{Q.i++;Q.offen=true;window.scrollTo(0,0);Q.i<Q.fragen.length?quizFrage():quizEnde()}; w.focus({preventScroll:true}); w.scrollIntoView({block:"nearest",behavior:"smooth"});
+  });
+}
+function quizEnde(){
+  const n=Q.punkte, alle=Q.fragen.length, alt=lies("qs-quiz",null), neu=alt===null||n>alt; if(neu)schreib("qs-quiz",n); Q=null;
+  const wort=n===alle?"Alles richtig. Stark!":n>=8?"Sehr gut. Du hast die Quantenwelt im Griff.":n>=5?"Gut. Ein paar Lektionen lohnen einen zweiten Blick.":"Das war schwer. Schau dir die Lektionen noch einmal an und versuche es wieder.";
+  inhalt.innerHTML=`<div class="quiz" style="--akz:var(--gold)"><a class="zurueck" href="#start">← Startseite</a>
+  <div class="titelblock"><span class="klein" style="color:var(--akz)">Ergebnis</span><span class="punktzahl">${n} von ${alle}</span><h1>${wort}</h1>
+  <p>${neu?(alt===null?"Das ist dein erster Bestwert.":"Neuer Bestwert! Vorher waren es "+alt+" von "+alle+"."):"Dein Bestwert bleibt "+alt+" von "+alle+"."}</p></div>
+  <div class="knopfreihe"><button class="kn haupt" id="qstart" type="button">Noch einmal</button><a class="kn" href="#start">Zur Startseite</a></div></div>`;
+  document.getElementById("qstart").onclick=quizNeu;
+}
 function baueSeite(filter){
   const f=(filter||"").toLowerCase(), hier=location.hash;
   const alt=seite.querySelector("input"), wert=alt?alt.value:"";
@@ -586,6 +772,7 @@ function ansicht(){
   const h=location.hash.slice(1)||"start"; let m; if(P)P.lauf=false;
   if((m=h.match(/^bereich-(\d)$/)))zeigeBereich(+m[1]);
   else if((m=h.match(/^lektion-(\d+)$/)))zeigeLektion(+m[1]);
+  else if(h==="quiz")zeigeQuiz();
   else zeigeStart();
   baueSeite(""); window.scrollTo(0,0);
 }
@@ -1064,6 +1251,194 @@ const ZEICHNER={
     linie(x,80,56,280,120,C.rot,b,3); linie(x,280,56,80,120,C.rot,b,3);
     pille(x,180,146,"die Versuche zeigen: nein",C.rot,b); pille(x,180,188,"Nobelpreis 2022",C.gold,c);
     schrift(x,"Grundlage für Quantencomputer und sichere Schlüssel",180,232,C.grau,10,d);
+  }
+ },
+ laser(x,s,p,t,akz){
+  /* Atom als zwei Stufen, Elektron bei hoch=0 unten und hoch=1 oben */
+  const atom=(cx,cy,hoch,a,w=12,d=14)=>{linie(x,cx-w,cy+d,cx+w,cy+d,C.grau,a,2); linie(x,cx-w,cy-d,cx+w,cy-d,C.grau,a,2); kugel(x,cx,misch(cy+d,cy-d,hoch)-5,4.5,C.gold,a)};
+  if(s===0){const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-2.6), fb=[LINIEN.rot,LINIEN.gelb,LINIEN.tuerkis,LINIEN.violett,LINIEN.gelb,LINIEN.rot,LINIEN.tuerkis];
+    x.save(); x.globalAlpha=a; x.shadowColor="#F5C442"; x.shadowBlur=14; x.fillStyle="#F5C442"; x.beginPath(); x.arc(90,130,13,0,6.2832); x.fill(); x.restore();
+    fb.forEach((f,i)=>{const w=i*.9+.3, d=24+((t*22+i*19)%44); paket(x,90+d*Math.cos(w),130+d*Math.sin(w),w,7+i%3*2,f,a*klemm((68-d)/14),18,4)});
+    rahmen(x,206,116,46,28,C.text,b,C.flaeche2,5); for(let k=-1;k<=1;k++)sinus(x,254,344,130+k*9,3.5,14,t*40,akz,b,1.8);
+    pille(x,90,40,"LAMPE",C.text,a); pille(x,276,40,"LASER",akz,b);
+    schrift(x,"bunt, alle Richtungen",90,216,C.grau,10,a); schrift(x,"eine Farbe, eine Richtung",270,216,C.grau,10,b);
+    pille(x,180,252,"Laserlicht schwingt im Gleichtakt",C.gold,c);
+  }else if(s===1){const a=klemm(p*4);
+    pille(x,180,30,"Energie hineinpumpen",C.text,a); schrift(x,"oben",26,116,C.grau,10,a); schrift(x,"unten",28,144,C.grau,10,a);
+    for(let i=0;i<5;i++){const cx=80+i*56, f=weich(klemm(p*7-i*.9-1)); atom(cx,130,f,a); pfeil(x,cx,206-((t*14)%8),cx,184-((t*14)%8),C.gold,a*(1-f)*.9)}
+    pille(x,180,246,"fast alle Atome sind angeregt",C.gold,klemm(p*4-2.8));
+  }else if(s===2){const a=klemm(p*5), f=klemm(p/.45), g=klemm((p-.45)/.55), fall=weich(klemm((p-.45)/.1));
+    atom(180,130,1-fall,1,30,30);
+    if(p<.47)paket(x,misch(40,172,f),130,0,10,akz,a,30,6);
+    else{const fx=190+weich(g)*100; paket(x,fx,121,0,10,akz,1,30,6); paket(x,fx,139,0,10,akz,1,30,6)}
+    schrift(x,"1 Photon",74,104,C.grau,10,a*klemm((.5-p)*10)); schrift(x,"2 gleiche Photonen",278,104,C.gold,10,klemm((p-.5)*8),700);
+    pille(x,180,30,"ein Photon trifft ein angeregtes Atom",C.text,a); pille(x,180,222,"das Elektron fällt herunter",C.text,klemm((p-.5)*6));
+    pille(x,180,254,"gleiche Farbe, Richtung und Takt",C.gold,klemm((p-.65)*6));
+  }else if(s===3){const a=klemm(p*4), n=[1,2,4,8][Math.min(3,Math.floor(p*4.6))], tri=u=>{const v=u%2; return v<1?v:2-v};
+    rahmen(x,70,100,220,60,C.grau,a,C.flaeche2,6); block(x,62,92,6,76,C.text,a,2); block(x,292,92,6,76,C.text,a*.45,2);
+    schrift(x,"Spiegel",65,80,C.grau,10,a); schrift(x,"lässt etwas durch",288,80,C.grau,10,a);
+    for(let j=0;j<n;j++)paket(x,84+tri(t*.8+j*.23)*192,109+j*6,0,8,akz,a,20,3);
+    sinus(x,300,350,130,1+n*.7,10,t*40,akz,a,1.8);
+    pille(x,180,30,"zwischen zwei Spiegeln hin und her",C.text,a); pille(x,180,190,"Photonen: "+n,C.gold,a);
+    pille(x,180,246,"eine Lawine aus gleichen Photonen",C.text,klemm(p*4-2.8));
+  }else{const a=klemm(p*4), b=klemm(p*4-.8), c=klemm(p*4-1.6), d=klemm(p*4-2.4);
+    rahmen(x,20,40,60,26,C.text,a,C.flaeche2,5); schrift(x,"LASER",50,53.5,C.text,10,a,700);
+    x.save(); x.globalAlpha=a; x.shadowColor=akz; x.shadowBlur=8; x.fillStyle=akz; x.fillRect(80,51.5,264,3); x.restore();
+    kurve(x,px=>112+10*Math.sin((px-40)/11),40,100,C.text,b,3); kugel(x,40+((t*40)%60),112+10*Math.sin(((t*40)%60)/11),3.5,akz,b);
+    [0,5,8,14,18,24,28,31,37,42].forEach((u,i)=>block(x,159+u,96,i%3===0?3:1.6,32,C.text,c,0)); linie(x,152,112,208,112,akz,c,1.6);
+    x.save(); x.globalAlpha=d; x.strokeStyle=C.text; x.lineWidth=1.6; x.beginPath(); x.ellipse(290,112,24,13,0,0,6.2832); x.stroke(); x.restore(); kugel(x,290,112,7,C.blau,d); linie(x,326,92,300,108,akz,d,1.6);
+    pille(x,70,150,"Glasfaser",C.text,b); pille(x,180,150,"Kasse",C.text,c); pille(x,290,150,"Medizin",C.text,d);
+    schrift(x,"Internet",70,174,C.grau,10,b); schrift(x,"Strichcode lesen",180,174,C.grau,10,c); schrift(x,"Augen korrigieren",290,174,C.grau,10,d);
+    pille(x,180,236,"erster Laser: 1960",C.gold,klemm(p*4-3));
+  }
+ },
+ halbleiter(x,s,p,t,akz){
+  /* Band: voll = gefüllt mit Elektronen */
+  const band=(l,o,w,h,voll,a)=>{if(voll)block(x,l,o,w,h,akz,a*.4,5); rahmen(x,l,o,w,h,voll?akz:C.grau,a,voll?null:C.flaeche2,5)};
+  const loch=(cx,cy,a)=>{kugel(x,cx,cy,4.5,C.bg,a); ring(x,cx,cy,4.5,C.text,a,1.4)};
+  if(s===0){const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-2);
+    pille(x,62,40,"1 Atom",C.text,a); linie(x,44,100,80,100,C.grau,a,2); linie(x,44,170,80,170,akz,a,2);
+    pille(x,170,40,"2 Atome",C.text,b); [96,104].forEach(y=>linie(x,152,y,188,y,C.grau,b,2)); [166,174].forEach(y=>linie(x,152,y,188,y,akz,b,2));
+    pille(x,286,40,"Kristall",C.text,c); for(let k=0;k<9;k++){linie(x,246,86+k*3.5,326,86+k*3.5,C.grau,c,1.6); linie(x,246,156+k*3.5,326,156+k*3.5,akz,c,1.6)}
+    schrift(x,"scharfe Stufen",62,208,C.grau,10,a); schrift(x,"doppelt so viele",170,208,C.grau,10,b); schrift(x,"Bänder",286,208,C.grau,10,c);
+    pille(x,180,248,"aus Stufen werden Bänder",C.gold,klemm(p*4-3));
+  }else if(s===1){const a=klemm(p*4), b=klemm(p*4-.9), c=klemm(p*4-1.8);
+    pille(x,66,28,"Metall",C.text,a); rahmen(x,28,96,76,104,C.grau,a,C.flaeche2,5); block(x,28,148,76,52,akz,a*.4,5);
+    for(let i=0;i<3;i++)kugel(x,66+26*Math.sin(t*1.6+i*2.1),136-i*9,3.5,C.gold,a);
+    pille(x,180,28,"Halbleiter",C.text,b); band(142,112,76,36,false,b); band(142,164,76,36,true,b); schrift(x,"kleine Lücke",180,156,C.text,9,b);
+    pille(x,294,28,"Isolator",C.text,c); band(256,56,76,36,false,c); band(256,164,76,36,true,c); schrift(x,"große Lücke",294,128,C.text,9,c);
+    schrift(x,"leitet gut",66,216,C.grau,10,a); schrift(x,"leitet ein wenig",180,216,C.grau,10,b); schrift(x,"leitet nicht",294,216,C.grau,10,c);
+    pille(x,180,252,"die Lücke entscheidet",C.gold,klemm(p*4-3));
+  }else if(s===2){const a=klemm(p*4), f=weich(klemm((p-.2)/.3)), g=klemm((p-.55)/.45);
+    band(40,60,280,44,false,a); band(40,170,280,44,true,a);
+    schrift(x,"LEITUNGSBAND",90,70,C.grau,9,a); schrift(x,"VALENZBAND",84,206,C.grau,9,a);
+    paket(x,misch(60,140,klemm(p/.2)),misch(128,176,klemm(p/.2)),.55,8,C.gold,a*klemm((.24-p)*20),24,4);
+    loch(150-g*70,186,klemm(f*3)); kugel(x,150+g*110,misch(186,84,f),4.5,C.gold,a);
+    pille(x,180,24,"ein wenig Energie genügt",C.text,a);
+    schrift(x,"Elektron: oben frei beweglich",196,124,C.gold,10,klemm(p*4-2.2)); schrift(x,"Loch: wandert unten mit",196,148,C.text,10,klemm(p*4-2.6));
+    pille(x,180,246,"beide tragen den Strom",C.gold,klemm(p*4-3.2));
+  }else if(s===3){const a=klemm(p*4), b=klemm(p*4-1.4), k=(t*.55)%1, dx=130;
+    band(24,70,176,34,false,a); band(24,170,176,34,true,a);
+    const ey=k<.4?87:k<.6?misch(87,187,weich((k-.4)/.2)):187, ex=misch(40,dx,klemm(k/.4));
+    if(k<.6){loch(dx,187,a); kugel(x,ex,ey,4.5,C.gold,a)}
+    if(k>.55){const u=(k-.55)/.45; paket(x,dx+10+u*70,137-u*26,-.35,10,LINIEN.rot,a*klemm((1-u)*4),26,5)}
+    pille(x,112,28,"LED: Strom wird Licht",C.text,a); pille(x,288,28,"Lücke = Farbe",C.text,b);
+    [[14,LINIEN.rot,"rot",13],["22","#3DDC84","grün",10],[30,LINIEN.violett,"blau",7]].forEach((q,i)=>{const cy=78+i*56, h=+q[0]/2;
+      linie(x,234,cy-h,264,cy-h,C.grau,b,2); linie(x,234,cy+h,264,cy+h,akz,b,2); paket(x,304,cy,0,q[3],q[1],b,34,6); schrift(x,q[2],304,cy+18,C.grau,10,b)});
+    pille(x,180,250,"Elektron fällt ins Loch: ein Photon",C.gold,klemm(p*4-2.6));
+  }else{const a=klemm(p*4), k=(t*.5)%1;
+    x.save(); x.globalAlpha=a; x.shadowColor="#F5C442"; x.shadowBlur=16; x.fillStyle="#F5C442"; x.beginPath(); x.arc(40,52,16,0,6.2832); x.fill(); x.restore();
+    band(90,106,180,32,false,a); band(90,176,180,32,true,a);
+    x.save(); x.globalAlpha=a; x.strokeStyle=C.grau; x.lineWidth=1.6; x.beginPath(); x.moveTo(270,122); x.lineTo(326,122); x.lineTo(326,232); x.lineTo(56,232); x.lineTo(56,192); x.lineTo(90,192); x.stroke(); x.restore();
+    const an=klemm(p*3-.8); x.save(); x.globalAlpha=a; x.shadowColor="#F5C442"; x.shadowBlur=14*an; x.fillStyle=an>.5?"#F5C442":C.grau; x.beginPath(); x.arc(190,232,8,0,6.2832); x.fill(); x.restore();
+    if(k<.4){const u=k/.4; paket(x,misch(62,164,u),misch(68,180,u),.83,9,C.gold,a,24,4)}
+    else if(k<.6){const u=weich((k-.4)/.2); loch(170,192,a); kugel(x,170,misch(192,122,u),4.5,C.gold,a)}
+    else{const u=(k-.6)/.4, w=u<.45?[misch(170,326,u/.45),122]:[326,misch(122,232,(u-.45)/.55)]; loch(170-u*70,192,a); kugel(x,w[0],w[1],4.5,C.gold,a)}
+    pille(x,214,34,"Solarzelle: Licht wird Strom",C.text,a); schrift(x,"Lampe",190,216,C.grau,10,a*an);
+    pille(x,180,262,"die LED rückwärts",C.gold,klemm(p*4-2.6));
+  }
+ },
+ rtm(x,s,p,t,akz){
+  const flaeche=(a,huegel)=>{for(let i=0;i<17;i++)kugel(x,20+i*20,206,10,C.grau,a); if(huegel)kugel(x,190,188.7,10,C.grau,a)};
+  /* Spitze: vorderstes Atom bei cx/cy, darüber breiter werdende Reihen */
+  const spitze=(cx,cy,a,reihen=4,schaft=true)=>{ if(schaft)rahmen(x,cx-34,cy-(reihen-1)*15-44,68,38,C.grau,a,C.flaeche2,5);
+    for(let k=reihen-1;k>=0;k--)for(let j=0;j<=k;j++)kugel(x,cx+(j-k/2)*17,cy-k*15,8.5,k===0?akz:C.text,a)};
+  if(s===0){const a=klemm(p*4), b=klemm(p*4-1.2), c=klemm(p*4-2.6);
+    sinus(x,20,340,118,30,160,t*40,C.gold,a,2.4); for(let i=0;i<27;i++)kugel(x,24+i*12,190,4,C.grau,b);
+    pille(x,180,40,"Lichtwelle: rund 500 nm",C.gold,a); pille(x,180,220,"Atom: rund 0,2 nm",C.text,b); pille(x,180,254,"Licht ist viel zu grob",akz,c);
+  }else if(s===1){const f=weich(klemm(p*1.7)), cy=misch(96,170,f), b=klemm(p*4-2.4);
+    flaeche(1); spitze(180,cy,klemm(p*5));
+    schrift(x,"ein einziges Atom vorn",82,174,akz,10,b,700); schrift(x,"Lücke: unter 1 nm",266,184,C.text,10,b);
+    pille(x,180,250,"ganz nah, aber ohne Berührung",C.gold,klemm(p*4-2.8));
+  }else if(s===2){const f=weich(klemm((p-.45)/.12)), cy=misch(160,172,f), n=f<.5?1:4, strom=misch(.1,1,f);
+    flaeche(1); spitze(180,cy,1);
+    for(let j=0;j<n;j++){const u=(t*1.4+j/n)%1; kugel(x,180+(j-(n-1)/2)*4,misch(cy+11,194,u),2.4,C.gold)}
+    schrift(x,"Tunnelstrom",292,52,C.grau,10); rahmen(x,246,62,92,20,C.grau,1,C.bg,5); block(x,250,66,84*strom,12,C.gold,1,3);
+    schrift(x,f<.5?"schwach":"etwa 10-mal stärker",292,96,C.gold,10,1,700); pille(x,72,60,f<.5?"weiter weg":"0,1 nm näher",C.text,klemm(p*5));
+    pille(x,180,250,"Elektronen tunneln durch die Lücke",C.gold,klemm(p*4-.6));
+  }else if(s===3){const tx=misch(60,300,weich(klemm(p*1.12))), hub=px=>17*Math.exp(-Math.pow((px-190)/17,2)), cy=172-hub(tx);
+    flaeche(1,true); spitze(tx,cy,1,3,false);
+    kurve(x,px=>82-hub(px),60,tx,C.gold,1,2.2); linie(x,tx,cy-42,tx,86-hub(tx),C.grau,.6,1,[2,3]); kugel(x,tx,82-hub(tx),2.6,C.gold);
+    schrift(x,"Höhe der Spitze",296,60,C.gold,10,klemm(p*4-.4)); pille(x,150,28,"Zeile für Zeile abtasten",C.text,klemm(p*4));
+    pille(x,180,250,"Strom bleibt gleich: Spitze fährt mit",C.gold,klemm(p*4-1.6));
+  }else{const a=klemm(p*4), z=p*13, b=klemm(p*4-1), c=klemm(p*4-1.8), d=klemm(p*4-2.6);
+    schrift(x,"Bild aus vielen Zeilen",99,38,C.grau,10,a); rahmen(x,24,50,150,150,C.grau,a,C.bg,6);
+    for(let r=0;r<8;r++){const ar=klemm(z-r); for(let k=0;k<8;k++){if(r===3&&k===5)continue; const px=38+k*17+(r%2?8.5:0), py=66+r*16.8; kugel(x,px,py,7.5,C.gold,ar*.22); kugel(x,px,py,4.2,C.gold,ar)}}
+    if(z<8)linie(x,28,66+Math.floor(z)*16.8,170,66+Math.floor(z)*16.8,akz,.8,1.2);
+    pille(x,266,64,"1981 erfunden",C.text,b); schrift(x,"Binnig und Rohrer",266,88,C.grau,10,b); pille(x,266,122,"Nobelpreis 1986",C.gold,c);
+    pille(x,266,166,"Atome verschieben",akz,d); schrift(x,"1989: Schriftzug",266,190,C.grau,10,d); schrift(x,"aus 35 Atomen",266,204,C.grau,10,d);
+    pille(x,180,248,"einzelne Atome werden sichtbar",C.gold,klemm(p*4-3));
+  }
+ },
+ qcomputer(x,s,p,t,akz){
+  const qubit=(cx,cy,r,w,a)=>{kreis(x,cx,cy,r,akz,a,1.8); schrift(x,"0",cx,cy-r-11,C.text,11,a,700); schrift(x,"1",cx,cy+r+11,C.text,11,a,700); pfeil(x,cx,cy,cx+(r-6)*Math.cos(w),cy+(r-6)*Math.sin(w),C.gold,a); kugel(x,cx,cy,3,C.gold,a)};
+  if(s===0){const a=klemm(p*4), b=klemm(p*4-1.2);
+    pille(x,95,30,"BIT",C.text,a); rahmen(x,48,76,94,94,C.grau,a,C.flaeche2,8); schrift(x,Math.floor(t*1.1)%2?"1":"0",95,125,C.text,46,a,700); schrift(x,"0 oder 1",95,206,C.grau,10,a);
+    pille(x,265,30,"QUBIT",akz,b); qubit(265,123,42,-1.5708+1.25*Math.sin(t*.9)+1.5708*(.5+.5*Math.sin(t*.37)),b); schrift(x,"0 und 1 zugleich",265,206,C.gold,10,b,700);
+    pille(x,180,246,"Qubit: Überlagerung aus 0 und 1",C.gold,klemm(p*4-2.6));
+  }else if(s===1){const D=[["1 Qubit","2",4],["2 Qubits","4",8],["3 Qubits","8",14],["10 Qubits","1.024",50],["50 Qubits","über 1 Billiarde",104]];
+    pille(x,180,26,"jedes Qubit verdoppelt die Möglichkeiten",C.text,klemm(p*4));
+    D.forEach((q,i)=>{const a=klemm(p*6.5-i*.9-.4), y=66+i*30; schrift(x,q[0],70,y,C.text,10,a); block(x,126,y-7,q[2]*weich(a),14,akz,a,3); schrift(x,q[1],126+q[2]+10+q[1].length*3,y,C.gold,10,a,700)});
+    pille(x,180,236,"300 Qubits: mehr als Atome im Weltall",C.gold,klemm(p*4-3));
+  }else if(s===2){const f=weich(klemm((p-.3)/.45));
+    for(let i=0;i<8;i++){const h=i===5?misch(40,122,f):misch(40,5,f); block(x,58+i*32,192-h,20,h,i===5&&f>.3?C.gold:C.grau,1,3); schrift(x,i.toString(2).padStart(3,"0"),68+i*32,204,C.grau,9)}
+    linie(x,48,192,312,192,C.linie,1,1);
+    pille(x,180,28,f<.5?"am Anfang: alle Antworten gleich stark":"Interferenz hebt die richtige hervor",C.text,klemm(p*5));
+    pille(x,180,246,"die Messung liefert nur eine Antwort",C.gold,klemm(p*4-3));
+  }else if(s===3){const st=klemm((p-.45)*6), a=klemm(p*4);
+    qubit(112,128,40,-.9+st*.5*Math.sin(t*13)+st*.4*Math.sin(t*7.3),a); pille(x,112,44,st<.5?"ungestört":"gestört",st<.5?C.text:akz,a);
+    [[30,226],[196,214],[26,64]].forEach((q,j)=>{const u=(t*.6+j*.33)%1, w=Math.atan2(128-q[1],112-q[0]); paket(x,misch(q[0],112-52*Math.cos(w),u),misch(q[1],128-52*Math.sin(w),u),w,8,akz,st*klemm((1-u)*5),22,4)});
+    pille(x,278,36,"stark gekühlt",C.blau,a); rahmen(x,270,60,16,108,C.grau,a,C.bg,8); block(x,274,146,8,22,C.blau,a,3); kugel(x,278,174,11,C.blau,a);
+    schrift(x,"fast −273 °C",278,202,C.blau,10,a,700);
+    pille(x,180,252,"jede Störung zerstört die Überlagerung",akz,klemm(p*4-2.4));
+  }else{const a=klemm(p*4-.4), b=klemm(p*4-1.2), c=klemm(p*4-2);
+    pille(x,180,28,"wofür ein Quantencomputer taugt",C.text,klemm(p*4));
+    linie(x,56,104,72,90,C.grau,a,2); linie(x,72,90,88,104,C.grau,a,2); kugel(x,72,90,8,C.rot,a); kugel(x,56,106,5.5,C.blau,a); kugel(x,88,106,5.5,C.blau,a);
+    schrift(x,"15 = 3 · 5",180,98,C.gold,13,b,700);
+    rahmen(x,266,80,48,30,C.text,c,C.flaeche2,4); linie(x,290,110,290,118,C.text,c,2); linie(x,276,118,304,118,C.text,c,2);
+    pille(x,72,150,"Moleküle",C.text,a); pille(x,180,150,"Zahlen zerlegen",C.text,b); pille(x,290,150,"normaler PC",C.text,c);
+    schrift(x,"Medikamente,",72,174,C.grau,10,a); schrift(x,"Werkstoffe",72,187,C.grau,10,a); schrift(x,"bricht heutige",180,174,C.grau,10,b); schrift(x,"Verschlüsselung",180,187,C.grau,10,b);
+    schrift(x,"bleibt für fast",290,174,C.grau,10,c); schrift(x,"alles besser",290,187,C.grau,10,c);
+    pille(x,180,246,"heute noch klein und fehleranfällig",C.gold,klemm(p*4-3));
+  }
+ },
+ krypto(x,s,p,t,akz){
+  const person=(cx,cy,name,f,a)=>{kugel(x,cx,cy-12,8,f,a); block(x,cx-11,cy-2,22,22,f,a,8); pille(x,cx,cy+36,name,f,a)};
+  const WI=[1.5708,0,-.7854,.7854];
+  /* Photon mit Schwingungsrichtung: 0 senkrecht, 1 waagrecht (Filter gerade), 2 und 3 schräg */
+  const foton=(cx,cy,ri,f,a=1,r=8)=>{ if(a<=0)return; kugel(x,cx,cy,r,C.bg,a); kreis(x,cx,cy,r,f,a,1.4); const w=WI[ri]; linie(x,cx-(r-2)*Math.cos(w),cy+(r-2)*Math.sin(w),cx+(r-2)*Math.cos(w),cy-(r-2)*Math.sin(w),f,a,2.2)};
+  const filter=(cx,cy,art,f,a=1)=>{rahmen(x,cx-10,cy-10,20,20,f,a,C.bg,4); const d=art?5:6.5; art?(linie(x,cx-d,cy-d,cx+d,cy+d,f,a,1.6),linie(x,cx-d,cy+d,cx+d,cy-d,f,a,1.6)):(linie(x,cx-d,cy,cx+d,cy,f,a,1.6),linie(x,cx,cy-d,cx,cy+d,f,a,1.6))};
+  const schluessel=(kx,ky,a)=>{ring(x,kx,ky,5,C.gold,a,2); linie(x,kx+5,ky,kx+20,ky,C.gold,a,2); linie(x,kx+14,ky,kx+14,ky+5,C.gold,a,2); linie(x,kx+19,ky,kx+19,ky+5,C.gold,a,2)};
+  if(s===0){const a=klemm(p*4), f=weich(klemm((p-.1)*1.5)), e=klemm(p*4-1.2), g=weich(klemm((f-.5)*4));
+    person(46,100,"Alice",C.blau,a); person(314,100,"Bob",C.gruen,a); linie(x,70,100,290,100,C.grau,a*.7,1.2,[3,4]);
+    person(180,186,"Eve",akz,e); schluessel(misch(76,270,f),100,a); if(f>.5)schluessel(170,misch(100,150,g),e);
+    pille(x,180,28,"ein geheimer Schlüssel muss zum Partner",C.text,a); pille(x,180,258,"Kopieren fällt niemandem auf",akz,klemm(p*4-2.8));
+  }else if(s===1){const a=klemm(p*4), b=klemm(p*4-1), c=klemm(p*4-1.8);
+    pille(x,200,24,"einzelne Photonen, jedes mit einer Richtung",C.text,a); person(40,70,"Alice",C.blau,a);
+    for(let j=0;j<4;j++){const u=(t*.3+j*.25)%1; foton(76+u*262,70,(j*3+Math.floor(t*.3+j*.25))%4,C.gold,a*klemm(u*8)*klemm((1-u)*8))}
+    filter(84,146,0,C.text,b); schrift(x,"gerade",128,146,C.text,10,b); filter(228,146,1,C.text,c); schrift(x,"schräg",272,146,C.text,10,c);
+    [[72,0,b],[144,1,b],[216,2,c],[288,3,c]].forEach((q,i)=>{foton(q[0],184,q[1],C.gold,q[2],10); schrift(x,"Bit "+(i%2),q[0],208,C.grau,10,q[2])});
+    pille(x,180,246,"zwei Filter-Arten, je zwei Richtungen",C.gold,klemm(p*4-2.8));
+  }else if(s===2){const A=[0,1,0,0,1,1], B=[0,0,0,1,1,0], bit=[0,1,1,0,0,1], n=Math.min(6,Math.floor(p*9));
+    pille(x,180,24,"Bob wählt seinen Filter zufällig",C.text,klemm(p*5));
+    schrift(x,"Alice",40,62,C.blau,10,1,700); schrift(x,"sendet",40,98,C.grau,10); schrift(x,"Bob",40,134,C.gruen,10,1,700); schrift(x,"behalten",40,170,C.grau,10);
+    for(let i=0;i<n;i++){const cx=98+i*44, ok=A[i]===B[i]; filter(cx,62,A[i],C.blau); foton(cx,98,A[i]*2+bit[i],C.gold,1,9); filter(cx,134,B[i],C.gruen);
+      if(ok){kreis(x,cx,170,11,C.gold,1,1.6); schrift(x,String(bit[i]),cx,170.5,C.gold,13,1,700)}else{linie(x,cx-5,165,cx+5,175,C.grau,1,1.8); linie(x,cx-5,175,cx+5,165,C.grau,1,1.8)}}
+    pille(x,180,212,"gleicher Filter: Bit behalten",C.text,klemm(p*4-2.6)); pille(x,180,248,"Schlüssel: 0 1 0",C.gold,klemm(p*4-3.1));
+  }else if(s===3){const a=klemm(p*4), k=Math.floor(t*.45), u=(t*.45)%1, falsch=k%2===1, px=64+u*232, nach=px>180;
+    person(40,90,"Alice",C.blau,a); person(320,90,"Bob",C.gruen,a); linie(x,62,90,298,90,C.grau,a*.7,1.2,[3,4]);
+    person(180,148,"Eve",akz,a); filter(180,90,falsch?1:0,akz,a);
+    foton(px,90,nach&&falsch?2:0,nach&&falsch?akz:C.gold,a*klemm(u*10)*klemm((1-u)*10)*(Math.abs(px-180)<11?0:1));
+    schrift(x,nach?(falsch?"falsch geraten: verändert":"richtig geraten: unbemerkt"):"Eve rät den Filter",180,56,nach&&falsch?akz:C.grau,10,a,700);
+    pille(x,180,24,"Eve muss messen",C.text,a); pille(x,180,218,"falscher Filter verändert das Photon",akz,klemm(p*4-1.6));
+    pille(x,180,252,"Fehler in etwa jedem 4. Bit",C.gold,klemm(p*4-2.8));
+  }else{const a=klemm(p*4), b=klemm(p*4-1.2), c=klemm(p*4-2.6);
+    x.save(); x.globalAlpha=a; x.beginPath(); x.arc(180,520,330,0,6.2832); x.fillStyle=C.flaeche2; x.fill(); x.strokeStyle=C.blau; x.lineWidth=2; x.stroke(); x.restore();
+    rahmen(x,169,64,22,16,C.text,a,C.flaeche2,3); block(x,146,68,20,8,C.blau,a,2); block(x,194,68,20,8,C.blau,a,2);
+    [80,280].forEach((sx,i)=>{block(x,sx-5,196,10,10,C.text,a,2); linie(x,180,82,sx,196,C.gold,a*.5,1.2,[3,4]); const u=(t*.5+i*.5)%1; foton(misch(180,sx,u),misch(84,194,u),(Math.floor(t*.5+i*.5)+i)%4,C.gold,a*klemm(u*8)*klemm((1-u)*8),6)});
+    pille(x,180,30,"Satellit verteilt Quanten-Schlüssel",C.text,a);
+    schrift(x,"China",80,224,C.grau,10,b); schrift(x,"Österreich",280,224,C.grau,10,b); schrift(x,"7.600 km",180,212,C.text,11,b,700);
+    pille(x,180,256,"BB84: erdacht 1984, heute im Einsatz",C.gold,c);
   }
  },
  bohr(x,s,p,t,akz){
