@@ -595,7 +595,7 @@ let P=null;
 function starte(l,b,total){
   const cv=document.getElementById("cv"), S=l.schritte;
   const grenzen=[0]; S.forEach(s=>grenzen.push(grenzen[grenzen.length-1]+s.dauer));
-  P={l,b,cv,ctx:cv.getContext("2d"),S,grenzen,total,t:S[0].dauer,lauf:false,tempo:1,frisch:true,alt:-1,letzte:0};
+  P={l,b,cv,ctx:cv.getContext("2d"),S,grenzen,total,t:S[0].dauer-.01,lauf:false,tempo:1,frisch:true,alt:-1,letzte:0};
   const pl=document.getElementById("pl"), sp=document.getElementById("sp");
   pl.onclick=()=>{ if(P.lauf){P.lauf=false}else{ if(P.frisch||P.t>=P.total)P.t=0; P.frisch=false; P.lauf=true; P.letzte=performance.now(); requestAnimationFrame(takt)} knopf(); zeichne() };
   document.getElementById("neu").onclick=()=>{P.t=0;P.frisch=false;P.lauf=true;P.letzte=performance.now();requestAnimationFrame(takt);knopf()};
