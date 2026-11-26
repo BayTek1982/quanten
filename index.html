@@ -583,7 +583,7 @@ function baueSeite(filter){
   s.oninput=()=>{const p=s.selectionStart;baueSeite(s.value);const n=document.getElementById("suche");n.focus();n.setSelectionRange(p,p)};
 }
 function ansicht(){
-  const h=location.hash.slice(1)||"start"; let m;
+  const h=location.hash.slice(1)||"start"; let m; if(P)P.lauf=false;
   if((m=h.match(/^bereich-(\d)$/)))zeigeBereich(+m[1]);
   else if((m=h.match(/^lektion-(\d+)$/)))zeigeLektion(+m[1]);
   else zeigeStart();
@@ -595,7 +595,8 @@ let P=null;
 function starte(l,b,total){
   const cv=document.getElementById("cv"), S=l.schritte;
   const grenzen=[0]; S.forEach(s=>grenzen.push(grenzen[grenzen.length-1]+s.dauer));
-  P={l,b,cv,ctx:cv.getContext("2d"),S,grenzen,total,t:S[0].dauer-.01,lauf:false,tempo:1,frisch:true,alt:-1,letzte:0};
+  P={l,b,cv,ctx:cv.getContext("2d"),S,grenzen,total,t:0,lauf:true,tempo:1,frisch:false,alt:-1,letzte:performance.now()};
+  requestAnimationFrame(takt); /* läuft beim Öffnen von selbst los */
   const pl=document.getElementById("pl"), sp=document.getElementById("sp");
   pl.onclick=()=>{ if(P.lauf){P.lauf=false}else{ if(P.frisch||P.t>=P.total)P.t=0; P.frisch=false; P.lauf=true; P.letzte=performance.now(); requestAnimationFrame(takt)} knopf(); zeichne() };
   document.getElementById("neu").onclick=()=>{P.t=0;P.frisch=false;P.lauf=true;P.letzte=performance.now();requestAnimationFrame(takt);knopf()};
